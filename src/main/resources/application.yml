@@ -1,1 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: ENC(I1xJ1MctXt7i1gZ7cC6CYx5joqjcLRqteBK2+ZZ5krCJ5WDAZiSlmdBGLotGBO4G2jW5jjU6PZXRnQ5LmRoBzVswzFouiUWBntmO0dja1I85YSUdLJEty3IQ/V4pLVhFnHxcBrfu8rs=)
+    username: ENC(A4U02y2I9G0k5FzGtPGC0g==)
+    password: END(W9+XVRoP8qbDrwbgP8h3Xvo+HM+PJ4T+)
 
+jasypt:
+  encryptor:
+    password: ${encrypt_key}
