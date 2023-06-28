@@ -1,25 +1,22 @@
 package com.kestrel.weddingbookkeeper.api.member.vo;
 
 import com.kestrel.weddingbookkeeper.api.date.BaseEntity;
-import java.time.LocalDateTime;
 
 public class Member extends BaseEntity {
 
     private Integer id;
     private String email;
     private String name;
-    private String gender;
-    private LocalDateTime createdAt;
+    private Gender gender;
 
     public Member() {
     }
 
-    public Member(Integer id, String email, String name, String gender, LocalDateTime createdAt) {
+    public Member(Integer id, String email, String name, Gender gender) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.gender = gender;
-        this.createdAt = createdAt;
     }
 
     public Integer getId() {
@@ -46,19 +43,11 @@ public class Member extends BaseEntity {
         this.name = name;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }
