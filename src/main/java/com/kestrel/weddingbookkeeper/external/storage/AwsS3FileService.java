@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AwsS3FileUploader implements FileUploader {
+public class AwsS3FileService implements FileService {
 
     @Value("${cloud.aws.s3.bucket.name}")
     private String bucketName;
@@ -19,7 +19,7 @@ public class AwsS3FileUploader implements FileUploader {
 
     private final AmazonS3Client amazonS3Client;
 
-    public AwsS3FileUploader(final AmazonS3Client amazonS3Client) {
+    public AwsS3FileService(final AmazonS3Client amazonS3Client) {
         this.amazonS3Client = amazonS3Client;
     }
 

@@ -8,7 +8,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoRequestDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotSavedException;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
-import com.kestrel.weddingbookkeeper.external.storage.FileUploader;
+import com.kestrel.weddingbookkeeper.external.storage.FileService;
 import java.io.InputStream;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,14 +19,14 @@ public class WeddingServiceImpl implements WeddingService {
     private final MemberDao memberDao;
     private final WeddingDao weddingDao;
     private final QrService qrService;
-    private final FileUploader fileUploader;
+    private final FileService fileService;
     private static final String QR_DIRECTORY = "qrcode";
 
-    public WeddingServiceImpl(final MemberDao memberDao, final WeddingDao weddingDao, final QrService qrService, final FileUploader fileUploader) {
+    public WeddingServiceImpl(final MemberDao memberDao, final WeddingDao weddingDao, final QrService qrService, final FileService fileService) {
         this.memberDao = memberDao;
         this.weddingDao = weddingDao;
         this.qrService = qrService;
-        this.fileUploader = fileUploader;
+        this.fileService = fileService;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class WeddingServiceImpl implements WeddingService {
             throw new MemberNotFountException();
         }
         InputStream qr = qrService.generateQRCode(weddingInfoRequestDto);
-        String savedQrImageUrl = fileUploader.upload(qr, QR_DIRECTORY);
+        String savedQrImageUrl = fileService.upload(qr, QR_DIRECTORY);
         if (weddingDao.save(new WeddingInsertDto(member, weddingInfoRequestDto, savedQrImageUrl)) != 1) {
             throw new WeddingInfoNotSavedException();
         }
