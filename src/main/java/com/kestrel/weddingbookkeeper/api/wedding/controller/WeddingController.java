@@ -1,8 +1,8 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
+import com.kestrel.weddingbookkeeper.api.member.facade.WeddingFacade;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoRequestDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
-import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/weddings")
 public class WeddingController {
 
-    private final WeddingService weddingService;
+    private static final Integer MEMBER_ID = 1;
 
-    public WeddingController(final WeddingService weddingService) {
-        this.weddingService = weddingService;
+    private final WeddingFacade weddingFacade;
+
+    public WeddingController(final WeddingFacade weddingFacade) {
+        this.weddingFacade = weddingFacade;
     }
 
     @PostMapping
     public void createWeddingInfo(@RequestBody final WeddingInfoRequest weddingInfoRequest) {
-        weddingService.createWeddingInfo(
-            new WeddingInfoRequestDto(1, weddingInfoRequest.getLocation(), weddingInfoRequest.getWeddingDate())
-        );
+        weddingFacade.createWeddingInfo(new WeddingInfoRequestDto(MEMBER_ID, weddingInfoRequest));
     }
 }
