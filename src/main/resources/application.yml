@@ -13,3 +13,17 @@ mybatis:
 jasypt:
   encryptor:
     password: ${encrypt_key}
+
+cloud:
+  aws:
+    s3:
+      bucket:
+        name: ENC(BmrRiXrkt4cNBFnuLhc7BZSslQe9QMheX8YL0kaSyZY=)
+        url: ENC(TiiTRG5qecPE5tpatlRysQO/uMizKpbt6P00OZFuM4koINBCnvMG0Oui9y7+cvmRH6tPtuVuGDCtrt0Hp4F2FcBIWO+F3WQj)
+    credentials:
+      access-key: ENC(Rhh+PzvWrXK/sY8xsj6nZjnseZQLZvXzSy7NaTs7AUY=)
+      secret-key: ENC(YILeIgDl09cloXnAqt5W1flFHYHwAoD21Yi2otQ9JqUo9Jo7+Pfiu4fzbBY2U0VkfqqlrxIaup0=)
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
