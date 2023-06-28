@@ -5,6 +5,8 @@ import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFountExceptio
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoRequestDto;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto;
+import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotSavedException;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.external.storage.FileUploader;
 import java.io.InputStream;
@@ -36,5 +38,8 @@ public class WeddingServiceImpl implements WeddingService {
         }
         InputStream qr = qrService.generateQRCode(weddingInfoRequestDto);
         String savedQrImageUrl = fileUploader.upload(qr, QR_DIRECTORY);
+        if (weddingDao.save(new WeddingInsertDto(member, weddingInfoRequestDto, savedQrImageUrl)) != 1) {
+            throw new WeddingInfoNotSavedException();
+        }
     }
 }

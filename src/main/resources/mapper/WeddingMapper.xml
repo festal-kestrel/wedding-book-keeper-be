@@ -28,4 +28,8 @@
     from wedding
   </select>
 
+  <insert id="save" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto">
+    insert into WEDDING (ID, WEDDING_DATE, LOCATION, GROOM_ID, BRIDE_ID, QR_IMG_URL, PARTNER_CODE, MANAGER_CODE, BRIDE_NAME, GROOM_NAME) VALUES
+      (wedding_seq.nextval, #{weddingDate, jdbcType=TIMESTAMP}, #{location} , #{groomId}, #{brideId}, #{qrImgUrl}, #{partnerCode}, #{managerCode}, #{brideName}, #{groomName})
+  </insert>
 </mapper>
