@@ -12,7 +12,11 @@ public class Wedding extends BaseEntity {
     private String qrImgUrl;
     private String partnerCode;
     private String managerCode;
+    private String location;
     private LocalDateTime weddingDate;
+
+    public Wedding() {
+    }
 
     public Wedding(Integer id,
                    Member groom,
@@ -20,6 +24,7 @@ public class Wedding extends BaseEntity {
                    String qrImgUrl,
                    String partnerCode,
                    String managerCode,
+                   String location,
                    LocalDateTime weddingDate) {
         this.id = id;
         this.groom = groom;
@@ -27,6 +32,7 @@ public class Wedding extends BaseEntity {
         this.qrImgUrl = qrImgUrl;
         this.partnerCode = partnerCode;
         this.managerCode = managerCode;
+        this.location = location;
         this.weddingDate = weddingDate;
     }
 
@@ -76,6 +82,14 @@ public class Wedding extends BaseEntity {
 
     public void setManagerCode(String managerCode) {
         this.managerCode = managerCode;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public LocalDateTime getWeddingDate() {

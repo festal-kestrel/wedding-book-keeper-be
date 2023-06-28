@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao">
+
+  <resultMap id="memberMap" type="com.kestrel.weddingbookkeeper.api.member.vo.Member">
+    <result column="id" property="id"/>
+    <result column="email" property="email"/>
+    <result column="name" property="name"/>
+    <result column="gender" property="gender"/>
+    <result column="created_at" property="createdAt"/>
+  </resultMap>
+  <resultMap id="weddingMap" type="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
+    <result column="id" property="id"/>
+    <result column="location" property="location"/>
+    <result column="qr_img_url" property="qrImgUrl"/>
+    <result column="partner_code" property="partnerCode"/>
+    <result column="manager_code" property="managerCode"/>
+    <result column="wedding_date" property="weddingDate"/>
+    <result column="created_at" property="createdAt"/>
+    <collection column="groom_id" property="groom" resultMap="memberMap"/>
+    <collection column="bride_id" property="bride" resultMap="memberMap"/>
+  </resultMap>
+
+  <select id="getWeddingInfo" resultMap="weddingMap">
+    select *
+    from wedding
+  </select>
+
+</mapper>

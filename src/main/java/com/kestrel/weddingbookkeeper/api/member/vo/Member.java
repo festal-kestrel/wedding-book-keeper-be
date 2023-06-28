@@ -11,6 +11,9 @@ public class Member extends BaseEntity {
     private String gender;
     private LocalDateTime createdAt;
 
+    public Member() {
+    }
+
     public Member(Integer id, String email, String name, String gender, LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
