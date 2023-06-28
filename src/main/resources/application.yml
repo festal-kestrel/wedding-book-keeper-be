@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: ENC(I1xJ1MctXt7i1gZ7cC6CYx5joqjcLRqteBK2+ZZ5krCJ5WDAZiSlmdBGLotGBO4G2jW5jjU6PZXRnQ5LmRoBzVswzFouiUWBntmO0dja1I85YSUdLJEty3IQ/V4pLVhFnHxcBrfu8rs=)
-    username: ENC(A4U02y2I9G0k5FzGtPGC0g==)
-    password: END(W9+XVRoP8qbDrwbgP8h3Xvo+HM+PJ4T+)
+    url: ENC(jBVU2x+RdzbwN47BhcgbcsGuzvaKs6zdYueBVzEPUg07C8p23bErPsY/sj8xat2643OJ9W/wTl8Hw+qyY2GbxTnMoEKEw3yQymwgiiiVk9OF2dnURHGx4/bJVXSfB+2nRZ8OSJus5TM=)
+    username: ENC(/uWYvk2R2cc43XZ6SMYJXA==)
+    password: ENC(SjClHxff55r8vqUmlga5WbHikAlhBx3k)
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
