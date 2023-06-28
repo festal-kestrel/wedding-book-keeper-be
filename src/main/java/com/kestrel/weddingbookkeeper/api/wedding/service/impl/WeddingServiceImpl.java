@@ -22,7 +22,10 @@ public class WeddingServiceImpl implements WeddingService {
     private final FileService fileService;
     private static final String QR_DIRECTORY = "qrcode";
 
-    public WeddingServiceImpl(final MemberDao memberDao, final WeddingDao weddingDao, final QrService qrService, final FileService fileService) {
+    public WeddingServiceImpl(final MemberDao memberDao,
+                              final WeddingDao weddingDao,
+                              final QrService qrService,
+                              final FileService fileService) {
         this.memberDao = memberDao;
         this.weddingDao = weddingDao;
         this.qrService = qrService;
@@ -32,10 +35,9 @@ public class WeddingServiceImpl implements WeddingService {
     @Override
     @Transactional
     public void createWeddingInfo(final WeddingInfoRequestDto weddingInfoRequestDto) {
-        Member member = memberDao.selectById(weddingInfoRequestDto.getMemberId());
-        if (member == null) {
-            throw new MemberNotFountException();
-        }
+        Member member = memberDao.selectById(weddingInfoRequestDto.getMemberId())
+                .orElseThrow(MemberNotFountException::new);
+
         InputStream qr = qrService.generateQRCode(weddingInfoRequestDto);
         String savedQrImageUrl = fileService.upload(qr, QR_DIRECTORY);
         if (weddingDao.save(new WeddingInsertDto(member, weddingInfoRequestDto, savedQrImageUrl)) != 1) {
