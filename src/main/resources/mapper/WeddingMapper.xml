@@ -11,6 +11,7 @@
     <result column="gender" property="gender"/>
     <result column="created_at" property="createdAt"/>
   </resultMap>
+
   <resultMap id="weddingMap" type="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
     <result column="id" property="id"/>
     <result column="location" property="location"/>

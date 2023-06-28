@@ -10,6 +10,11 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+auth:
+  kakao:
+    key: ENC(j913dskhw0NaO1Q9FhKWgAyzsobtnUnCgcNx0Zdw38rSuEg4X1JACD/nDOAtjTtd)
+    auth-url: https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${auth.kakao.key}&redirect_uri=http://localhost:3000/callback
+    token-url:  https://kauth.kakao.com/oauth/token?client_id={RestAPI Key}&redirect_uri={redirectUrl}&code={받아온 코드}&grant_type=authorization_code
 jasypt:
   encryptor:
     password: ${encrypt_key}
