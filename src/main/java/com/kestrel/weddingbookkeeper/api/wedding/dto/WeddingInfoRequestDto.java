@@ -1,7 +1,7 @@
 package com.kestrel.weddingbookkeeper.api.wedding.dto;
 
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
-import com.kestrel.weddingbookkeeper.common.util.DateUtil;
+import com.kestrel.weddingbookkeeper.common.util.DateUtils;
 import java.time.LocalDateTime;
 
 public class WeddingInfoRequestDto {
@@ -13,7 +13,7 @@ public class WeddingInfoRequestDto {
     public WeddingInfoRequestDto(Integer memberId, WeddingInfoRequest weddingInfoRequest) {
         this.memberId = memberId;
         this.location = weddingInfoRequest.getLocation();
-        this.weddingDate = DateUtil.getLocalDateTime(weddingInfoRequest.getWeddingDate());
+        this.weddingDate = DateUtils.getLocalDateTime(weddingInfoRequest.getWeddingDate());
     }
 
     public Integer getMemberId() {

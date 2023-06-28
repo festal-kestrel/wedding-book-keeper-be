@@ -1,7 +1,8 @@
-package com.kestrel.weddingbookkeeper.external.storage;
+package com.kestrel.weddingbookkeeper.external.storage.service.impl;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.kestrel.weddingbookkeeper.external.storage.exception.AwsS3Exception;
+import com.kestrel.weddingbookkeeper.external.storage.service.FileService;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;

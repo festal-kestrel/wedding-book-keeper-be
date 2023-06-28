@@ -1,6 +1,6 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
-import com.kestrel.weddingbookkeeper.api.member.facade.WeddingFacade;
+import com.kestrel.weddingbookkeeper.api.wedding.facade.WeddingFacade;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoRequestDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import org.springframework.web.bind.annotation.PostMapping;

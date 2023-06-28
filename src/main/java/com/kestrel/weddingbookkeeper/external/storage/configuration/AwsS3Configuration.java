@@ -1,4 +1,4 @@
-package com.kestrel.weddingbookkeeper.external.storage.config;
+package com.kestrel.weddingbookkeeper.external.storage.configuration;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AwsS3Config {
+public class AwsS3Configuration {
 
     @Value("${cloud.aws.credentials.access-key}")
     private String accessKey;

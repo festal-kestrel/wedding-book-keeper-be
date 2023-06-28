@@ -3,11 +3,11 @@ package com.kestrel.weddingbookkeeper.common.util;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class DateUtil {
+public class DateUtils {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
 
-    private DateUtil() {
+    private DateUtils() {
     }
 
     public static LocalDateTime getLocalDateTime(String date) {

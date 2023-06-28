@@ -1,12 +1,12 @@
-package com.kestrel.weddingbookkeeper.api.member.facade.impl;
+package com.kestrel.weddingbookkeeper.api.wedding.facade.impl;
 
-import com.kestrel.weddingbookkeeper.api.member.facade.WeddingFacade;
+import com.kestrel.weddingbookkeeper.api.wedding.facade.WeddingFacade;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoRequestDto;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.service.impl.QrService;
-import com.kestrel.weddingbookkeeper.external.storage.FileService;
+import com.kestrel.weddingbookkeeper.external.storage.service.FileService;
 import java.io.InputStream;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

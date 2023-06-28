@@ -1,4 +1,4 @@
-package com.kestrel.weddingbookkeeper.external.storage;
+package com.kestrel.weddingbookkeeper.external.storage.service;
 
 import java.io.InputStream;
 
