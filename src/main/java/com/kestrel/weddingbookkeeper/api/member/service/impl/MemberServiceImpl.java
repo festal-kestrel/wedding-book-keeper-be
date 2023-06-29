@@ -2,8 +2,10 @@ package com.kestrel.weddingbookkeeper.api.member.service.impl;
 
 import com.kestrel.weddingbookkeeper.api.member.dao.MemberDao;
 import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundException;
+import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotRegisteredException;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,7 +23,15 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void loginUser(Member member) {
-        memberDao.insertMember(member);
+    public void registerNewMember(Member member) {
+        boolean isRegistered = memberDao.insertMember(member) == 1;
+        if(!isRegistered) {
+            throw new MemberNotRegisteredException();
+        }
+    }
+
+    public boolean isNewUser(Member member){
+        Optional<Member> optionalMember = memberDao.selectByEmail(member);
+        return optionalMember.isEmpty();
     }
 }
