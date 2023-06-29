@@ -26,10 +26,12 @@ public class WeddingController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(new WeddingResponse(wedding.getWeddingDate(),
-                wedding.getGroom().getName(),
-                wedding.getBride().getName()));
+        String groomName = (wedding.getGroomName() != null) ? wedding.getGroomName() : "미등록";
+        String brideName = (wedding.getBrideName() != null) ? wedding.getBrideName() : "미등록";
+
+        return ResponseEntity.ok(new WeddingResponse(wedding.getWeddingDate(), groomName, brideName));
     }
+
 
     private static class WeddingResponse {
         private final LocalDateTime weddingDate;
