@@ -5,7 +5,7 @@
 <mapper namespace="com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao">
 
   <resultMap id="memberMap" type="com.kestrel.weddingbookkeeper.api.member.vo.Member">
-    <result column="id" property="id"/>
+    <result column="member_id" property="id"/>
     <result column="email" property="email"/>
     <result column="name" property="name"/>
     <result column="gender" property="gender"/>
@@ -13,7 +13,7 @@
   </resultMap>
 
   <resultMap id="weddingMap" type="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
-    <result column="id" property="id"/>
+    <result column="wedding_id" property="id"/>
     <result column="location" property="location"/>
     <result column="qr_img_url" property="qrImgUrl"/>
     <result column="partner_code" property="partnerCode"/>
@@ -29,4 +29,19 @@
     from wedding
   </select>
 
+  <insert id="save" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto">
+    <selectKey keyColumn="wedding_id" keyProperty="weddingId" resultType="Integer" order="AFTER">
+      select WEDDING_SEQ.CURRVAL from dual
+    </selectKey>
+    insert into WEDDING (WEDDING_ID, WEDDING_DATE, LOCATION, GROOM_ID, BRIDE_ID, PARTNER_CODE, MANAGER_CODE, BRIDE_NAME,
+    GROOM_NAME)
+    VALUES (wedding_seq.nextval, #{weddingDate, jdbcType=TIMESTAMP}, #{location}, #{groomId}, #{brideId}, #{partnerCode},
+    #{managerCode}, #{brideName}, #{groomName})
+  </insert>
+
+  <update id="updateQrImgUrl" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingUpdateDto">
+    update WEDDING
+    set QR_IMG_URL = #{qrImgUrl}
+    where WEDDING_ID = #{weddingId}
+  </update>
 </mapper>
