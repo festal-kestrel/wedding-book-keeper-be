@@ -3,17 +3,13 @@ package com.kestrel.weddingbookkeeper.api.wedding.controller;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.facade.WeddingFacade;
-import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoRequestDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
-import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
