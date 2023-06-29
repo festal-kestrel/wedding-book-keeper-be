@@ -23,11 +23,6 @@
     <collection column="bride_id" property="bride" resultMap="memberMap"/>
   </resultMap>
 
-  <select id="getWeddingInfo" resultMap="weddingMap">
-    select *
-    from wedding
-  </select>
-
   <insert id="save" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto">
     <selectKey keyColumn="wedding_id" keyProperty="weddingId" resultType="Integer" order="AFTER">
       select WEDDING_SEQ.CURRVAL from dual
@@ -42,5 +37,29 @@
     update WEDDING
     set QR_IMG_URL = #{qrImgUrl}
     where WEDDING_ID = #{weddingId}
+  </update>
+
+  <select id="selectWeddingInfo" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
+    SELECT *
+    FROM wedding
+    WHERE wedding_id = #{weddingId}
+  </select>
+
+  <select id="selectByPartnerCode" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
+    SELECT *
+      FROM wedding
+     WHERE partner_code = #{partnerCode}
+  </select>
+
+  <update id="updateGroomPartner" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto">
+    UPDATE wedding
+       SET groom_id = #{groomId}, groom_name = #{groomName}
+     WHERE wedding_id = #{weddingId}
+  </update>
+
+  <update id="updateBridePartner" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto">
+    UPDATE wedding
+       SET bride_id = #{brideId}, bride_name = #{brideName}
+     WHERE wedding_id = #{weddingId}
   </update>
 </mapper>

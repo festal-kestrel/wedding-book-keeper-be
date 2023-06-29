@@ -22,4 +22,5 @@ public class Wedding extends BaseEntity {
     private LocalDateTime weddingDate;
     private String groomName;
     private String brideName;
+
 }
