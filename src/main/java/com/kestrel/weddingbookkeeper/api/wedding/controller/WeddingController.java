@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/weddings")
 public class WeddingController {
+
     private final WeddingService weddingService;
 
     public WeddingController(WeddingService weddingService) {
@@ -29,19 +30,22 @@ public class WeddingController {
         String groomName = (wedding.getGroomName() != null) ? wedding.getGroomName() : "미등록";
         String brideName = (wedding.getBrideName() != null) ? wedding.getBrideName() : "미등록";
 
-        return ResponseEntity.ok(new WeddingResponse(wedding.getWeddingDate(), groomName, brideName));
+        return ResponseEntity.ok(new WeddingResponse(wedding.getWeddingDate(), groomName, brideName, wedding.getLocation()));
     }
 
 
     private static class WeddingResponse {
+
         private final LocalDateTime weddingDate;
         private final String groomName;
         private final String brideName;
+        private final String location;
 
-        public WeddingResponse(LocalDateTime weddingDate, String groomName, String brideName) {
+        public WeddingResponse(LocalDateTime weddingDate, String groomName, String brideName, String location) {
             this.weddingDate = weddingDate;
             this.groomName = groomName;
             this.brideName = brideName;
+            this.location = location;
         }
 
         public LocalDateTime getWeddingDate() {
@@ -54,6 +58,10 @@ public class WeddingController {
 
         public String getBrideName() {
             return brideName;
+        }
+
+        public String getLocation() {
+            return location;
         }
     }
 }
