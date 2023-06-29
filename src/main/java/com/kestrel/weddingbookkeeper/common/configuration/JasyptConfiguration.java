@@ -1,4 +1,4 @@
-package com.kestrel.weddingbookkeeper.common.config;
+package com.kestrel.weddingbookkeeper.common.configuration;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class JasyptConfig {
+public class JasyptConfiguration {
 
     @Value("${jasypt.encryptor.password}")
     private String encryptKey;
