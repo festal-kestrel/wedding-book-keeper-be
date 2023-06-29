@@ -19,6 +19,13 @@ jasypt:
   encryptor:
     password: ${encrypt_key}
 
+
+
+app:
+  auth:
+    tokenExpiry: 172800000
+    tokenSecret: gE9hqfKmS3J7VwvP2XZbF6AyGz8L5TQxIOu0NcRs4M1WYnlDpaHtCjvU
+
 cloud:
   aws:
     s3:

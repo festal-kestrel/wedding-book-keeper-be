@@ -3,6 +3,8 @@ package com.kestrel.weddingbookkeeper.api.auth.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class KakaoResponse {
+
+    private long id;
     @JsonProperty("properties")
     private Properties properties;
 
@@ -11,6 +13,7 @@ public class KakaoResponse {
 
 
     public static class Properties {
+
         @JsonProperty("nickname")
         private String nickname;
 
@@ -28,6 +31,7 @@ public class KakaoResponse {
 
 
     public static class KakaoAccount {
+
         @JsonProperty("email")
         private String email;
 
@@ -49,6 +53,10 @@ public class KakaoResponse {
                     ", gender='" + gender + '\'' +
                     '}';
         }
+    }
+
+    public long getId() {
+        return id;
     }
 
     public Properties getProperties() {
