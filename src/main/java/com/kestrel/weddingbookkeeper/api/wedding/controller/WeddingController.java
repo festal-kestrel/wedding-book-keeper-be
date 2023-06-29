@@ -1,5 +1,6 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DetailResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import java.time.LocalDateTime;
@@ -20,7 +21,7 @@ public class WeddingController {
     }
 
     @GetMapping("/{weddingId}")
-    public ResponseEntity<WeddingResponse> getWeddingInfo(@PathVariable Integer weddingId) {
+    public ResponseEntity<DetailResponse> getWeddingInfo(@PathVariable Integer weddingId) {
         Wedding wedding = weddingService.getWeddingInfo(weddingId);
 
         if (wedding == null) {
@@ -30,38 +31,6 @@ public class WeddingController {
         String groomName = (wedding.getGroomName() != null) ? wedding.getGroomName() : "미등록";
         String brideName = (wedding.getBrideName() != null) ? wedding.getBrideName() : "미등록";
 
-        return ResponseEntity.ok(new WeddingResponse(wedding.getWeddingDate(), groomName, brideName, wedding.getLocation()));
-    }
-
-
-    private static class WeddingResponse {
-
-        private final LocalDateTime weddingDate;
-        private final String groomName;
-        private final String brideName;
-        private final String location;
-
-        public WeddingResponse(LocalDateTime weddingDate, String groomName, String brideName, String location) {
-            this.weddingDate = weddingDate;
-            this.groomName = groomName;
-            this.brideName = brideName;
-            this.location = location;
-        }
-
-        public LocalDateTime getWeddingDate() {
-            return weddingDate;
-        }
-
-        public String getGroomName() {
-            return groomName;
-        }
-
-        public String getBrideName() {
-            return brideName;
-        }
-
-        public String getLocation() {
-            return location;
-        }
+        return ResponseEntity.ok(new DetailResponse(wedding.getWeddingDate(), groomName, brideName, wedding.getLocation()));
     }
 }
