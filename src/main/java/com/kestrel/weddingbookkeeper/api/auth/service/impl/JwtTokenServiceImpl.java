@@ -7,7 +7,7 @@ import com.kestrel.weddingbookkeeper.api.auth.service.JwtTokenService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class JwtTokenServiceImpl implements JwtTokenService{
+public class JwtTokenServiceImpl implements JwtTokenService {
 
     private final JwtTokenDao jwtTokenDao;
 

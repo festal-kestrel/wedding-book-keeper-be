@@ -10,7 +10,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class KakaoUtil {
 
     public KakaoResponse getUserInfo(String kakaoToken) throws JsonProcessingException {
-//    public String getUserInfo(String kakaoToken) throws JsonProcessingException {
         WebClient webClient = WebClient.builder()
                 .baseUrl("https://kapi.kakao.com/v2/user/me")
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + kakaoToken)

@@ -1,6 +1,7 @@
 package com.kestrel.weddingbookkeeper.api.auth.dto;
 
 public class KakaoAccount {
+
     String nickname;
     String email;
     String gender;
@@ -10,8 +11,6 @@ public class KakaoAccount {
         this.email = email;
         this.gender = gender;
     }
-
-
 
     @Override
     public String toString() {

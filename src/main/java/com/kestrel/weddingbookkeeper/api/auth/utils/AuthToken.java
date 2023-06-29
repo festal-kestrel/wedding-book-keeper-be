@@ -20,10 +20,6 @@ public class AuthToken {
 
     private static final String AUTHORITIES_KEY = "role";
 
-//    AuthToken(String token, Key key) {
-//        this.key = key;
-//        this.token = createAuthToken(socialId, role, expiry);
-//    }
     AuthToken(String socialId, String roleType, Date expiry, Key key) {
         String role = roleType.toString();
         this.key = key;
@@ -51,7 +47,6 @@ public class AuthToken {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-//            System.out.println("JWT 저장 에러");
             e.printStackTrace();
         }
         return null;

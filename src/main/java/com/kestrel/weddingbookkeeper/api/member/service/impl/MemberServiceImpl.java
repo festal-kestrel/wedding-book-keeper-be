@@ -25,12 +25,12 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void registerNewMember(Member member) {
         boolean isRegistered = memberDao.insertMember(member) == 1;
-        if(!isRegistered) {
+        if (!isRegistered) {
             throw new MemberNotRegisteredException();
         }
     }
 
-    public boolean isNewUser(Member member){
+    public boolean isNewUser(Member member) {
         Optional<Member> optionalMember = memberDao.selectByEmail(member);
         return optionalMember.isEmpty();
     }

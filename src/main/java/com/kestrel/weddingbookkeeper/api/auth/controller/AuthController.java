@@ -7,7 +7,6 @@ import com.kestrel.weddingbookkeeper.api.auth.dto.KakaoResponse;
 import com.kestrel.weddingbookkeeper.api.auth.utils.AuthToken;
 import com.kestrel.weddingbookkeeper.api.auth.utils.AuthTokenProvider;
 import com.kestrel.weddingbookkeeper.api.auth.utils.KakaoUtil;
-//import java.net.http.HttpHeaders;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Gender;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
@@ -27,7 +26,8 @@ public class AuthController {
     private final JwtTokenService jwtTokenService;
     private final AuthTokenProvider authTokenProvider;
 
-    public AuthController(KakaoUtil kakaoUtil, MemberService memberService, JwtTokenService jwtTokenService, AuthTokenProvider authTokenProvider) {
+    public AuthController(KakaoUtil kakaoUtil, MemberService memberService, JwtTokenService jwtTokenService,
+                          AuthTokenProvider authTokenProvider) {
         this.kakaoUtil = kakaoUtil;
         this.memberService = memberService;
         this.jwtTokenService = jwtTokenService;
@@ -46,7 +46,7 @@ public class AuthController {
                 kakaoResponse.getKakaoAccount().getEmail(),
                 kakaoResponse.getProperties().getNickname(),
                 convertStringToGender(kakaoResponse.getKakaoAccount().getGender()));
-        if (memberService.isNewUser(member)){
+        if (memberService.isNewUser(member)) {
             memberService.registerNewMember(member);
         }
         jwtTokenService.saveJwtToken(jwtToken);

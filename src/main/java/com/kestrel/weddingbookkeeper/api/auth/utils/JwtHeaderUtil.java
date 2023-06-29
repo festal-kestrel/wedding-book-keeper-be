@@ -3,6 +3,7 @@ package com.kestrel.weddingbookkeeper.api.auth.utils;
 import javax.servlet.http.HttpServletRequest;
 
 public class JwtHeaderUtil {
+
     private final static String HEADER_AUTHORIZATION = "Authorization";
     private final static String TOKEN_PREFIX = "Bearer ";
 

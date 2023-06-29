@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
     private final AuthTokenProvider tokenProvider;
 
     public JwtAuthenticationFilter(AuthTokenProvider tokenProvider) {
