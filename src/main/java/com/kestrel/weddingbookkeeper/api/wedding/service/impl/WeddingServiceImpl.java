@@ -67,7 +67,7 @@ public class WeddingServiceImpl implements WeddingService {
         if (wedding == null) {
             return false;
         }
-        switch (member.getGender()){
+        switch (member.getGender()) {
             case MALE -> weddingDao.updateGroomPartner(new PartnerDto(wedding, member));
             case FEMALE -> weddingDao.updateBridePartner(new PartnerDto(wedding, member));
             default -> throw new InvalidGenderException();
