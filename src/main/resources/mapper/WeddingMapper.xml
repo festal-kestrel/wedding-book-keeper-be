@@ -26,6 +26,7 @@
   <select id="getWeddingInfo" resultMap="weddingMap">
     select *
     from wedding
+    where id = #{weddingId}
   </select>
 
 </mapper>
