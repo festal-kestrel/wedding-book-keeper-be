@@ -7,7 +7,7 @@
   <select id="selectById" parameterType="Integer"  resultType="com.kestrel.weddingbookkeeper.api.member.vo.Member">
     select *
     from member
-    where id = #{id}
+    where member_id = #{id}
   </select>
 
 </mapper>

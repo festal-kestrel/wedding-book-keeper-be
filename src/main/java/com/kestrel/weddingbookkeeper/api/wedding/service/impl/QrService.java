@@ -5,7 +5,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
-import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoRequestDto;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.QRCodeGenerationException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,11 +20,11 @@ public class QrService {
 
     private static final String SERVICE_NAME = "weddingBookKeeper";
 
-    public InputStream generateQRCode(WeddingInfoRequestDto weddingInfoRequestDto) {
+    public InputStream generateQRCode(Integer weddingId) {
         // QR 코드에 포함할 데이터 생성
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("serviceName", SERVICE_NAME);
-        dataMap.put("weddingId", weddingInfoRequestDto.getMemberId());
+        dataMap.put("weddingId", weddingId);
         String content = buildQRContent(dataMap);
 
         // QR 코드 생성
