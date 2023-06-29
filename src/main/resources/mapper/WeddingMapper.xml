@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao">
+
   <resultMap id="memberMap" type="com.kestrel.weddingbookkeeper.api.member.vo.Member">
     <result column="member_id" property="memberId"/>
     <result column="email" property="email"/>
@@ -23,24 +24,11 @@
     <collection column="groom_id" property="groom" resultMap="memberMap"/>
     <collection column="bride_id" property="bride" resultMap="memberMap"/>
   </resultMap>
-  <resultMap id="memberWeddingMap" type="com.kestrel.weddingbookkeeper.api.member.vo.MemberWedding">
-    <result column="member_id" property="memberId"/>
-    <result column="wedding_id" property="weddingId"/>
-    <result column="donation_amount" property="donationAmount"/>
-    <result column="has_paid" property="hasPaid"/>
-    <result column="relation" property="relation"/>
-    <result column="guest_side" property="guestSide"/>
-  </resultMap>
 
   <select id="getWeddingInfo" resultMap="weddingMap">
     select *
     from wedding
     where wedding_id = #{weddingId}
   </select>
-
-  <insert id="insertMemberWedding">
-    INSERT INTO MEMBER_WEDDING (member_id,wedding_id,donation_amount,has_paid,relation,guest_side)
-    VALUES (#{memberId}, #{weddingId}, #{donationAmount}, #{hasPaid}, #{relation}, #{guestSide})
-  </insert>
 
 </mapper>

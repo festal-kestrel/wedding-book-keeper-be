@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface WeddingDao {
     Wedding getWeddingInfo(@Param("weddingId") Integer weddingId);
+
+    Wedding getWeddingInfo();
 }
