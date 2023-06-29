@@ -11,9 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MemberWedding extends BaseEntity {
 
-    private Wedding wedding;
-    private Member member;
+    private int weddingId;
+    private String memberId;
     private int donationAmount;
     private boolean hasPaid;
     private String relation;
+    private int guestSide;
 }
