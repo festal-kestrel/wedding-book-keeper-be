@@ -4,10 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kestrel.weddingbookkeeper.api.member.dao.MemberDao">
 
-  <select id="selectById" parameterType="Integer"  resultType="com.kestrel.weddingbookkeeper.api.member.vo.Member">
-    select *
-    from member
-    where member_id = #{id}
-  </select>
+  <resultMap id="memberMap" type="com.kestrel.weddingbookkeeper.api.member.vo.Member">
+    <result column="id" property="id"/>
+    <result column="email" property="email"/>
+    <result column="name" property="name"/>
+    <result column="gender" property="gender"/>
+    <result column="created_at" property="createdAt"/>
+  </resultMap>
+
+
+  <insert id="insertMember">
+    insert into member (email, name, gender) values (#{email}, #{name}, #{gender})
+  </insert>
 
 </mapper>

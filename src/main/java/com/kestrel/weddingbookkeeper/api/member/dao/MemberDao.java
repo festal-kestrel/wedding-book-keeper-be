@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberDao {
 
     Optional<Member> selectById(Integer id);
+    void insertMember(Member member);
 }

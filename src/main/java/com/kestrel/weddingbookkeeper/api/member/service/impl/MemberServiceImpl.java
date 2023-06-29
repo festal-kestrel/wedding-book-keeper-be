@@ -19,4 +19,9 @@ public class MemberServiceImpl implements MemberService {
     public Member getMember(Integer memberId) {
         return memberDao.selectById(memberId).orElseThrow(MemberNotFoundException::new);
     }
+
+    @Override
+    public void loginUser(Member member) {
+        memberDao.insertMember(member);
+    }
 }
