@@ -20,8 +20,8 @@ public class WeddingInsertDto {
     public LocalDateTime weddingDate;
 
     public WeddingInsertDto(Member member, WeddingInfoRequestDto weddingInfoRequestDto, String qrImgUrl) {
-        this.groomId = member.getGender() == Gender.MALE ? member.getId() : null;
-        this.brideId = member.getGender() == Gender.FEMALE ? member.getId() : null;
+        this.groomId = member.getGender() == Gender.MALE ? member.getMemberId() : null;
+        this.brideId = member.getGender() == Gender.FEMALE ? member.getMemberId() : null;
         this.qrImgUrl = qrImgUrl;
         this.partnerCode = ValidationCodeGenerator.generateQrCode();
         this.managerCode = ValidationCodeGenerator.generateQrCode();
