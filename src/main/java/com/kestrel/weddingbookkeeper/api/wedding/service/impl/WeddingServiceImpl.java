@@ -12,6 +12,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.InvalidGenderException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.ValidationCodeMisMatchException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotSavedException;
@@ -85,5 +86,12 @@ public class WeddingServiceImpl implements WeddingService {
         if (!isUpdate) {
             throw new WeddingInfomationNotUpdateException();
         }
+    }
+
+    @Override
+    public WeddingManagerCodeResponse selectManagerCode(Integer weddingId) {
+        Wedding wedding = weddingDao.selectManagerCode(weddingId);
+        WeddingManagerCodeResponse weddingManagerCodeResponse = new WeddingManagerCodeResponse(wedding);
+        return weddingManagerCodeResponse;
     }
 }

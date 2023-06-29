@@ -23,4 +23,6 @@ public interface WeddingDao {
     int updateBridePartner(PartnerDto partnerDto);
 
     int updateWeddingInfomation(WeddingInfoUpdateDto weddingInfoUpdateDto);
+
+    Wedding selectManagerCode(Integer weddingId);
 }

@@ -68,4 +68,10 @@
        SET wedding_date = #{weddingDate}, location = #{location}
      WHERE wedding_id = #{weddingId}
   </update>
+
+  <select id="selectManagerCode" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
+    SELECT manager_code
+      FROM wedding
+     WHERE wedding_id = #{weddingId}
+  </select>
 </mapper>
