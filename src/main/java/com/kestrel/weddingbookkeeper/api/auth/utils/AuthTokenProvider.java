@@ -6,6 +6,7 @@ import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,13 +30,13 @@ public class AuthTokenProvider {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    public AuthToken createToken(String id, String roleType, String expiry) {
+    public AuthToken createToken(String memberId, String roleType, String expiry) {
         Date expiryDate = getExpiryDate(expiry);
-        return new AuthToken(id, roleType, expiryDate, key);
+        return new AuthToken(memberId, roleType, expiryDate, key);
     }
 
-    public AuthToken createUserAppToken(String id) {
-        return createToken(id, "USER", expiry);
+    public AuthToken createUserAppToken(String memberId) {
+        return createToken(memberId, "USER", expiry);
     }
 
     public AuthToken convertAuthToken(String token) {
@@ -49,16 +50,13 @@ public class AuthTokenProvider {
     public Authentication getAuthentication(AuthToken authToken) {
 
         if (authToken.validate()) {
-
             Claims claims = authToken.getTokenClaims();
-            Collection<? extends GrantedAuthority> authorities =
-                    Arrays.stream(new String[]{claims.get(AUTHORITIES_KEY).toString()})
-                            .map(SimpleGrantedAuthority::new)
-                            .collect(Collectors.toList());
+            List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
 
-            User principal = new User(claims.getSubject(), "", authorities);
+            Long memberId = Long.valueOf((String) claims.get("memberId"));
+            WeddingMember weddingMember = new WeddingMember(memberId, authorities);
 
-            return new UsernamePasswordAuthenticationToken(principal, authToken, authorities);
+            return new UsernamePasswordAuthenticationToken(weddingMember, authToken, authorities);
         } else {
             throw new RuntimeException();
         }
