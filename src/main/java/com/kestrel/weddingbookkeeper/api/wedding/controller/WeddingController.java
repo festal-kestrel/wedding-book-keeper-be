@@ -22,6 +22,6 @@ public class WeddingController {
 
     @PostMapping
     public void createWeddingInfo(@RequestBody final WeddingInfoRequest weddingInfoRequest) {
-        weddingFacade.createWeddingInfo(new WeddingInfoRequestDto(MEMBER_ID, weddingInfoRequest));
+        weddingFacade.createWeddingInfo(MEMBER_ID, weddingInfoRequest);
     }
 }

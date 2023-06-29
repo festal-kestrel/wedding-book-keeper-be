@@ -1,6 +1,7 @@
 package com.kestrel.weddingbookkeeper.api.wedding.dao;
 
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingUpdateDto;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,4 +11,6 @@ public interface WeddingDao {
     Wedding getWeddingInfo();
 
     int save(WeddingInsertDto weddingInsertDto);
+
+    int updateQrImgUrl(WeddingUpdateDto weddingUpdateDto);
 }
