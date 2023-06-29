@@ -62,4 +62,10 @@
        SET bride_id = #{brideId}, bride_name = #{brideName}
      WHERE wedding_id = #{weddingId}
   </update>
+
+  <update id="updateWeddingInfomation" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoUpdateDto">
+    UPDATE wedding
+       SET wedding_date = #{weddingDate}, location = #{location}
+     WHERE wedding_id = #{weddingId}
+  </update>
 </mapper>

@@ -1,13 +1,17 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.facade.WeddingFacade;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
+import java.time.LocalDateTime;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,15 +35,18 @@ public class WeddingController {
         weddingFacade.createWeddingInfo(MEMBER_ID, weddingInfoRequest);
     }
 
-    @GetMapping("/{wedding_id}")
-    public WeddingInfoResponse selectWeddingInfo(@PathVariable("wedding_id") Integer weddingId) {
+    @GetMapping("/{weddingId}")
+    public WeddingInfoResponse selectWeddingInfo(@PathVariable("weddingId") Integer weddingId) {
         return weddingService.selectWeddingInfo(weddingId);
     }
 
     @PostMapping("/partner")
     public void connectPartner(@RequestBody PartnerCodeRequest partnerCodeRequest) {
-        System.out.println("partnerCodeRequest = " + partnerCodeRequest);
-        boolean isConnect = weddingService.connectPartner(partnerCodeRequest, MEMBER_ID);
-        System.out.println("isConnect = " + isConnect);
+        weddingService.connectPartner(partnerCodeRequest, MEMBER_ID);
+    }
+
+    @PatchMapping("/{weddingId}")
+    public void updateWeddingInfomation(@PathVariable("weddingId") Integer weddingId, @RequestBody WeddingUpdateInfomationRequest weddingUpdateInfomationRequest) {
+        weddingService.updateWeddingInfomation(weddingId, weddingUpdateInfomationRequest);
     }
 }
