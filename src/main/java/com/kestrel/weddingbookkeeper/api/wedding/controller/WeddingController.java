@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/weddings")
 public class WeddingController {
 
-    private static final Integer MEMBER_ID = 1;
+    private static final Integer MEMBER_ID = 7;
 
     private final WeddingFacade weddingFacade;
     private final WeddingService weddingService;

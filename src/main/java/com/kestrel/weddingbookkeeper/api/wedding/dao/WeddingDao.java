@@ -1,6 +1,5 @@
 package com.kestrel.weddingbookkeeper.api.wedding.dao;
 
-import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingUpdateDto;
@@ -18,7 +17,7 @@ public interface WeddingDao {
 
     Wedding selectByPartnerCode(String partnerCode);
 
-    Member updateGroomPartner(PartnerDto partnerDto);
+    int updateGroomPartner(PartnerDto partnerDto);
 
-    Member updateBridePartner(PartnerDto partnerDto);
+    int updateBridePartner(PartnerDto partnerDto);
 }

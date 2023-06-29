@@ -50,4 +50,16 @@
       FROM wedding
      WHERE partner_code = #{partnerCode}
   </select>
+
+  <update id="updateGroomPartner" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto">
+    UPDATE wedding
+       SET groom_id = #{groomId}, groom_name = #{groomName}
+     WHERE wedding_id = #{weddingId}
+  </update>
+
+  <update id="updateBridePartner" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto">
+    UPDATE wedding
+       SET bride_id = #{brideId}, bride_name = #{brideName}
+     WHERE wedding_id = #{weddingId}
+  </update>
 </mapper>

@@ -11,6 +11,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingUpdateDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.exception.InvalidGenderException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotSavedException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotUpdateException;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
@@ -49,7 +50,7 @@ public class WeddingServiceImpl implements WeddingService {
         }
     }
 
-    public WeddingInfoResponse selectWeddingInfo(Integer weddingId){
+    public WeddingInfoResponse selectWeddingInfo(Integer weddingId) {
 
         Wedding wedding = weddingDao.selectWeddingInfo(weddingId);
         System.out.println("wedding = " + wedding);
@@ -58,16 +59,19 @@ public class WeddingServiceImpl implements WeddingService {
     }
 
     @Override
+    @Transactional
     public boolean connectPartner(PartnerCodeRequest partnerCodeRequest, Integer memberId) {
         Member member = memberDao.selectById(memberId).orElseThrow(MemberNotFoundException::new);
         Wedding wedding = weddingDao.selectByPartnerCode(partnerCodeRequest.getPartnerCode());
 
-        if(wedding == null) {
+        if (wedding == null) {
             return false;
         }
-        /**
-         * 파트너 업데이트
-         */
+        switch (member.getGender()){
+            case MALE -> weddingDao.updateGroomPartner(new PartnerDto(wedding, member));
+            case FEMALE -> weddingDao.updateBridePartner(new PartnerDto(wedding, member));
+            default -> throw new InvalidGenderException();
+        }
         return true;
     }
 }
