@@ -13,8 +13,7 @@ mybatis:
 auth:
   kakao:
     key: ENC(j913dskhw0NaO1Q9FhKWgAyzsobtnUnCgcNx0Zdw38rSuEg4X1JACD/nDOAtjTtd)
-    auth-url: https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${auth.kakao.key}&redirect_uri=http://localhost:3000/callback
-    token-url: https://kauth.kakao.com/oauth/token?client_id={RestAPI Key}&redirect_uri={redirectUrl}&code={받아온 코드}&grant_type=authorization_code
+
 jasypt:
   encryptor:
     password: ${encrypt_key}
@@ -24,7 +23,7 @@ jasypt:
 app:
   auth:
     tokenExpiry: 172800000
-    tokenSecret: gE9hqfKmS3J7VwvP2XZbF6AyGz8L5TQxIOu0NcRs4M1WYnlDpaHtCjvU
+    tokenSecret: ENC(1G9++L61gbelvF2+dK+upen75VoJPTnqupxZfIgRVk4THdWgLQNazmvj8U4FYnjhIZmJdTOk0fkJIFeK2ZUmLSfVzAw+PTwd)
 
 cloud:
   aws:

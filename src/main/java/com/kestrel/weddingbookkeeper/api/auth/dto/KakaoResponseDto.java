@@ -2,7 +2,7 @@ package com.kestrel.weddingbookkeeper.api.auth.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class KakaoResponse {
+public class KakaoResponseDto {
 
     private long id;
     @JsonProperty("properties")
@@ -21,14 +21,7 @@ public class KakaoResponse {
             return nickname;
         }
 
-        @Override
-        public String toString() {
-            return "Properties{" +
-                    "nickname='" + nickname + '\'' +
-                    '}';
-        }
     }
-
 
     public static class KakaoAccount {
 
@@ -46,13 +39,6 @@ public class KakaoResponse {
             return gender;
         }
 
-        @Override
-        public String toString() {
-            return "KakaoAccount{" +
-                    ", email='" + email + '\'' +
-                    ", gender='" + gender + '\'' +
-                    '}';
-        }
     }
 
     public long getId() {
@@ -67,12 +53,4 @@ public class KakaoResponse {
         return kakaoAccount;
     }
 
-    @Override
-    public String toString() {
-        return "KakaoResponse{" +
-                "id=" + id +
-                ", properties=" + properties +
-                ", kakaoAccount=" + kakaoAccount +
-                '}';
-    }
 }

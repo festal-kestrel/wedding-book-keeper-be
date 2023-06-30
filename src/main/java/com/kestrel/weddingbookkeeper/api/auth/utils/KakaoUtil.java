@@ -1,7 +1,7 @@
 package com.kestrel.weddingbookkeeper.api.auth.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.kestrel.weddingbookkeeper.api.auth.dto.KakaoResponse;
+import com.kestrel.weddingbookkeeper.api.auth.dto.KakaoResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Component
 public class KakaoUtil {
 
-    public KakaoResponse getUserInfo(String kakaoToken) throws JsonProcessingException {
+    public KakaoResponseDto getUserInfo(String kakaoToken) throws JsonProcessingException {
         WebClient webClient = WebClient.builder()
                 .baseUrl("https://kapi.kakao.com/v2/user/me")
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + kakaoToken)
@@ -18,7 +18,7 @@ public class KakaoUtil {
         return webClient
                 .post()
                 .retrieve()
-                .bodyToMono(KakaoResponse.class)
+                .bodyToMono(KakaoResponseDto.class)
                 .block();
 
     }

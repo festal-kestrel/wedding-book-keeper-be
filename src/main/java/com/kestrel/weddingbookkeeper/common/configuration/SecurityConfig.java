@@ -22,11 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // SecurityFi
         this.authTokenProvider = authTokenProvider;
     }
 
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/v1/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**");
-//    }
-
+    // TODO: 개발용 시큐리티 라우트 설정
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         JwtAuthenticationFilter jwtAuthFilter = new JwtAuthenticationFilter(authTokenProvider);
@@ -34,21 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // SecurityFi
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-
-//                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers("/api/v1/oauth/**").permitAll()
-                .anyRequest().authenticated()
+//                .antMatchers("/api/v1/oauth/**").permitAll()
+                .antMatchers("/", "/**").permitAll()
+//                .anyRequest().authenticated()
                 .and() // 해당 요청을 인증된 사용자만 사용 가능
-//                .headers()
-//                .frameOptions()
-//                .sameOrigin().and()
                 .cors().and()
                 .formLogin().disable()
-                //.exceptionHandling() // TODO 예외 처리 필요한지 체크할 것
-//                .and()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 
