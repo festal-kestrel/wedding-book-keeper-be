@@ -1,5 +1,6 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
+import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
@@ -7,6 +8,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.facade.WeddingFacade;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
+import java.util.List;
 import java.time.LocalDateTime;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/weddings")
 public class WeddingController {
 
-    private static final Integer MEMBER_ID = 7;
+    private static final Integer MEMBER_ID = 1;
 
     private final WeddingFacade weddingFacade;
     private final WeddingService weddingService;
@@ -54,5 +56,11 @@ public class WeddingController {
     @GetMapping("/{weddingId}/qr")
     public WeddingQrResponse selectQrImgUrl(@PathVariable("weddingId") Integer weddingId){
         return weddingService.selectQrImgUrl(weddingId);
+    }
+
+    @GetMapping
+    public List<MemberWedding> selectDonationList() {
+        List<MemberWedding> memberWeddingList = weddingService.selectDonationList(MEMBER_ID);
+        return memberWeddingList;
     }
 }
