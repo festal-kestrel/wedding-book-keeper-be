@@ -1,4 +1,4 @@
-package com.kestrel.weddingbookkeeper.api.memberWedding.vo;
+package com.kestrel.weddingbookkeeper.api.wedding.vo;
 
 import com.kestrel.weddingbookkeeper.api.date.BaseEntity;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;

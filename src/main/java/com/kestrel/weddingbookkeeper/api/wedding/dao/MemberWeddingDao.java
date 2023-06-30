@@ -1,6 +1,6 @@
-package com.kestrel.weddingbookkeeper.api.memberWedding.dao;
+package com.kestrel.weddingbookkeeper.api.wedding.dao;
 
-import com.kestrel.weddingbookkeeper.api.memberWedding.vo.MemberWedding;
+import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 

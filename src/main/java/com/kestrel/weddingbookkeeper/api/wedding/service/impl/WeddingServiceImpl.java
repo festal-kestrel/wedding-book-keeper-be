@@ -2,8 +2,9 @@ package com.kestrel.weddingbookkeeper.api.wedding.service.impl;
 
 import com.kestrel.weddingbookkeeper.api.member.dao.MemberDao;
 import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundException;
-import com.kestrel.weddingbookkeeper.api.member.vo.Gender;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
+import com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao;
+import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto;
@@ -16,6 +17,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotSavedEx
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotUpdateException;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +25,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class WeddingServiceImpl implements WeddingService {
 
     private final MemberDao memberDao;
-
     private final WeddingDao weddingDao;
+    private final MemberWeddingDao memberWeddingDao;
 
-    public WeddingServiceImpl(final MemberDao memberDao, final WeddingDao weddingDao) {
+    public WeddingServiceImpl(final MemberDao memberDao, final WeddingDao weddingDao, final MemberWeddingDao memberWeddingDao) {
         this.memberDao = memberDao;
         this.weddingDao = weddingDao;
+        this.memberWeddingDao = memberWeddingDao;
     }
 
     @Override
@@ -73,5 +76,11 @@ public class WeddingServiceImpl implements WeddingService {
             default -> throw new InvalidGenderException();
         }
         return true;
+    }
+
+    @Override
+    public List<MemberWedding> selectDonationList(Integer memberId) {
+        List<MemberWedding> list = memberWeddingDao.selectDonationList(memberId);
+        return list;
     }
 }
