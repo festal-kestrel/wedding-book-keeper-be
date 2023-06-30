@@ -41,8 +41,8 @@
 
   <select id="selectWeddingInfo" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
     SELECT *
-    FROM wedding
-    WHERE wedding_id = #{weddingId}
+      FROM wedding
+     WHERE wedding_id = #{weddingId}
   </select>
 
   <select id="selectByPartnerCode" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
@@ -71,6 +71,9 @@
 
   <select id="selectManagerCode" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
     SELECT manager_code
+
+  <select id="selectQrImgUrl" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
+    SELECT qr_img_url
       FROM wedding
      WHERE wedding_id = #{weddingId}
   </select>

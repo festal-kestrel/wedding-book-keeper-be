@@ -13,6 +13,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.InvalidGenderException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.ValidationCodeMisMatchException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotSavedException;
@@ -20,7 +21,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotUpdateE
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfomationNotUpdateException;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
-import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,7 +58,6 @@ public class WeddingServiceImpl implements WeddingService {
     public WeddingInfoResponse selectWeddingInfo(Integer weddingId) {
 
         Wedding wedding = weddingDao.selectWeddingInfo(weddingId);
-        System.out.println("wedding = " + wedding);
         WeddingInfoResponse weddingInfoResponse = new WeddingInfoResponse(wedding);
         return weddingInfoResponse;
     }
@@ -93,5 +92,11 @@ public class WeddingServiceImpl implements WeddingService {
         Wedding wedding = weddingDao.selectManagerCode(weddingId);
         WeddingManagerCodeResponse weddingManagerCodeResponse = new WeddingManagerCodeResponse(wedding);
         return weddingManagerCodeResponse;
+
+    public WeddingQrResponse selectQrImgUrl(Integer weddingId) {
+        Wedding wedding = weddingDao.selectQrImgUrl(weddingId);
+        WeddingQrResponse weddingQrResponse = new WeddingQrResponse(wedding);
+        return weddingQrResponse;
+
     }
 }
