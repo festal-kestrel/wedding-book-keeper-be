@@ -3,6 +3,7 @@ package com.kestrel.weddingbookkeeper.api.wedding.controller;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.facade.WeddingFacade;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
@@ -48,5 +49,10 @@ public class WeddingController {
     @PatchMapping("/{weddingId}")
     public void updateWeddingInfomation(@PathVariable("weddingId") Integer weddingId, @RequestBody WeddingUpdateInfomationRequest weddingUpdateInfomationRequest) {
         weddingService.updateWeddingInfomation(weddingId, weddingUpdateInfomationRequest);
+    }
+
+    @GetMapping("/{weddingId}/qr")
+    public WeddingQrResponse selectQrImgUrl(@PathVariable("weddingId") Integer weddingId){
+        return weddingService.selectQrImgUrl(weddingId);
     }
 }
