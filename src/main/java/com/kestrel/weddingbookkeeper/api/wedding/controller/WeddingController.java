@@ -58,6 +58,7 @@ public class WeddingController {
     @GetMapping("/{weddingId}/admin/code")
     public WeddingManagerCodeResponse selectManagerCode(@PathVariable("weddingId") Integer weddingId) {
         return weddingService.selectManagerCode(weddingId);
+    }
       
     @GetMapping("/{weddingId}/qr")
     public WeddingQrResponse selectQrImgUrl(@PathVariable("weddingId") Integer weddingId){

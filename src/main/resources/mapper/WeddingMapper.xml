@@ -71,6 +71,9 @@
 
   <select id="selectManagerCode" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
     SELECT manager_code
+    FROM wedding
+    WHERE wedding_id = #{weddingId}
+  </select>
 
   <select id="selectQrImgUrl" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
     SELECT qr_img_url
