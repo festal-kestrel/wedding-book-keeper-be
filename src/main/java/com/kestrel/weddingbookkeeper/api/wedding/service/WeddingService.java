@@ -6,6 +6,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
 import java.util.List;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
@@ -26,6 +27,8 @@ public interface WeddingService {
     void connectPartner(PartnerCodeRequest partnerCodeRequest, Integer memberId);
 
     void updateWeddingInfomation(Integer weddingId, WeddingUpdateInfomationRequest weddingUpdateInfomationRequest);
+
+    WeddingManagerCodeResponse selectManagerCode(Integer weddingId);
 
     WeddingQrResponse selectQrImgUrl(Integer weddingId);
 

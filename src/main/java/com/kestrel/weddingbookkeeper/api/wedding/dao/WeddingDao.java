@@ -24,5 +24,8 @@ public interface WeddingDao {
 
     int updateWeddingInfomation(WeddingInfoUpdateDto weddingInfoUpdateDto);
 
+    Wedding selectManagerCode(Integer weddingId);
+
     Wedding selectQrImgUrl(Integer weddingId);
+
 }

@@ -14,6 +14,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.InvalidGenderException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.ValidationCodeMisMatchException;
@@ -91,10 +92,16 @@ public class WeddingServiceImpl implements WeddingService {
     }
 
     @Override
+    public WeddingManagerCodeResponse selectManagerCode(Integer weddingId) {
+        Wedding wedding = weddingDao.selectManagerCode(weddingId);
+        WeddingManagerCodeResponse weddingManagerCodeResponse = new WeddingManagerCodeResponse(wedding);
+        return weddingManagerCodeResponse;
+
     public WeddingQrResponse selectQrImgUrl(Integer weddingId) {
         Wedding wedding = weddingDao.selectQrImgUrl(weddingId);
         WeddingQrResponse weddingQrResponse = new WeddingQrResponse(wedding);
         return weddingQrResponse;
+
     }
 
     @Override
