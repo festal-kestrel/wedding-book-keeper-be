@@ -20,8 +20,6 @@ public interface WeddingService {
 
     WeddingInfoResponse selectWeddingInfo(Integer weddingId);
 
-    boolean connectPartner(PartnerCodeRequest partnerCodeRequest, Integer memberId);
-
     List<MemberWedding> selectDonationList(Integer memberId);
 
     void connectPartner(PartnerCodeRequest partnerCodeRequest, Integer memberId);

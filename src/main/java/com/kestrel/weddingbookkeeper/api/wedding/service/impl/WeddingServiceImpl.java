@@ -96,6 +96,7 @@ public class WeddingServiceImpl implements WeddingService {
         Wedding wedding = weddingDao.selectManagerCode(weddingId);
         WeddingManagerCodeResponse weddingManagerCodeResponse = new WeddingManagerCodeResponse(wedding);
         return weddingManagerCodeResponse;
+    }
 
     public WeddingQrResponse selectQrImgUrl(Integer weddingId) {
         Wedding wedding = weddingDao.selectQrImgUrl(weddingId);
@@ -104,8 +105,7 @@ public class WeddingServiceImpl implements WeddingService {
 
     }
 
-    @Override
-    public List<MemberWedding> selectDonationList(Integer memberId) {
+        public List<MemberWedding> selectDonationList(Integer memberId) {
         List<MemberWedding> list = memberWeddingDao.selectDonationList(memberId);
         return list;
     }
