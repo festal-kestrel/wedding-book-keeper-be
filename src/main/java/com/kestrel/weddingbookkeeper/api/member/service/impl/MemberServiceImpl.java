@@ -23,15 +23,18 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void registerNewMember(Member member) {
-        boolean isRegistered = memberDao.insertMember(member) == 1;
-        if (!isRegistered) {
-            throw new MemberNotRegisteredException();
+    public int registerNewMember(Member member) {
+        try {
+            int id = memberDao.insertMember(member);
+            return id;
+        } catch (MemberNotRegisteredException e) {
+            e.printStackTrace();
         }
+        return -1;
     }
 
-    public boolean isNewUser(Member member) {
+    public Optional<Member> findCurrrentUser(Member member) {
         Optional<Member> optionalMember = memberDao.selectByEmail(member);
-        return optionalMember.isEmpty();
+        return optionalMember;
     }
 }

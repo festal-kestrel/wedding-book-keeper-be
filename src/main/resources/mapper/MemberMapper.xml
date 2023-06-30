@@ -5,7 +5,7 @@
 <mapper namespace="com.kestrel.weddingbookkeeper.api.member.dao.MemberDao">
 
   <resultMap id="memberMap" type="com.kestrel.weddingbookkeeper.api.member.vo.Member">
-    <result column="id" property="id"/>
+    <result column="id" property="memberId"/>
     <result column="email" property="email"/>
     <result column="name" property="name"/>
     <result column="gender" property="gender"/>
@@ -19,6 +19,9 @@
   </select>
 
   <insert id="insertMember">
+    <selectKey keyColumn="member_id" keyProperty="memberId" resultType="Integer" order="AFTER">
+      select MEMBER_SEQ.CURRVAL from dual
+    </selectKey>
     insert into member ( email, name, gender)
     values (#{email}, #{name}, #{gender})
   </insert>

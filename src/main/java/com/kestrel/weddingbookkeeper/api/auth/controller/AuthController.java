@@ -10,6 +10,7 @@ import com.kestrel.weddingbookkeeper.api.auth.utils.KakaoUtil;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Gender;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
+import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,15 +41,20 @@ public class AuthController {
 
         KakaoResponse kakaoResponse = kakaoUtil.getUserInfo(token);
 
-        AuthToken authToken = authTokenProvider.createUserAppToken(Long.toString(kakaoResponse.getId()));
-        JwtToken jwtToken = new JwtToken(authToken.getToken());
         Member member = new Member(null,
                 kakaoResponse.getKakaoAccount().getEmail(),
                 kakaoResponse.getProperties().getNickname(),
                 convertStringToGender(kakaoResponse.getKakaoAccount().getGender()));
-        if (memberService.isNewUser(member)) {
-            memberService.registerNewMember(member);
+        Optional<Member> memberOptional = memberService.findCurrrentUser(member);
+        int memberId;
+        if (memberOptional.isEmpty()) {
+            memberId = memberService.registerNewMember(member);
+        } else {
+            memberId=memberOptional.get().getMemberId();
         }
+//        System.out.println("memberId = " + memberId);
+        AuthToken authToken = authTokenProvider.createUserAppToken(Integer.toString(memberId));
+        JwtToken jwtToken = new JwtToken(authToken.getToken());
         jwtTokenService.saveJwtToken(jwtToken);
         return ResponseEntity.status(HttpStatus.OK).body(jwtToken);
     }
