@@ -17,7 +17,7 @@ public class MemberWedding extends BaseEntity {
     private Integer donationAmount;
     private boolean hasPaid;
     private String relation;
-    private boolean guestSide;
+    private boolean isGroomSide;
     private Member memberId;
     private Wedding weddingId;
 }

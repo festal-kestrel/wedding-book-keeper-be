@@ -26,14 +26,14 @@
   </resultMap>
   <resultMap id="memberWeddingMap" type="MemberWedding">
     <result column="relation" property="relation"/>
-    <result column="guest_side" property="guestSide"/>
+    <result column="is_groom_side" property="isGroomSide"/>
     <result column="donation_amount" property="donationAmount"/>
     <collection column="member_id" property="memberId" resultMap="memberMap"/>
     <collection column="wedding_id" property="weddingId" resultMap="weddingMap"/>
   </resultMap>
 
   <select id="selectDonationList" resultMap="memberWeddingMap">
-    SELECT w.groom_name, w.bride_name, mw.donation_amount, w.wedding_date
+    SELECT *
     FROM member_wedding mw
            JOIN wedding w
                 ON mw.wedding_id = w.wedding_id
