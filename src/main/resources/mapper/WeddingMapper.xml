@@ -41,8 +41,8 @@
 
   <select id="selectWeddingInfo" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
     SELECT *
-    FROM wedding
-    WHERE wedding_id = #{weddingId}
+      FROM wedding
+     WHERE wedding_id = #{weddingId}
   </select>
 
   <select id="selectByPartnerCode" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
@@ -62,4 +62,16 @@
        SET bride_id = #{brideId}, bride_name = #{brideName}
      WHERE wedding_id = #{weddingId}
   </update>
+
+  <update id="updateWeddingInfomation" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoUpdateDto">
+    UPDATE wedding
+       SET wedding_date = #{weddingDate}, location = #{location}
+     WHERE wedding_id = #{weddingId}
+  </update>
+
+  <select id="selectQrImgUrl" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
+    SELECT qr_img_url
+      FROM wedding
+     WHERE wedding_id = #{weddingId}
+  </select>
 </mapper>

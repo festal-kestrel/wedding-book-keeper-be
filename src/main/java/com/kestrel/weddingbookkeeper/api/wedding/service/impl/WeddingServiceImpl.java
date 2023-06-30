@@ -7,14 +7,19 @@ import com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoUpdateDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingUpdateDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.InvalidGenderException;
+import com.kestrel.weddingbookkeeper.api.wedding.exception.ValidationCodeMisMatchException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotSavedException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotUpdateException;
+import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfomationNotUpdateException;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import java.util.List;
@@ -56,26 +61,40 @@ public class WeddingServiceImpl implements WeddingService {
     public WeddingInfoResponse selectWeddingInfo(Integer weddingId) {
 
         Wedding wedding = weddingDao.selectWeddingInfo(weddingId);
-        System.out.println("wedding = " + wedding);
         WeddingInfoResponse weddingInfoResponse = new WeddingInfoResponse(wedding);
         return weddingInfoResponse;
     }
 
     @Override
     @Transactional
-    public boolean connectPartner(PartnerCodeRequest partnerCodeRequest, Integer memberId) {
+    public void connectPartner(PartnerCodeRequest partnerCodeRequest, Integer memberId) {
         Member member = memberDao.selectById(memberId).orElseThrow(MemberNotFoundException::new);
         Wedding wedding = weddingDao.selectByPartnerCode(partnerCodeRequest.getPartnerCode());
 
         if (wedding == null) {
-            return false;
+            throw new ValidationCodeMisMatchException();
         }
         switch (member.getGender()) {
             case MALE -> weddingDao.updateGroomPartner(new PartnerDto(wedding, member));
             case FEMALE -> weddingDao.updateBridePartner(new PartnerDto(wedding, member));
             default -> throw new InvalidGenderException();
         }
-        return true;
+    }
+
+    @Override
+    public void updateWeddingInfomation(Integer weddingId, WeddingUpdateInfomationRequest weddingUpdateInfomationRequest) {
+        boolean isUpdate = weddingDao.updateWeddingInfomation(
+                new WeddingInfoUpdateDto(weddingId, weddingUpdateInfomationRequest)) == 1;
+        if (!isUpdate) {
+            throw new WeddingInfomationNotUpdateException();
+        }
+    }
+
+    @Override
+    public WeddingQrResponse selectQrImgUrl(Integer weddingId) {
+        Wedding wedding = weddingDao.selectQrImgUrl(weddingId);
+        WeddingQrResponse weddingQrResponse = new WeddingQrResponse(wedding);
+        return weddingQrResponse;
     }
 
     @Override
