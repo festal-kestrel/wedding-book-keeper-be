@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberWeddingDao {
 
     List<MemberWedding> selectDonationList(Integer memberId);
+    List<MemberWedding> selectGuestListByAdmin(Integer weddingId);
+    List<MemberWedding> selectGuestListByCouple(Integer weddingId);
 }
