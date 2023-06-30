@@ -13,6 +13,5 @@ public class MemberController {
     @GetMapping
     public void getMemberTest(@AuthenticationPrincipal WeddingMember weddingMember) {
         Long memberId = weddingMember.getMemberId();
-        System.out.println("memberId = " + memberId);
     }
 }
