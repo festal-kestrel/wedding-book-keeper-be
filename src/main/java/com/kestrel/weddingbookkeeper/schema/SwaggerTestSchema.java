@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SwaggerTestSchema {
-//
-//        @Schema(accessMode = Schema.AccessMode.READ_ONLY, description =  "Id", example = "123")
-//        private long id = 0;
 
         @Schema(description = "유저명", example = "홍길동")
         private String userName;
