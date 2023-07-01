@@ -12,10 +12,16 @@
     <result column="created_at" property="createdAt"/>
   </resultMap>
 
+  <select id="selectById" parameterType="Integer" resultType="com.kestrel.weddingbookkeeper.api.member.vo.Member">
+    select *
+    from member
+    where member_id = #{memberId}
+  </select>
+
   <select id="selectByEmail" parameterType="com.kestrel.weddingbookkeeper.api.member.vo.Member">
     select member_id, email, name, gender, created_at
     from member
-    where email=#{email}
+    where email = #{email}
   </select>
 
   <insert id="insertMember">
