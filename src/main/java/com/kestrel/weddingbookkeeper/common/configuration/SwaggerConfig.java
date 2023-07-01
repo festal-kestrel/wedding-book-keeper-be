@@ -1,4 +1,4 @@
-package com.kestrel.weddingbookkeeper.config;
+package com.kestrel.weddingbookkeeper.common.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.OAS_30)
                 .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.kestrel.weddingbookkeeper.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.kestrel.weddingbookkeeper.api"))
                 .paths(PathSelectors.ant("/api/v1/**"))
                 .build()
                 .apiInfo(apiInfo());
