@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kestrel.weddingbookkeeper.api.auth.dao.JwtTokenDao">
+
+  <resultMap id="memberMap" type="com.kestrel.weddingbookkeeper.api.auth.vo.JwtToken">
+    <result column="id" property="id"/>
+    <result column="token" property="jwtToken"/>
+  </resultMap>
+
+
+  <insert id="insertToken">
+    insert into access_token ( token )
+    values (#{jwtToken})
+  </insert>
+
+</mapper>

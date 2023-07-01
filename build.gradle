@@ -26,6 +26,11 @@ dependencies {
 	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.1'
 	implementation 'com.oracle.database.jdbc:ojdbc10:19.18.0.0'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 	implementation 'com.google.zxing:javase:3.5.1'
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
