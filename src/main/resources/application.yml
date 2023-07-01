@@ -5,6 +5,11 @@ spring:
     username: ENC(/uWYvk2R2cc43XZ6SMYJXA==)
     password: ENC(SjClHxff55r8vqUmlga5WbHikAlhBx3k)
 
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    maxHeap: 128M
+
 mybatis:
   type-aliases-package: com.kestrel.weddingbookkeeper.api
   mapper-locations: classpath:mapper/*.xml
