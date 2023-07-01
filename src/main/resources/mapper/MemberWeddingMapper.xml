@@ -9,6 +9,7 @@
     <result column="email" property="email"/>
     <result column="name" property="name"/>
     <result column="gender" property="gender"/>
+    <result column="is_partner_code_issued" property="isPartnerCodeIssued"/>
     <result column="created_at" property="createdAt"/>
   </resultMap>
   <resultMap id="weddingMap" type="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
@@ -18,6 +19,7 @@
     <result column="partner_code" property="partnerCode"/>
     <result column="manager_code" property="managerCode"/>
     <result column="wedding_date" property="weddingDate"/>
+    <result column="is_manager_code_issued" property="isManagerCodeIssued"/>
     <result column="created_at" property="createdAt"/>
     <result column="groom_name" property="groomName"/>
     <result column="bride_name" property="brideName"/>

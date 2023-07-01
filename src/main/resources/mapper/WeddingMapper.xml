@@ -9,6 +9,7 @@
     <result column="email" property="email"/>
     <result column="name" property="name"/>
     <result column="gender" property="gender"/>
+    <result column="is_partner_code_issued" property="isPartnerCodeIssued"/>
     <result column="created_at" property="createdAt"/>
   </resultMap>
 
@@ -19,6 +20,7 @@
     <result column="partner_code" property="partnerCode"/>
     <result column="manager_code" property="managerCode"/>
     <result column="wedding_date" property="weddingDate"/>
+    <result column="is_manager_code_issued" property="isManagerCodeIssued"/>
     <result column="created_at" property="createdAt"/>
     <collection column="groom_id" property="groom" resultMap="memberMap"/>
     <collection column="bride_id" property="bride" resultMap="memberMap"/>
