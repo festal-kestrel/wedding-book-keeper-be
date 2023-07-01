@@ -4,7 +4,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.facade.WeddingFacade;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
-import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoRequestDto;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.service.impl.QrService;
 import com.kestrel.weddingbookkeeper.external.storage.service.FileService;
