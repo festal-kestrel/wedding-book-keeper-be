@@ -20,4 +20,5 @@ public class MemberWedding extends BaseEntity {
     private boolean isGroomSide;
     private Member memberId;
     private Wedding weddingId;
+    private String guestName;
 }

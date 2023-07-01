@@ -28,6 +28,8 @@
     <result column="relation" property="relation"/>
     <result column="is_groom_side" property="isGroomSide"/>
     <result column="donation_amount" property="donationAmount"/>
+    <result column="has_paid" property="hasPaid"/>
+    <result column="guest_name" property="guestName" />
     <collection column="member_id" property="memberId" resultMap="memberMap"/>
     <collection column="wedding_id" property="weddingId" resultMap="weddingMap"/>
   </resultMap>
@@ -38,5 +40,22 @@
            JOIN wedding w
                 ON mw.wedding_id = w.wedding_id
     WHERE mw.member_id = #{memberId}
+  </select>
+
+  <select id="selectGuestListByAdmin" resultMap="memberWeddingMap">
+    SELECT *
+    FROM member_wedding mw
+           JOIN wedding w
+                ON mw.wedding_id = w.wedding_id
+    WHERE mw.wedding_id = #{weddingId}
+  </select>
+
+  <select id="selectGuestListByCouple" resultMap="memberWeddingMap">
+    SELECT *
+    FROM member_wedding mw
+           JOIN wedding w
+                ON mw.wedding_id = w.wedding_id
+    WHERE mw.wedding_id = #{weddingId}
+      AND mw.has_paid = 1
   </select>
 </mapper>

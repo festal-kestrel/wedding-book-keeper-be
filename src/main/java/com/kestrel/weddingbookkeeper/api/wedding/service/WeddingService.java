@@ -9,8 +9,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoRespons
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
 import java.util.List;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
-import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
-import java.time.LocalDateTime;
 
 public interface WeddingService {
 
@@ -30,4 +28,5 @@ public interface WeddingService {
 
     WeddingQrResponse selectQrImgUrl(Integer weddingId);
 
+    List<MemberWedding> selectGuestList(Integer weddingId, Boolean hasPaid);
 }

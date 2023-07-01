@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -59,9 +60,9 @@ public class WeddingController {
     public WeddingManagerCodeResponse selectManagerCode(@PathVariable("weddingId") Integer weddingId) {
         return weddingService.selectManagerCode(weddingId);
     }
-      
+
     @GetMapping("/{weddingId}/qr")
-    public WeddingQrResponse selectQrImgUrl(@PathVariable("weddingId") Integer weddingId){
+    public WeddingQrResponse selectQrImgUrl(@PathVariable("weddingId") Integer weddingId) {
         return weddingService.selectQrImgUrl(weddingId);
     }
 
@@ -70,4 +71,11 @@ public class WeddingController {
         List<MemberWedding> memberWeddingList = weddingService.selectDonationList(MEMBER_ID);
         return memberWeddingList;
     }
+
+    @GetMapping("/{weddingId}/guests")
+    public List<MemberWedding> selectGuestList(@PathVariable("weddingId") Integer weddingId,
+                                                       @RequestParam(required = false) Boolean hasPaid) {
+        return weddingService.selectGuestList(weddingId, hasPaid);
+    }
+
 }

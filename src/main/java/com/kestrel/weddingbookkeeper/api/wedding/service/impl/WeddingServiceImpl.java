@@ -105,8 +105,21 @@ public class WeddingServiceImpl implements WeddingService {
 
     }
 
-        public List<MemberWedding> selectDonationList(Integer memberId) {
+    public List<MemberWedding> selectDonationList(Integer memberId) {
         List<MemberWedding> list = memberWeddingDao.selectDonationList(memberId);
         return list;
+    }
+
+    @Override
+    public List<MemberWedding> selectGuestList(Integer weddingId, Boolean hasPaid) {
+        if(hasPaid == null) {
+            List<MemberWedding> list = memberWeddingDao.selectGuestListByAdmin(weddingId);
+            return list;
+        }
+        if(hasPaid) {
+            List<MemberWedding> list = memberWeddingDao.selectGuestListByCouple(weddingId);
+            return list;
+        }
+        return null;
     }
 }
