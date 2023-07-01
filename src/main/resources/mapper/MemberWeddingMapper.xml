@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao">
+
+  <resultMap id="memberMap" type="com.kestrel.weddingbookkeeper.api.member.vo.Member">
+    <result column="member_id" property="memberId"/>
+    <result column="email" property="email"/>
+    <result column="name" property="name"/>
+    <result column="gender" property="gender"/>
+    <result column="created_at" property="createdAt"/>
+  </resultMap>
+  <resultMap id="weddingMap" type="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
+    <result column="wedding_id" property="weddingId"/>
+    <result column="location" property="location"/>
+    <result column="qr_img_url" property="qrImgUrl"/>
+    <result column="partner_code" property="partnerCode"/>
+    <result column="manager_code" property="managerCode"/>
+    <result column="wedding_date" property="weddingDate"/>
+    <result column="created_at" property="createdAt"/>
+    <result column="groom_name" property="groomName"/>
+    <result column="bride_name" property="brideName"/>
+    <collection column="groom_id" property="groom" resultMap="memberMap"/>
+    <collection column="bride_id" property="bride" resultMap="memberMap"/>
+  </resultMap>
+  <resultMap id="memberWeddingMap" type="MemberWedding">
+    <result column="relation" property="relation"/>
+    <result column="is_groom_side" property="isGroomSide"/>
+    <result column="donation_amount" property="donationAmount"/>
+    <result column="has_paid" property="hasPaid"/>
+    <result column="guest_name" property="guestName" />
+    <collection column="member_id" property="memberId" resultMap="memberMap"/>
+    <collection column="wedding_id" property="weddingId" resultMap="weddingMap"/>
+  </resultMap>
+
+  <select id="selectDonationList" resultMap="memberWeddingMap">
+    SELECT *
+    FROM member_wedding mw
+           JOIN wedding w
+                ON mw.wedding_id = w.wedding_id
+    WHERE mw.member_id = #{memberId}
+  </select>
+
+  <select id="selectGuestListByAdmin" resultMap="memberWeddingMap">
+    SELECT *
+    FROM member_wedding mw
+           JOIN wedding w
+                ON mw.wedding_id = w.wedding_id
+    WHERE mw.wedding_id = #{weddingId}
+  </select>
+
+  <select id="selectGuestListByCouple" resultMap="memberWeddingMap">
+    SELECT *
+    FROM member_wedding mw
+           JOIN wedding w
+                ON mw.wedding_id = w.wedding_id
+    WHERE mw.wedding_id = #{weddingId}
+      AND mw.has_paid = 1
+  </select>
+</mapper>

@@ -2,3 +2,50 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: ENC(jBVU2x+RdzbwN47BhcgbcsGuzvaKs6zdYueBVzEPUg07C8p23bErPsY/sj8xat2643OJ9W/wTl8Hw+qyY2GbxTnMoEKEw3yQymwgiiiVk9OF2dnURHGx4/bJVXSfB+2nRZ8OSJus5TM=)
+    username: ENC(/uWYvk2R2cc43XZ6SMYJXA==)
+    password: ENC(SjClHxff55r8vqUmlga5WbHikAlhBx3k)
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    maxHeap: 128M
+
+mybatis:
+  type-aliases-package: com.kestrel.weddingbookkeeper.api
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+auth:
+  kakao:
+    key: ENC(j913dskhw0NaO1Q9FhKWgAyzsobtnUnCgcNx0Zdw38rSuEg4X1JACD/nDOAtjTtd)
+
+jasypt:
+  encryptor:
+    password: ${encrypt_key}
+
+
+
+app:
+  auth:
+    tokenExpiry: 172800000
+    tokenSecret: ENC(1G9++L61gbelvF2+dK+upen75VoJPTnqupxZfIgRVk4THdWgLQNazmvj8U4FYnjhIZmJdTOk0fkJIFeK2ZUmLSfVzAw+PTwd)
+
+cloud:
+  aws:
+    s3:
+      bucket:
+        name: ENC(BmrRiXrkt4cNBFnuLhc7BZSslQe9QMheX8YL0kaSyZY=)
+        url: ENC(TiiTRG5qecPE5tpatlRysQO/uMizKpbt6P00OZFuM4koINBCnvMG0Oui9y7+cvmRH6tPtuVuGDCtrt0Hp4F2FcBIWO+F3WQj)
+    credentials:
+      access-key: ENC(Rhh+PzvWrXK/sY8xsj6nZjnseZQLZvXzSy7NaTs7AUY=)
+      secret-key: ENC(YILeIgDl09cloXnAqt5W1flFHYHwAoD21Yi2otQ9JqUo9Jo7+Pfiu4fzbBY2U0VkfqqlrxIaup0=)
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+
