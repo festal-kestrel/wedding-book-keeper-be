@@ -1,4 +1,7 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     url: ENC(jBVU2x+RdzbwN47BhcgbcsGuzvaKs6zdYueBVzEPUg07C8p23bErPsY/sj8xat2643OJ9W/wTl8Hw+qyY2GbxTnMoEKEw3yQymwgiiiVk9OF2dnURHGx4/bJVXSfB+2nRZ8OSJus5TM=)
@@ -44,3 +47,5 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
+
+
