@@ -47,6 +47,11 @@ public class MemberServiceImpl implements MemberService {
         return memberOptional;
     }
 
+    @Override
+    public void markPartnerCodeIssued(Member member) {
+        memberDao.updatePartnerCodeIssued(member);
+    }
+
     private Member createMember(KakaoResponseDto kakaoResponseDto) {
         return new Member(null,
                 kakaoResponseDto.getKakaoAccount().getEmail(),

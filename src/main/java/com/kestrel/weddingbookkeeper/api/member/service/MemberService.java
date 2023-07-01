@@ -11,4 +11,6 @@ public interface MemberService {
     int loginAndGetMemberId(Optional<Member> memberOptional, KakaoResponseDto kakaoResponseDto);
 
     Optional<Member> findCurrentUser(KakaoResponseDto kakaoResponseDto);
+
+    void markPartnerCodeIssued(Member member);
 }

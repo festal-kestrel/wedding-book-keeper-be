@@ -33,4 +33,9 @@
     values (#{email}, #{name}, #{gender})
   </insert>
 
+  <update id="updatePartnerCodeIssued" parameterType="Member">
+    update member
+    set is_partner_code_issued = 1
+    where member_id = #{memberId}
+  </update>
 </mapper>
