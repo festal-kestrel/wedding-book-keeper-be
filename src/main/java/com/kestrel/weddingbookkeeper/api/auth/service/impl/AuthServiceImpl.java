@@ -1,6 +1,7 @@
 package com.kestrel.weddingbookkeeper.api.auth.service.impl;
 
 import com.kestrel.weddingbookkeeper.api.auth.dao.VerificationCodeRepository;
+import com.kestrel.weddingbookkeeper.api.auth.dto.request.VerificationCodeRequest;
 import com.kestrel.weddingbookkeeper.api.auth.exception.VerificationCodeNotFoundException;
 import com.kestrel.weddingbookkeeper.api.auth.service.AuthService;
 import com.kestrel.weddingbookkeeper.api.auth.vo.VerificationCode;
@@ -24,6 +25,20 @@ public class AuthServiceImpl implements AuthService {
             return issuePartnerVerificationCode(member);
         }
         return findPartnerVerificationCode(member);
+    }
+
+    @Override
+    public void verifyPartnerVerificationCode(Member member, VerificationCodeRequest verificationCodeRequest) {
+        VerificationCode verificationCode = verificationCodeRepository.findById(verificationCodeRequest.getVerificationCode())
+                .orElseThrow(VerificationCodeNotFoundException::new);
+        if (verificationCode.getRole() != Role.PARTNER || verificationCode.isVerified()) {
+            throw new VerificationCodeNotFoundException();
+        }
+        if (!verificationCode.getVerificationCode().equals(verificationCodeRequest.getVerificationCode())) {
+            throw new VerificationCodeNotFoundException();
+        }
+        verificationCode.verify();
+        verificationCodeRepository.save(verificationCode);
     }
 
     private String issuePartnerVerificationCode(Member member) {

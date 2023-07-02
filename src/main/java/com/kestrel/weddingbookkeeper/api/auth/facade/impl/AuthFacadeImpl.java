@@ -1,5 +1,6 @@
 package com.kestrel.weddingbookkeeper.api.auth.facade.impl;
 
+import com.kestrel.weddingbookkeeper.api.auth.dto.request.VerificationCodeRequest;
 import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.auth.facade.AuthFacade;
 import com.kestrel.weddingbookkeeper.api.auth.service.AuthService;
@@ -28,5 +29,11 @@ public class AuthFacadeImpl implements AuthFacade {
             memberService.markPartnerCodeIssued(member);
         }
         return new VerificationCodeResponse(verificationCode);
+    }
+
+    @Override
+    public void verifyPartnerVerificationCode(Integer memberId, VerificationCodeRequest verificationCodeRequest) {
+        Member member = memberService.getMember(memberId);
+        authService.verifyPartnerVerificationCode(member, verificationCodeRequest);
     }
 }
