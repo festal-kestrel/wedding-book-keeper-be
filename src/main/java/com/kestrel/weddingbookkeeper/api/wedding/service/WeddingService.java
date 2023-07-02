@@ -1,14 +1,14 @@
 package com.kestrel.weddingbookkeeper.api.wedding.service;
 
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
+import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
-import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
-import java.util.List;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
 
 public interface WeddingService {
@@ -29,7 +29,7 @@ public interface WeddingService {
 
     WeddingQrResponse selectQrImgUrl(Integer weddingId);
 
-    List<MemberWedding> selectGuestList(Integer weddingId, Boolean hasPaid);
+    GuestDonationReceiptsResponse getWeddingGuestsInformation(Integer weddingId, Role role);
 
     void registerPartner(Member member, Member partner);
 }

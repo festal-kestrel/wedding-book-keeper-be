@@ -44,7 +44,7 @@
     WHERE mw.member_id = #{memberId}
   </select>
 
-  <select id="selectGuestListByAdmin" resultMap="memberWeddingMap">
+  <select id="selectGuestsByWeddingId" resultMap="memberWeddingMap">
     SELECT *
     FROM member_wedding mw
            JOIN wedding w
@@ -52,7 +52,7 @@
     WHERE mw.wedding_id = #{weddingId}
   </select>
 
-  <select id="selectGuestListByCouple" resultMap="memberWeddingMap">
+  <select id="selectGuestsByWeddingIdAndHasPaid" resultMap="memberWeddingMap">
     SELECT *
     FROM member_wedding mw
            JOIN wedding w

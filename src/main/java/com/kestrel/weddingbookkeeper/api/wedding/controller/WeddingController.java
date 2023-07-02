@@ -1,7 +1,8 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
+import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
-import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
@@ -10,7 +11,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.facade.WeddingFacade;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
-import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,8 +71,8 @@ public class WeddingController {
     }
 
     @GetMapping("/{weddingId}/guests")
-    public List<MemberWedding> selectGuestList(@PathVariable("weddingId") Integer weddingId,
-                                                       @RequestParam(required = false) Boolean hasPaid) {
-        return weddingService.selectGuestList(weddingId, hasPaid);
+    public GuestDonationReceiptsResponse selectGuestList(@PathVariable("weddingId") Integer weddingId,
+                                                         @RequestParam Role role) {
+        return weddingService.getWeddingGuestsInformation(weddingId, role);
     }
 }
