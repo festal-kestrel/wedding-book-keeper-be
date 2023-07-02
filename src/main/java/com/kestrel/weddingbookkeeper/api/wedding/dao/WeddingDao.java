@@ -23,7 +23,7 @@ public interface WeddingDao {
 
     int updateBridePartner(PartnerDto partnerDto);
 
-    int updateWeddingInfomation(WeddingInfoUpdateDto weddingInfoUpdateDto);
+    int updateWeddingInformation(WeddingInfoUpdateDto weddingInfoUpdateDto);
 
     Wedding selectManagerCode(Integer weddingId);
 

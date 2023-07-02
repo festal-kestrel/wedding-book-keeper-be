@@ -3,7 +3,7 @@ package com.kestrel.weddingbookkeeper.api.wedding.dto.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
-public class WeddingUpdateInfomationRequest {
+public class WeddingUpdateInformationRequest {
 
     private String location;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")

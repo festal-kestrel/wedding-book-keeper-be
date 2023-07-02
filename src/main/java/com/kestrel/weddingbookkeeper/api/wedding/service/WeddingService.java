@@ -6,7 +6,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsRe
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
-import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInformationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
@@ -23,7 +23,7 @@ public interface WeddingService {
 
     void connectPartner(PartnerCodeRequest partnerCodeRequest, Integer memberId);
 
-    void updateWeddingInfomation(Integer weddingId, WeddingUpdateInfomationRequest weddingUpdateInfomationRequest);
+    void updateWeddinginformation(Integer weddingId, WeddingUpdateInformationRequest weddingUpdateinformationRequest);
 
     WeddingManagerCodeResponse selectManagerCode(Integer weddingId);
 
