@@ -81,12 +81,6 @@
     WHERE wedding_id = #{weddingId}
   </select>
 
-  <select id="selectQrImgUrl" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
-    SELECT qr_img_url
-    FROM wedding
-    WHERE wedding_id = #{weddingId}
-  </select>
-
   <select id="selectByGroomId" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
     SELECT *
     FROM wedding
