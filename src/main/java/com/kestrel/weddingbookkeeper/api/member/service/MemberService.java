@@ -13,4 +13,6 @@ public interface MemberService {
     Optional<Member> findCurrentUser(KakaoResponseDto kakaoResponseDto);
 
     void markPartnerCodeIssued(Member member);
+
+    void assertGenderMismatch(Member member, Member partner);
 }

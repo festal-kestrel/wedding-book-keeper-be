@@ -5,6 +5,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoUpdateDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingUpdateDto;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
+import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -28,4 +29,7 @@ public interface WeddingDao {
 
     Wedding selectQrImgUrl(Integer weddingId);
 
+    Optional<Wedding> selectByGroomId(Integer memberId);
+
+    Optional<Wedding> selectByBrideId(Integer memberId);
 }

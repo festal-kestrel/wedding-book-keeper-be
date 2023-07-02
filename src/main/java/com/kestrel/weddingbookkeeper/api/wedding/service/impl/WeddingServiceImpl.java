@@ -2,8 +2,10 @@ package com.kestrel.weddingbookkeeper.api.wedding.service.impl;
 
 import com.kestrel.weddingbookkeeper.api.member.dao.MemberDao;
 import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundException;
+import com.kestrel.weddingbookkeeper.api.member.vo.Gender;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao;
+import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingNotFoundException;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto;
@@ -24,6 +26,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfomationNotU
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -112,14 +115,28 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     public List<MemberWedding> selectGuestList(Integer weddingId, Boolean hasPaid) {
-        if(hasPaid == null) {
+        if (hasPaid == null) {
             List<MemberWedding> list = memberWeddingDao.selectGuestListByAdmin(weddingId);
             return list;
         }
-        if(hasPaid) {
+        if (hasPaid) {
             List<MemberWedding> list = memberWeddingDao.selectGuestListByCouple(weddingId);
             return list;
         }
         return null;
+    }
+
+    @Override
+    public void registerPartner(Member member, Member partner) {
+        System.out.println("나 (3) male  = " + member);
+        System.out.println("배우자 (2) female = " + partner);
+        if (member.getGender() == Gender.MALE) {
+            Wedding wedding = weddingDao.selectByBrideId(partner.getMemberId()).orElseThrow(WeddingNotFoundException::new);
+            weddingDao.updateGroomPartner(new PartnerDto(wedding, member));
+            return;
+
+        }
+        Wedding wedding = weddingDao.selectByGroomId(partner.getMemberId()).orElseThrow(WeddingNotFoundException::new);
+        weddingDao.updateBridePartner(new PartnerDto(wedding, member));
     }
 }

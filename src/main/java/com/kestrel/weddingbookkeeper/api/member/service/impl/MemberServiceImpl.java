@@ -2,6 +2,7 @@ package com.kestrel.weddingbookkeeper.api.member.service.impl;
 
 import com.kestrel.weddingbookkeeper.api.auth.dto.KakaoResponseDto;
 import com.kestrel.weddingbookkeeper.api.member.dao.MemberDao;
+import com.kestrel.weddingbookkeeper.api.member.exception.GenderMatchException;
 import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundException;
 import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotRegisteredException;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
@@ -50,6 +51,13 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void markPartnerCodeIssued(Member member) {
         memberDao.updatePartnerCodeIssued(member);
+    }
+
+    @Override
+    public void assertGenderMismatch(Member member, Member partner) {
+        if (member.getGender() == partner.getGender()) {
+            throw new GenderMatchException();
+        }
     }
 
     private Member createMember(KakaoResponseDto kakaoResponseDto) {

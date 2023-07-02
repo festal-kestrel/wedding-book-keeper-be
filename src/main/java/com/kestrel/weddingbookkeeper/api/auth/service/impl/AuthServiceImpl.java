@@ -28,7 +28,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void verifyPartnerVerificationCode(Member member, VerificationCodeRequest verificationCodeRequest) {
+    public Integer verifyPartnerVerificationCode(VerificationCodeRequest verificationCodeRequest) {
         VerificationCode verificationCode = verificationCodeRepository.findById(verificationCodeRequest.getVerificationCode())
                 .orElseThrow(VerificationCodeNotFoundException::new);
         if (verificationCode.getRole() != Role.PARTNER || verificationCode.isVerified()) {
@@ -39,6 +39,7 @@ public class AuthServiceImpl implements AuthService {
         }
         verificationCode.verify();
         verificationCodeRepository.save(verificationCode);
+        return verificationCode.getMemberId();
     }
 
     private String issuePartnerVerificationCode(Member member) {
