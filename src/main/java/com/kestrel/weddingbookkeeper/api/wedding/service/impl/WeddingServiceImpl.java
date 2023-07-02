@@ -7,6 +7,7 @@ import com.kestrel.weddingbookkeeper.api.member.exception.UnsupportedGenderTypeE
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInformationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
@@ -19,7 +20,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingUpdateDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
-import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
@@ -27,7 +27,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.exception.InvalidGenderExceptio
 import com.kestrel.weddingbookkeeper.api.wedding.exception.ValidationCodeMisMatchException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotSavedException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotUpdateException;
-import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfomationNotUpdateException;
+import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInformationUpdateException;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import java.util.List;
@@ -94,11 +94,11 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     @Transactional
-    public void updateWeddingInfomation(Integer weddingId, WeddingUpdateInfomationRequest weddingUpdateInfomationRequest) {
-        boolean isUpdate = weddingDao.updateWeddingInfomation(
-                new WeddingInfoUpdateDto(weddingId, weddingUpdateInfomationRequest)) == 1;
+    public void updateWeddinginformation(Integer weddingId, WeddingUpdateInformationRequest weddingUpdateInformationRequest) {
+        boolean isUpdate = weddingDao.updateWeddingInformation(
+                new WeddingInfoUpdateDto(weddingId, weddingUpdateInformationRequest)) == 1;
         if (!isUpdate) {
-            throw new WeddingInfomationNotUpdateException();
+            throw new WeddingInformationUpdateException();
         }
     }
 

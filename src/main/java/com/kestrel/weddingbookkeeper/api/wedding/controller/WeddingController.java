@@ -4,7 +4,7 @@ import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
-import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInformationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
@@ -50,9 +50,9 @@ public class WeddingController {
     }
 
     @PatchMapping("/{weddingId}")
-    public void updateWeddingInfomation(@PathVariable("weddingId") Integer weddingId,
-                                        @RequestBody WeddingUpdateInfomationRequest weddingUpdateInfomationRequest) {
-        weddingService.updateWeddingInfomation(weddingId, weddingUpdateInfomationRequest);
+    public void updateWeddingInformation(@PathVariable("weddingId") Integer weddingId,
+                                         @RequestBody WeddingUpdateInformationRequest weddingUpdateinformationRequest) {
+        weddingService.updateWeddinginformation(weddingId, weddingUpdateinformationRequest);
     }
 
     @GetMapping("/{weddingId}/admin/code")
