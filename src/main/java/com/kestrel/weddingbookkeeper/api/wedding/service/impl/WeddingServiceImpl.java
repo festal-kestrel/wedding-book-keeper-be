@@ -26,7 +26,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfomationNotU
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -128,8 +127,6 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     public void registerPartner(Member member, Member partner) {
-        System.out.println("나 (3) male  = " + member);
-        System.out.println("배우자 (2) female = " + partner);
         if (member.getGender() == Gender.MALE) {
             Wedding wedding = weddingDao.selectByBrideId(partner.getMemberId()).orElseThrow(WeddingNotFoundException::new);
             weddingDao.updateGroomPartner(new PartnerDto(wedding, member));

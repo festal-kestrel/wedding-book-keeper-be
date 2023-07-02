@@ -4,7 +4,6 @@ import com.kestrel.weddingbookkeeper.api.auth.dto.request.VerificationCodeReques
 import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.auth.facade.AuthFacade;
 import com.kestrel.weddingbookkeeper.api.auth.service.AuthService;
-import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundException;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;

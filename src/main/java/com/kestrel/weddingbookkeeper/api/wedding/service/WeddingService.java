@@ -7,7 +7,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
-import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import java.util.List;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
 
