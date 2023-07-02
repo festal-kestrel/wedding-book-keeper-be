@@ -4,6 +4,7 @@ import com.kestrel.weddingbookkeeper.api.base.BaseResponseEntity;
 import com.kestrel.weddingbookkeeper.api.error.dto.ErrorResponse;
 import com.kestrel.weddingbookkeeper.api.error.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,32 +16,33 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
-    public BaseResponseEntity<ErrorResponse> businessExceptionHandle(BusinessException e) {
+    public ResponseEntity<BaseResponseEntity<ErrorResponse>> businessExceptionHandle(BusinessException e) {
         log.error("businessException : {} {}", e, e.getMessage());
-        return BaseResponseEntity.fail(e.getMessage());
+        return ResponseEntity.status(e.getCode()).body(BaseResponseEntity.fail(e.getMessage()));
     }
 
     @ExceptionHandler(MissingRequestHeaderException.class)
-    public BaseResponseEntity<ErrorResponse> onMissingRequestHeader(MissingRequestHeaderException e) {
+    public ResponseEntity<BaseResponseEntity<ErrorResponse>> onMissingRequestHeader(MissingRequestHeaderException e) {
         log.error("onMissingRequestHeader : {}", e);
-        return BaseResponseEntity.fail(e.getMessage());
+        return ResponseEntity.badRequest().body(BaseResponseEntity.fail(e.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected BaseResponseEntity<ErrorResponse> methodArgumentNotValidExceptionHandle(MethodArgumentNotValidException e) {
+    protected ResponseEntity<BaseResponseEntity<ErrorResponse>> methodArgumentNotValidExceptionHandle(MethodArgumentNotValidException e) {
         log.error("methodArgumentNotValidException : {}", e);
-        return BaseResponseEntity.fail(e.getFieldErrors().get(0).getDefaultMessage());
+        return ResponseEntity.badRequest().body(BaseResponseEntity.fail(e.getFieldErrors().get(0).getDefaultMessage()));
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    protected BaseResponseEntity<ErrorResponse> methodArgumentTypeMismatchExceptionHandle(MethodArgumentTypeMismatchException e) {
+    protected ResponseEntity<BaseResponseEntity<ErrorResponse>> methodArgumentTypeMismatchExceptionHandle(MethodArgumentTypeMismatchException e) {
         log.error("methodArgumentTypeMismatchException : {}", e);
-        return BaseResponseEntity.fail(e.getMessage());
+        return ResponseEntity.badRequest().body(BaseResponseEntity.fail(e.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
-    public BaseResponseEntity<ErrorResponse> allUncaughtHandle(Exception e) {
+    public ResponseEntity<BaseResponseEntity<ErrorResponse>> allUncaughtHandle(Exception e) {
         log.error("allUncaughtHandle : {}", e);
-        return BaseResponseEntity.fail(e.getMessage());
+        return ResponseEntity.internalServerError().body(BaseResponseEntity.fail(e.getMessage()));
+
     }
 }
