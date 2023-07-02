@@ -39,6 +39,6 @@ public class WeddingFacadeImpl implements WeddingFacade {
         InputStream qr = qrService.generateQRCode(weddingId);
         String savedQrImageUrl = fileService.upload(qr, QR_DIRECTORY);
         // 데이터 수정
-        weddingService.updateWeddingInfo(weddingId, savedQrImageUrl);
+        weddingService.updateQrImgUrl(weddingId, savedQrImageUrl);
     }
 }

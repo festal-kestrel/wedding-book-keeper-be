@@ -5,6 +5,8 @@ import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundExceptio
 import com.kestrel.weddingbookkeeper.api.member.exception.UnsupportedGenderTypeException;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationsReceiptResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.factory.WeddingFactory;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
@@ -26,6 +28,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfomationNotU
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,7 +62,7 @@ public class WeddingServiceImpl implements WeddingService {
     }
 
     @Override
-    public void updateWeddingInfo(final Integer weddingId, final String qrImgUrl) {
+    public void updateQrImgUrl(final Integer weddingId, final String qrImgUrl) {
         boolean isSaved = weddingDao.updateQrImgUrl(new WeddingUpdateDto(weddingId, qrImgUrl)) == 1;
         if (!isSaved) {
             throw new WeddingInfoNotUpdateException();
@@ -67,10 +70,8 @@ public class WeddingServiceImpl implements WeddingService {
     }
 
     public WeddingInfoResponse selectWeddingInfo(Integer weddingId) {
-
         Wedding wedding = weddingDao.selectWeddingInfo(weddingId);
-        WeddingInfoResponse weddingInfoResponse = new WeddingInfoResponse(wedding);
-        return weddingInfoResponse;
+        return new WeddingInfoResponse(wedding);
     }
 
     @Override
@@ -90,6 +91,7 @@ public class WeddingServiceImpl implements WeddingService {
     }
 
     @Override
+    @Transactional
     public void updateWeddingInfomation(Integer weddingId, WeddingUpdateInfomationRequest weddingUpdateInfomationRequest) {
         boolean isUpdate = weddingDao.updateWeddingInfomation(
                 new WeddingInfoUpdateDto(weddingId, weddingUpdateInfomationRequest)) == 1;
@@ -106,15 +108,15 @@ public class WeddingServiceImpl implements WeddingService {
     }
 
     public WeddingQrResponse selectQrImgUrl(Integer weddingId) {
-        Wedding wedding = weddingDao.selectQrImgUrl(weddingId);
-        WeddingQrResponse weddingQrResponse = new WeddingQrResponse(wedding);
-        return weddingQrResponse;
-
+        Wedding wedding = weddingDao.selectWeddingInfo(weddingId);
+        return new WeddingQrResponse(wedding);
     }
 
-    public List<MemberWedding> selectDonationList(Integer memberId) {
-        List<MemberWedding> list = memberWeddingDao.selectDonationList(memberId);
-        return list;
+    public DonationsReceiptResponse selectDonationList(Integer memberId) {
+        List<MemberWedding> memberWeddings = memberWeddingDao.selectDonationList(memberId);
+        List<DonationReceiptResponse> response = memberWeddings.stream()
+                .map(memberWedding -> new DonationReceiptResponse(memberWedding)).collect(Collectors.toList());
+        return new DonationsReceiptResponse(response);
     }
 
     @Override

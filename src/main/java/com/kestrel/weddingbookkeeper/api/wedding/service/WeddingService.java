@@ -1,6 +1,7 @@
 package com.kestrel.weddingbookkeeper.api.wedding.service;
 
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationsReceiptResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
@@ -14,11 +15,11 @@ public interface WeddingService {
 
     Integer saveWedding(Member member, WeddingInfoRequest weddingInfoRequest);
 
-    void updateWeddingInfo(Integer weddingId, String qrImgUrl);
+    void updateQrImgUrl(Integer weddingId, String qrImgUrl);
 
     WeddingInfoResponse selectWeddingInfo(Integer weddingId);
 
-    List<MemberWedding> selectDonationList(Integer memberId);
+    DonationsReceiptResponse selectDonationList(Integer memberId);
 
     void connectPartner(PartnerCodeRequest partnerCodeRequest, Integer memberId);
 
