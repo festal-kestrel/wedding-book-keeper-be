@@ -9,6 +9,7 @@
     <result column="email" property="email"/>
     <result column="name" property="name"/>
     <result column="gender" property="gender"/>
+    <result column="is_partner_code_issued" property="isPartnerCodeIssued"/>
     <result column="created_at" property="createdAt"/>
   </resultMap>
 
@@ -19,6 +20,7 @@
     <result column="partner_code" property="partnerCode"/>
     <result column="manager_code" property="managerCode"/>
     <result column="wedding_date" property="weddingDate"/>
+    <result column="is_manager_code_issued" property="isManagerCodeIssued"/>
     <result column="created_at" property="createdAt"/>
     <collection column="groom_id" property="groom" resultMap="memberMap"/>
     <collection column="bride_id" property="bride" resultMap="memberMap"/>
@@ -42,32 +44,35 @@
 
   <select id="selectWeddingInfo" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
     SELECT *
-      FROM wedding
-     WHERE wedding_id = #{weddingId}
+    FROM wedding
+    WHERE wedding_id = #{weddingId}
   </select>
 
   <select id="selectByPartnerCode" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
     SELECT *
-      FROM wedding
-     WHERE partner_code = #{partnerCode}
+    FROM wedding
+    WHERE partner_code = #{partnerCode}
   </select>
 
   <update id="updateGroomPartner" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto">
     UPDATE wedding
-       SET groom_id = #{groomId}, groom_name = #{groomName}
-     WHERE wedding_id = #{weddingId}
+    SET groom_id   = #{groomId},
+        groom_name = #{groomName}
+    WHERE wedding_id = #{weddingId}
   </update>
 
   <update id="updateBridePartner" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto">
     UPDATE wedding
-       SET bride_id = #{brideId}, bride_name = #{brideName}
-     WHERE wedding_id = #{weddingId}
+    SET bride_id   = #{brideId},
+        bride_name = #{brideName}
+    WHERE wedding_id = #{weddingId}
   </update>
 
   <update id="updateWeddingInfomation" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoUpdateDto">
     UPDATE wedding
-       SET wedding_date = #{weddingDate}, location = #{location}
-     WHERE wedding_id = #{weddingId}
+    SET wedding_date = #{weddingDate},
+        location     = #{location}
+    WHERE wedding_id = #{weddingId}
   </update>
 
   <select id="selectManagerCode" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
@@ -78,7 +83,19 @@
 
   <select id="selectQrImgUrl" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
     SELECT qr_img_url
-      FROM wedding
-     WHERE wedding_id = #{weddingId}
+    FROM wedding
+    WHERE wedding_id = #{weddingId}
+  </select>
+
+  <select id="selectByGroomId" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
+    SELECT *
+    FROM wedding
+    WHERE groom_id = #{groomId}
+  </select>
+
+  <select id="selectByBrideId" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
+    SELECT *
+    FROM wedding
+    WHERE bride_id = #{brideId}
   </select>
 </mapper>

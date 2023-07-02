@@ -2,8 +2,10 @@ package com.kestrel.weddingbookkeeper.api.wedding.service.impl;
 
 import com.kestrel.weddingbookkeeper.api.member.dao.MemberDao;
 import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundException;
+import com.kestrel.weddingbookkeeper.api.member.exception.UnsupportedGenderTypeException;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao;
+import com.kestrel.weddingbookkeeper.api.wedding.factory.WeddingFactory;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto;
@@ -33,11 +35,16 @@ public class WeddingServiceImpl implements WeddingService {
     private final MemberDao memberDao;
     private final WeddingDao weddingDao;
     private final MemberWeddingDao memberWeddingDao;
+    private final List<WeddingFactory> weddingFactories;
 
-    public WeddingServiceImpl(final MemberDao memberDao, final WeddingDao weddingDao, final MemberWeddingDao memberWeddingDao) {
+    public WeddingServiceImpl(final MemberDao memberDao,
+                              final WeddingDao weddingDao,
+                              final MemberWeddingDao memberWeddingDao,
+                              final List<WeddingFactory> weddingFactories) {
         this.memberDao = memberDao;
         this.weddingDao = weddingDao;
         this.memberWeddingDao = memberWeddingDao;
+        this.weddingFactories = weddingFactories;
     }
 
     @Override
@@ -112,14 +119,27 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     public List<MemberWedding> selectGuestList(Integer weddingId, Boolean hasPaid) {
-        if(hasPaid == null) {
+        if (hasPaid == null) {
             List<MemberWedding> list = memberWeddingDao.selectGuestListByAdmin(weddingId);
             return list;
         }
-        if(hasPaid) {
+        if (hasPaid) {
             List<MemberWedding> list = memberWeddingDao.selectGuestListByCouple(weddingId);
             return list;
         }
         return null;
+    }
+
+    @Override
+    public void registerPartner(Member member, Member partner) {
+        WeddingFactory weddingFactory = getWeddingFactory(member);
+        weddingFactory.connectPartner(member, partner);
+    }
+
+    private WeddingFactory getWeddingFactory(final Member member) {
+        return weddingFactories.stream()
+                .filter(weddingFactory -> weddingFactory.isSupport(member.getGender()))
+                .findFirst()
+                .orElseThrow(UnsupportedGenderTypeException::new);
     }
 }

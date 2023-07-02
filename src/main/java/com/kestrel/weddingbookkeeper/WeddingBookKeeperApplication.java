@@ -9,5 +9,4 @@ public class WeddingBookKeeperApplication {
     public static void main(String[] args) {
         SpringApplication.run(WeddingBookKeeperApplication.class, args);
     }
-
 }

@@ -9,6 +9,7 @@
     <result column="email" property="email"/>
     <result column="name" property="name"/>
     <result column="gender" property="gender"/>
+    <result column="is_partner_code_issued" property="isPartnerCodeIssued"/>
     <result column="created_at" property="createdAt"/>
   </resultMap>
 
@@ -32,4 +33,9 @@
     values (#{email}, #{name}, #{gender})
   </insert>
 
+  <update id="updatePartnerCodeIssued" parameterType="Member">
+    update member
+    set is_partner_code_issued = 1
+    where member_id = #{memberId}
+  </update>
 </mapper>

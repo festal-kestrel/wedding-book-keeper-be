@@ -3,7 +3,7 @@ package com.kestrel.weddingbookkeeper.api.wedding.dto;
 import com.kestrel.weddingbookkeeper.api.member.vo.Gender;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
-import com.kestrel.weddingbookkeeper.api.wedding.util.ValidationCodeGenerator;
+import com.kestrel.weddingbookkeeper.api.wedding.util.VerificationCodeGenerator;
 import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,8 +25,8 @@ public class WeddingInsertDto {
     public WeddingInsertDto(Member member, WeddingInfoRequest weddingInfoRequest) {
         this.groomId = member.getGender() == Gender.MALE ? member.getMemberId() : null;
         this.brideId = member.getGender() == Gender.FEMALE ? member.getMemberId() : null;
-        this.partnerCode = ValidationCodeGenerator.generateQrCode();
-        this.managerCode = ValidationCodeGenerator.generateQrCode();
+        this.partnerCode = VerificationCodeGenerator.generate();
+        this.managerCode = VerificationCodeGenerator.generate();
         this.groomName = member.getGender() == Gender.MALE ? member.getName() : null;
         this.brideName = member.getGender() == Gender.FEMALE ? member.getName() : null;
         this.location = weddingInfoRequest.getLocation();

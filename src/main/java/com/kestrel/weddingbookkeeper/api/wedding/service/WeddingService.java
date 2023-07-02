@@ -29,4 +29,6 @@ public interface WeddingService {
     WeddingQrResponse selectQrImgUrl(Integer weddingId);
 
     List<MemberWedding> selectGuestList(Integer weddingId, Boolean hasPaid);
+
+    void registerPartner(Member member, Member partner);
 }
