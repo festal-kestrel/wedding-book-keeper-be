@@ -1,4 +1,4 @@
-package com.kestrel.weddingbookkeeper.common.util;
+package com.kestrel.weddingbookkeeper.common.utils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

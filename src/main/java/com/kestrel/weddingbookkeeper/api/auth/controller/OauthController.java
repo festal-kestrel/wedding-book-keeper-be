@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kestrel.weddingbookkeeper.api.auth.service.OauthService;
 import com.kestrel.weddingbookkeeper.api.auth.vo.JwtToken;
 import com.kestrel.weddingbookkeeper.api.auth.dto.KakaoResponseDto;
-import com.kestrel.weddingbookkeeper.api.auth.utils.AuthTokenProvider;
 import com.kestrel.weddingbookkeeper.api.auth.utils.KakaoUtil;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
@@ -32,14 +31,11 @@ public class OauthController {
     private final KakaoUtil kakaoUtil;
     private final MemberService memberService;
     private final OauthService oauthService;
-    private final AuthTokenProvider authTokenProvider;
 
-    public OauthController(KakaoUtil kakaoUtil, MemberService memberService, OauthService oauthService,
-                           AuthTokenProvider authTokenProvider) {
+    public OauthController(KakaoUtil kakaoUtil, MemberService memberService, OauthService oauthService) {
         this.kakaoUtil = kakaoUtil;
         this.memberService = memberService;
         this.oauthService = oauthService;
-        this.authTokenProvider = authTokenProvider;
     }
 
     @Operation(summary = "유저 인증", description = "유저의 카카오 토큰으로 해당 유저의 프로필 정보를 저장 하고 jwt 토큰을 발행 후 반환", tags = {"Oauth API"})

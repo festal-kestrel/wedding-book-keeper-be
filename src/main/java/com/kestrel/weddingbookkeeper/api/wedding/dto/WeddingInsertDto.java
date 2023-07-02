@@ -3,7 +3,7 @@ package com.kestrel.weddingbookkeeper.api.wedding.dto;
 import com.kestrel.weddingbookkeeper.api.member.vo.Gender;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
-import com.kestrel.weddingbookkeeper.api.wedding.util.VerificationCodeGenerator;
+import com.kestrel.weddingbookkeeper.api.wedding.utils.VerificationCodeGenerator;
 import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;

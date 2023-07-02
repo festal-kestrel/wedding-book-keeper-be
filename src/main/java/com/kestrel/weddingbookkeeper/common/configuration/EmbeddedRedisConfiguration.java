@@ -1,4 +1,4 @@
-package com.kestrel.weddingbookkeeper.common.util;
+package com.kestrel.weddingbookkeeper.common.configuration;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

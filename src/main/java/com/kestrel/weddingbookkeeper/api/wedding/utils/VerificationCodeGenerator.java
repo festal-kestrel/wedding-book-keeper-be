@@ -1,4 +1,4 @@
-package com.kestrel.weddingbookkeeper.api.wedding.util;
+package com.kestrel.weddingbookkeeper.api.wedding.utils;
 
 import java.util.concurrent.ThreadLocalRandom;
 

@@ -7,7 +7,7 @@ import com.kestrel.weddingbookkeeper.api.auth.service.AuthService;
 import com.kestrel.weddingbookkeeper.api.auth.vo.VerificationCode;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
-import com.kestrel.weddingbookkeeper.api.wedding.util.VerificationCodeGenerator;
+import com.kestrel.weddingbookkeeper.api.wedding.utils.VerificationCodeGenerator;
 import org.springframework.stereotype.Service;
 
 @Service
