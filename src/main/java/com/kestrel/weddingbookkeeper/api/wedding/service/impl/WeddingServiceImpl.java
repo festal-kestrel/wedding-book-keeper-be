@@ -4,6 +4,7 @@ import com.kestrel.weddingbookkeeper.api.member.dao.MemberDao;
 import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundException;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingInsertDto;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto;
@@ -121,5 +122,13 @@ public class WeddingServiceImpl implements WeddingService {
             return list;
         }
         return null;
+    }
+
+    @Override
+    public void saveMemberWedding(MemberWeddingInsertDto memberWeddingInsertDto) {
+        boolean isInserted = memberWeddingDao.insertMemberWedding(memberWeddingInsertDto) == 1;
+        if (!isInserted) {
+            throw new RuntimeException("Failed to save member wedding information.");
+        }
     }
 }

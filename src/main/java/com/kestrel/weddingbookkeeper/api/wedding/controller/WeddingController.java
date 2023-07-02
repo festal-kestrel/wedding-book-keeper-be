@@ -1,5 +1,6 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
+import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingInsertDto;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
@@ -77,5 +78,8 @@ public class WeddingController {
                                                        @RequestParam(required = false) Boolean hasPaid) {
         return weddingService.selectGuestList(weddingId, hasPaid);
     }
-
+    @PostMapping("/memberWedding")
+    public void addMemberWedding(@RequestBody MemberWeddingInsertDto memberWeddingInsertDto) {
+        weddingService.saveMemberWedding(memberWeddingInsertDto);
+    }
 }

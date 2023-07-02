@@ -1,6 +1,7 @@
 package com.kestrel.weddingbookkeeper.api.wedding.service;
 
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingInsertDto;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
@@ -29,4 +30,7 @@ public interface WeddingService {
     WeddingQrResponse selectQrImgUrl(Integer weddingId);
 
     List<MemberWedding> selectGuestList(Integer weddingId, Boolean hasPaid);
+
+    void saveMemberWedding(MemberWeddingInsertDto memberWeddingInsertDto); // this is the new method
+
 }

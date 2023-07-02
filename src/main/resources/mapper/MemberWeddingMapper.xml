@@ -58,4 +58,11 @@
     WHERE mw.wedding_id = #{weddingId}
       AND mw.has_paid = 1
   </select>
+
+  <insert id="insertMemberWedding">
+    INSERT INTO ADMIN.MEMBER_WEDDING
+    (MEMBER_ID, WEDDING_ID, DONATION_AMOUNT, HAS_PAID, RELATION, IS_GROOM_SIDE, GUEST_NAME)
+    VALUES
+    (#{memberId}, #{weddingId}, #{donationAmount}, #{hasPaid}, #{relation}, #{isGroomSide}, #{guestName})
+  </insert>
 </mapper>
