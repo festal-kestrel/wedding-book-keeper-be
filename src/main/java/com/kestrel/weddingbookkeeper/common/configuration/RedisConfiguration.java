@@ -1,4 +1,4 @@
-package com.kestrel.weddingbookkeeper.common.util;
+package com.kestrel.weddingbookkeeper.common.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
