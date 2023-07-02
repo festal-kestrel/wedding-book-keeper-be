@@ -112,11 +112,11 @@ public class WeddingServiceImpl implements WeddingService {
         return new WeddingQrResponse(wedding);
     }
 
-    public DonationsReceiptResponse selectDonationList(Integer memberId) {
+    public DonationReceiptsResponse selectDonationList(Integer memberId) {
         List<MemberWedding> memberWeddings = memberWeddingDao.selectDonationList(memberId);
         List<DonationReceiptResponse> response = memberWeddings.stream()
                 .map(memberWedding -> new DonationReceiptResponse(memberWedding)).collect(Collectors.toList());
-        return new DonationsReceiptResponse(response);
+        return new DonationReceiptsResponse(response);
     }
 
     @Override

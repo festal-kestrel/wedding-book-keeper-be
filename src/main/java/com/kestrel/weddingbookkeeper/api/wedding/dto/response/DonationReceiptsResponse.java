@@ -4,11 +4,11 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class DonationsReceiptResponse {
+public class DonationReceiptsResponse {
 
     List<DonationReceiptResponse> donations;
 
-    public DonationsReceiptResponse(List<DonationReceiptResponse> donations) {
+    public DonationReceiptsResponse(List<DonationReceiptResponse> donations) {
         this.donations = donations;
     }
 }

@@ -1,6 +1,6 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
-import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationsReceiptResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInfomationRequest;
@@ -66,7 +66,7 @@ public class WeddingController {
     }
 
     @GetMapping
-    public DonationsReceiptResponse selectDonationList() {
+    public DonationReceiptsResponse selectDonationList() {
         return weddingService.selectDonationList(MEMBER_ID);
     }
 
