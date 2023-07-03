@@ -36,5 +36,7 @@ public interface WeddingDao {
 
     Optional<Wedding> selectByBrideId(Integer memberId);
 
-    List<Wedding> findWeddingsWithinFiveMinutes(@Param("currentTime") LocalDateTime currentTime);
+    List<Wedding> findWeddingsWithinFiveMinutes();
+
+    int updateWeddingProcessed(List<Integer> weddingIdsList);
 }

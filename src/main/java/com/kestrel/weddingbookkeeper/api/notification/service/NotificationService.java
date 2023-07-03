@@ -8,10 +8,12 @@ import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.NotificationInfo;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -26,59 +28,55 @@ public class NotificationService {
     }
 
     @Scheduled(fixedRate = 1000)
+    @Transactional
     public void sendNotification() {
         System.out.println("==================");
-        LocalDateTime currentTime = LocalDateTime.now();
-        LocalDateTime startTime = currentTime.minusMinutes(5);
-        LocalDateTime endTime = currentTime;
-//        LocalDateTime endTime = currentTime.plusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0);
-//        System.out.println("startTime = " + fiveMinutesBefore);
-//        System.out.println("endTime = " + endTime);
-        List<Wedding> weddingList = weddingDao.findWeddingsWithinFiveMinutes(currentTime);
+
+        List<Wedding> weddingList = weddingDao.findWeddingsWithinFiveMinutes();
+        List<Integer> weddingIdsList = new ArrayList<>();
 
         System.out.println("weddingList = " + weddingList);
-        for (Wedding wedding : weddingList) {
+        if(!weddingList.isEmpty()) {
+            for (Wedding wedding : weddingList) {
 //            System.out.println("wedding = " + wedding);
-            sendFCMNotification(wedding.getWeddingId());
+                sendFCMNotification(wedding);
+                sendFCMNotification(wedding);
+                weddingIdsList.add(wedding.getWeddingId());
+//            wedding.setProcessed(true);
+//            weddingDao.save(wedding);
+            }
+            boolean failedUpdate = weddingDao.updateWeddingProcessed(weddingIdsList) == 0;
+            if (failedUpdate) {
+                throw new RuntimeException();
+            }
         }
 
     }
 
-    public void sendFCMNotification(int weddingId) {
+    public void sendFCMNotification(Wedding wedding) {
 
-        List<NotificationInfo> tokenList = memberWeddingDao.selectFcmTokenByWeddingId(weddingId);
-        // This registration token comes from the client FCM SDKs.
-//        String registrationToken = "eg0kH4JlTo6f6cnlhTJV-T:APA91bEufkoV0-0u0S66lczsStLxJJgiPPvTyvusmN3sF4MD_PcoKv4oRorNbalWlbIPzIjyy78ShQkA1y7KqUdjgOTsU3AYPY0uvSEvloMhriwAILVMvoigxgImQOf4PmJb0LxhmdJa";
+        List<NotificationInfo> tokenList = memberWeddingDao.selectFcmTokenByWeddingId(wedding.getWeddingId());
 
         for (NotificationInfo notificationInfo : tokenList) {
             String fcmToken = notificationInfo.getFcmToken();
             System.out.println("fcmToken = " + fcmToken);
 
-//            try{
             Message message = Message.builder()
                     .putData("title", "결혼 5분전")
                     .putData("date", "TODAY")
                     .setToken(fcmToken)
                     .build();
-//            } catch (IllegalArgumentException e) {
-//                e.printStackTrace();
-//            }
-
 
             String response;
 
-            {
-                try {
-                    response = FirebaseMessaging.getInstance().send(message);
-                    System.out.println("response = " + response);
-                } catch (FirebaseMessagingException e) {
-                    throw new RuntimeException(e);
-                }
+            try {
+                response = FirebaseMessaging.getInstance().send(message);
+                System.out.println("response = " + response);
+            } catch (FirebaseMessagingException e) {
+                throw new RuntimeException(e);
             }
-        }
 
-//        System.out.println("memberList = " + memberList);
-        // See documentation on defining a message payload.
+        }
 
     }
 
