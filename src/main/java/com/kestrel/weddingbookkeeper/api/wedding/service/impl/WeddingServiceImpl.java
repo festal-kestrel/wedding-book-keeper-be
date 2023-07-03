@@ -94,7 +94,7 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     @Transactional
-    public void updateWeddinginformation(Integer weddingId, WeddingUpdateInformationRequest weddingUpdateInformationRequest) {
+    public void updateWeddingInformation(Integer weddingId, WeddingUpdateInformationRequest weddingUpdateInformationRequest) {
         boolean isUpdate = weddingDao.updateWeddingInformation(
                 new WeddingInfoUpdateDto(weddingId, weddingUpdateInformationRequest)) == 1;
         if (!isUpdate) {
