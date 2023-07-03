@@ -71,8 +71,8 @@ public class WeddingController {
             @ApiResponse(code = 200, message = "successful operation"),
     })
     public void updateWeddingInformation(@PathVariable("weddingId") Integer weddingId,
-                                         @RequestBody WeddingUpdateInformationRequest weddingUpdateinformationRequest) {
-        weddingService.updateWeddinginformation(weddingId, weddingUpdateinformationRequest);
+                                         @RequestBody WeddingUpdateInformationRequest weddingUpdateInformationRequest) {
+        weddingService.updateWeddingInformation(weddingId, weddingUpdateInformationRequest);
     }
 
     @GetMapping("/{weddingId}/admin/code")

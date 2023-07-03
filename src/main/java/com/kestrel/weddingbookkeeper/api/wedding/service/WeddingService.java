@@ -24,7 +24,7 @@ public interface WeddingService {
 
     void connectPartner(PartnerCodeRequest partnerCodeRequest, Integer memberId);
 
-    void updateWeddinginformation(Integer weddingId, WeddingUpdateInformationRequest weddingUpdateinformationRequest);
+    void updateWeddingInformation(Integer weddingId, WeddingUpdateInformationRequest weddingUpdateinformationRequest);
 
     WeddingManagerCodeResponse selectManagerCode(Integer weddingId);
 
