@@ -1,6 +1,7 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
@@ -111,6 +112,15 @@ public class WeddingController {
                                                          @RequestParam Role role) {
         return weddingService.getWeddingGuestsInformation(weddingId, role);
     }
+
+    @PostMapping("/{weddingId}/guests/new")
+    @ApiOperation("하객 QR입장")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "successful operation"),
+    })
+    public void createMemberWedding(@PathVariable("weddingId") Integer weddingId,
+                                    @RequestBody MemberWeddingDto memberWeddingDto) {
+        weddingService.createMemberWeddingInfo(weddingId,MEMBER_ID,memberWeddingDto);
 
     @GetMapping("/me")
     @ApiOperation("나의 WeddingId 조회")
