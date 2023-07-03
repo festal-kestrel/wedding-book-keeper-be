@@ -120,7 +120,8 @@ public class WeddingController {
     })
     public void createMemberWedding(@PathVariable("weddingId") Integer weddingId,
                                     @RequestBody MemberWeddingDto memberWeddingDto) {
-        weddingService.createMemberWeddingInfo(weddingId,MEMBER_ID,memberWeddingDto);
+        weddingService.createMemberWeddingInfo(weddingId, MEMBER_ID, memberWeddingDto);
+    }
 
     @GetMapping("/me")
     @ApiOperation("나의 WeddingId 조회")
