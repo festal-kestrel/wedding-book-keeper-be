@@ -1,6 +1,7 @@
 package com.kestrel.weddingbookkeeper.api.member.service;
 
 import com.kestrel.weddingbookkeeper.api.auth.dto.KakaoResponseDto;
+import com.kestrel.weddingbookkeeper.api.member.dto.response.MemberInformationResponse;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import java.util.Optional;
 
@@ -15,4 +16,6 @@ public interface MemberService {
     void markPartnerCodeIssued(Member member);
 
     void assertGenderMismatch(Member member, Member partner);
+
+    MemberInformationResponse getMemberInformation(Integer memberId);
 }

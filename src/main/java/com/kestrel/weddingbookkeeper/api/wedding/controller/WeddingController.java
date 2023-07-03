@@ -1,12 +1,12 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
-import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInformationRequest;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/weddings")
 public class WeddingController {
 
-    private static final Integer MEMBER_ID = 1;
+    private static final Integer MEMBER_ID = 2;
 
     private final WeddingFacade weddingFacade;
     private final WeddingService weddingService;
@@ -72,8 +72,8 @@ public class WeddingController {
             @ApiResponse(code = 200, message = "successful operation"),
     })
     public void updateWeddingInformation(@PathVariable("weddingId") Integer weddingId,
-                                         @RequestBody WeddingUpdateInformationRequest weddingUpdateinformationRequest) {
-        weddingService.updateWeddinginformation(weddingId, weddingUpdateinformationRequest);
+                                         @RequestBody WeddingUpdateInformationRequest weddingUpdateInformationRequest) {
+        weddingService.updateWeddingInformation(weddingId, weddingUpdateInformationRequest);
     }
 
     @GetMapping("/{weddingId}/admin/code")
@@ -121,5 +121,13 @@ public class WeddingController {
     public void createMemberWedding(@PathVariable("weddingId") Integer weddingId,
                                     @RequestBody MemberWeddingDto memberWeddingDto) {
         weddingService.createMemberWeddingInfo(weddingId,MEMBER_ID,memberWeddingDto);
+
+    @GetMapping("/me")
+    @ApiOperation("나의 WeddingId 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "successful operation", response = WeddingIdResponse.class),
+    })
+    public WeddingIdResponse selectMyWeddingId() {
+        return weddingFacade.getWeddingId(MEMBER_ID);
     }
 }

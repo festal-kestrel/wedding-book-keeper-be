@@ -1,6 +1,7 @@
 package com.kestrel.weddingbookkeeper.api.wedding.facade.impl;
 
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.facade.WeddingFacade;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
@@ -40,5 +41,11 @@ public class WeddingFacadeImpl implements WeddingFacade {
         String savedQrImageUrl = fileService.upload(qr, QR_DIRECTORY);
         // 데이터 수정
         weddingService.updateQrImgUrl(weddingId, savedQrImageUrl);
+    }
+
+    @Override
+    public WeddingIdResponse getWeddingId(Integer memberId) {
+        Member member = memberService.getMember(memberId);
+        return weddingService.getWedding(member);
     }
 }

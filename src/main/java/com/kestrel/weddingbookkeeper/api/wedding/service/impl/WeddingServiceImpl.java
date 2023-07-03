@@ -14,6 +14,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInform
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.factory.WeddingFactory;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
@@ -100,7 +101,7 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     @Transactional
-    public void updateWeddinginformation(Integer weddingId, WeddingUpdateInformationRequest weddingUpdateInformationRequest) {
+    public void updateWeddingInformation(Integer weddingId, WeddingUpdateInformationRequest weddingUpdateInformationRequest) {
         boolean isUpdate = weddingDao.updateWeddingInformation(
                 new WeddingInfoUpdateDto(weddingId, weddingUpdateInformationRequest)) == 1;
         if (!isUpdate) {
@@ -151,6 +152,13 @@ public class WeddingServiceImpl implements WeddingService {
     public void createMemberWeddingInfo(Integer weddingId, Integer memberId, MemberWeddingDto memberWeddingDto) {
         Member member = memberService.getMember(memberId);
         memberWeddingDao.insertMemberWedding(new MemberWeddingSaveDto(member, weddingId, memberWeddingDto));
+    }
+  
+    @Override
+    public WeddingIdResponse getWedding(Member member) {
+        WeddingFactory weddingFactory = getWeddingFactory(member);
+        Wedding wedding = weddingFactory.getWedding(member);
+        return new WeddingIdResponse(wedding.getWeddingId());
     }
 
     private WeddingFactory getWeddingFactory(final Member member) {
