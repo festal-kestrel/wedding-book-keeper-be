@@ -25,6 +25,11 @@ public class GroomWeddingFactory implements WeddingFactory {
     }
 
     @Override
+    public Wedding getWedding(Member member) {
+        return weddingDao.selectByGroomId(member.getMemberId()).orElseThrow(WeddingNotFoundException::new);
+    }
+
+    @Override
     public boolean isSupport(Gender gender) {
         return Gender.MALE == gender;
     }
