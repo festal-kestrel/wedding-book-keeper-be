@@ -2,6 +2,7 @@ package com.kestrel.weddingbookkeeper.api.wedding.service;
 
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
@@ -32,4 +33,6 @@ public interface WeddingService {
     GuestDonationReceiptsResponse getWeddingGuestsInformation(Integer weddingId, Role role);
 
     void registerPartner(Member member, Member partner);
+
+    void createMemberWeddingInfo(Integer weddingId, Integer memberId, MemberWeddingDto memberWeddingDto);
 }

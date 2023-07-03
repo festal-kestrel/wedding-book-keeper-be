@@ -4,9 +4,12 @@ import com.kestrel.weddingbookkeeper.api.member.dao.MemberDao;
 import com.kestrel.weddingbookkeeper.api.member.exception.InvalidRoleNameException;
 import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundException;
 import com.kestrel.weddingbookkeeper.api.member.exception.UnsupportedGenderTypeException;
+import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingDto;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingSaveDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInformationRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
@@ -40,15 +43,18 @@ public class WeddingServiceImpl implements WeddingService {
     private final MemberDao memberDao;
     private final WeddingDao weddingDao;
     private final MemberWeddingDao memberWeddingDao;
+    private final MemberService memberService;
     private final List<WeddingFactory> weddingFactories;
 
     public WeddingServiceImpl(final MemberDao memberDao,
                               final WeddingDao weddingDao,
                               final MemberWeddingDao memberWeddingDao,
+                              final MemberService memberService,
                               final List<WeddingFactory> weddingFactories) {
         this.memberDao = memberDao;
         this.weddingDao = weddingDao;
         this.memberWeddingDao = memberWeddingDao;
+        this.memberService = memberService;
         this.weddingFactories = weddingFactories;
     }
 
@@ -138,6 +144,13 @@ public class WeddingServiceImpl implements WeddingService {
     public void registerPartner(Member member, Member partner) {
         WeddingFactory weddingFactory = getWeddingFactory(member);
         weddingFactory.connectPartner(member, partner);
+    }
+
+    @Override
+    @Transactional
+    public void createMemberWeddingInfo(Integer weddingId, Integer memberId, MemberWeddingDto memberWeddingDto) {
+        Member member = memberService.getMember(memberId);
+        memberWeddingDao.insertMemberWedding(new MemberWeddingSaveDto(member, weddingId, memberWeddingDto));
     }
 
     private WeddingFactory getWeddingFactory(final Member member) {
