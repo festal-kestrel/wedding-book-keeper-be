@@ -21,8 +21,9 @@ public class MemberController {
     }
 
     @GetMapping
-    public void getMemberTest(@AuthenticationPrincipal WeddingMember weddingMember) {
-        Long memberId = weddingMember.getMemberId();
+    public void getMemberTest() {
+//    public void getMemberTest(@AuthenticationPrincipal WeddingMember weddingMember) {
+//        Long memberId = weddingMember.getMemberId();
     }
 
     @GetMapping("/me")

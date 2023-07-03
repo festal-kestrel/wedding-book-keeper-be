@@ -31,7 +31,7 @@ jasypt:
 
 app:
   auth:
-    tokenExpiry: 172800000
+    tokenExpiry: 604800000
     tokenSecret: ENC(1G9++L61gbelvF2+dK+upen75VoJPTnqupxZfIgRVk4THdWgLQNazmvj8U4FYnjhIZmJdTOk0fkJIFeK2ZUmLSfVzAw+PTwd)
 
 cloud:

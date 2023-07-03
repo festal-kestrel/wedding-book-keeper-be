@@ -92,4 +92,12 @@
     FROM wedding
     WHERE bride_id = #{brideId}
   </select>
+
+  <select id="findWeddingsWithinFiveMinutes" parameterType="java.time.LocalDateTime" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
+<!--    SELECT *-->
+<!--    FROM wedding-->
+<!--    WHERE #{currentTime} BETWEEN #{fiveMinutesBefore} AND wedding_date-->
+    SELECT *
+    FROM wedding
+    WHERE TIMESTAMPDIFF(MINUTE, wedding_date, SYSDATE) &lt;= 5  </select>
 </mapper>
