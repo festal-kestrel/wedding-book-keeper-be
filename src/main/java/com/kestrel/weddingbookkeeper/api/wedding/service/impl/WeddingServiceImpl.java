@@ -11,6 +11,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInform
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.factory.WeddingFactory;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
@@ -138,6 +139,13 @@ public class WeddingServiceImpl implements WeddingService {
     public void registerPartner(Member member, Member partner) {
         WeddingFactory weddingFactory = getWeddingFactory(member);
         weddingFactory.connectPartner(member, partner);
+    }
+
+    @Override
+    public WeddingIdResponse getWedding(Member member) {
+        WeddingFactory weddingFactory = getWeddingFactory(member);
+        Wedding wedding = weddingFactory.getWedding(member);
+        return new WeddingIdResponse(wedding.getWeddingId());
     }
 
     private WeddingFactory getWeddingFactory(final Member member) {
