@@ -38,4 +38,8 @@ public interface WeddingService {
     void createMemberWeddingInfo(Integer weddingId, Integer memberId, MemberWeddingDto memberWeddingDto);
 
     WeddingIdResponse getWedding(Member member);
+
+    void patchDonationApproval(Integer weddingId, Integer memberId);
+
+    void patchDonationRejection(Integer weddingId, Integer memberId);
 }

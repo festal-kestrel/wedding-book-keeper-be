@@ -122,6 +122,7 @@ public class WeddingController {
                                     @RequestBody MemberWeddingDto memberWeddingDto) {
         weddingService.createMemberWeddingInfo(weddingId, MEMBER_ID, memberWeddingDto);
     }
+
     @GetMapping("/me")
     @ApiOperation("나의 WeddingId 조회")
     @ApiResponses({
@@ -129,5 +130,23 @@ public class WeddingController {
     })
     public WeddingIdResponse selectMyWeddingId() {
         return weddingFacade.getWeddingId(MEMBER_ID);
+    }
+
+    @PatchMapping("/{weddingId}/guests/paid/approval")
+    @ApiOperation("축의금 납부 승인")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "successful operation"),
+    })
+    public void patchDonationApproval(@PathVariable("weddingId") Integer weddingId) {
+        weddingService.patchDonationApproval(weddingId,MEMBER_ID);
+    }
+
+    @PatchMapping("/{weddingId}/guests/paid/rejection")
+    @ApiOperation("축의금 납부 반려")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "successful operation"),
+    })
+    public void patchDonationRejection(@PathVariable("weddingId") Integer weddingId) {
+        weddingService.patchDonationRejection(weddingId,MEMBER_ID);
     }
 }

@@ -5,6 +5,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.NotificationInfo;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MemberWeddingDao {
@@ -17,6 +18,11 @@ public interface MemberWeddingDao {
 
     int insertMemberWedding(MemberWeddingSaveDto memberWeddingSaveDto);
 
+
     List<NotificationInfo> selectFcmTokenByWeddingId(Integer weddingId);
+
+    void patchDonationApproval(@Param("weddingId") Integer weddingId, @Param("memberId") Integer memberId);
+
+    void patchDonationRejection(@Param("weddingId") Integer weddingId, @Param("memberId") Integer memberId);
 
 }
