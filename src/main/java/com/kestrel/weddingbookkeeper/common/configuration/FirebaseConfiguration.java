@@ -14,9 +14,11 @@ public class FirebaseConfiguration {
 
     @PostConstruct
     public void init() {
-        try{
-            FileInputStream serviceAccount = new FileInputStream("src/main/resources/wedding-bookkeeper-7-firebase-adminsdk-1khfv-5d87d72d32.json");
-            FirebaseOptions options = FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(serviceAccount)).build();
+        try {
+            FileInputStream serviceAccount = new FileInputStream(
+                    "src/main/resources/wedding-bookkeeper-7-firebase-adminsdk-1khfv-5d87d72d32.json");
+            FirebaseOptions options = FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .build();
             FirebaseApp.initializeApp(options);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

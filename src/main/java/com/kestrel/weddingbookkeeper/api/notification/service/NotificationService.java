@@ -35,7 +35,7 @@ public class NotificationService {
         List<Integer> weddingIdsList = new ArrayList<>();
 
         log.info("weddingList = " + weddingList);
-        if(!weddingList.isEmpty()) {
+        if (!weddingList.isEmpty()) {
             for (Wedding wedding : weddingList) {
                 boolean isMsgSent = sendFCMNotification(wedding);
                 if (isMsgSent) {
@@ -56,7 +56,7 @@ public class NotificationService {
         for (NotificationInfo notificationInfo : tokenList) {
             String fcmToken = notificationInfo.getFcmToken();
             log.info("fcmToken = " + fcmToken);
-            if(fcmToken != null) {
+            if (fcmToken != null) {
                 Message message = Message.builder()
                         .putData("title", "결혼식 전 알림")
                         .putData("groom", notificationInfo.getGroom())
