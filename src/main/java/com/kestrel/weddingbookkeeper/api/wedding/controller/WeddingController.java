@@ -114,7 +114,7 @@ public class WeddingController {
     }
 
     @PostMapping("/{weddingId}/guests/new")
-    @ApiOperation("하객 QR입장")
+    @ApiOperation("하객 QR 입장")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
