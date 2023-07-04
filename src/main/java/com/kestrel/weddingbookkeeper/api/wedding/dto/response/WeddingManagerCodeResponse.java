@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 public class WeddingManagerCodeResponse {
 
-    private String managerCode;
+    private String verificationCode;
 
     public WeddingManagerCodeResponse(Wedding wedding) {
-        this.managerCode = wedding.getManagerCode();
+        this.verificationCode = wedding.getManagerCode();
     }
 }
