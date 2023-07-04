@@ -35,6 +35,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInformationUpd
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -161,6 +162,17 @@ public class WeddingServiceImpl implements WeddingService {
         return new WeddingIdResponse(wedding.getWeddingId());
     }
 
+    @Override
+    @Transactional
+    public void patchDonationApproval(Integer weddingId, Integer memberId) {
+        memberWeddingDao.patchDonationApproval(weddingId,memberId);
+    }
+
+    @Override
+    @Transactional
+    public void patchDonationRejection(Integer weddingId, Integer memberId) {
+        memberWeddingDao.patchDonationRejection(weddingId,memberId);
+    }
     private WeddingFactory getWeddingFactory(final Member member) {
         return weddingFactories.stream()
                 .filter(weddingFactory -> weddingFactory.isSupport(member.getGender()))

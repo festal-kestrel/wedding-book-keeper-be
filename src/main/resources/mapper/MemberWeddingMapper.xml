@@ -67,4 +67,18 @@
     VALUES
     (#{memberId}, #{weddingId}, #{donationAmount}, #{relation}, #{isGroomSide}, #{guestName})
   </insert>
+
+  <update id="patchDonationApproval">
+    UPDATE ADMIN.MEMBER_WEDDING
+    SET HAS_PAID = 1
+    WHERE MEMBER_ID = #{memberId} AND WEDDING_ID = #{weddingId}
+  </update>
+
+  <update id="patchDonationRejection">
+    UPDATE ADMIN.MEMBER_WEDDING
+    SET HAS_PAID = 0
+    WHERE MEMBER_ID = #{memberId} AND WEDDING_ID = #{weddingId}
+  </update>
+
+
 </mapper>
