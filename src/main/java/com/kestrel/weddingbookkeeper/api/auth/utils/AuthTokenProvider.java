@@ -47,7 +47,7 @@ public class AuthTokenProvider {
             Claims claims = authToken.getTokenClaims();
             List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
 
-            Long memberId = Long.valueOf((String) claims.get("memberId"));
+            Long memberId = Long.valueOf((Integer) claims.get("memberId"));
             WeddingMember weddingMember = new WeddingMember(memberId, authorities);
 
             return new UsernamePasswordAuthenticationToken(weddingMember, authToken, authorities);
