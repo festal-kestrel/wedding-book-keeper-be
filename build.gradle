@@ -45,6 +45,9 @@ dependencies {
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.3.1'
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
+	//firebase
+	implementation 'com.google.firebase:firebase-admin:9.2.0'
+
 
 }
 

@@ -36,6 +36,13 @@
     <collection column="wedding_id" property="weddingId" resultMap="weddingMap"/>
   </resultMap>
 
+  <resultMap id="notificationMap" type="com.kestrel.weddingbookkeeper.api.wedding.vo.NotificationInfo">
+    <result column="groom_name" property="bride"/>
+    <result column="bride_name" property="groom"/>
+    <result column="fcm_token" property="fcmToken"/>
+    <result column="is_groom_side" property="isGroomSide"/>
+  </resultMap>
+
   <select id="selectDonationList" resultMap="memberWeddingMap">
     SELECT *
     FROM member_wedding mw
@@ -68,6 +75,15 @@
     (#{memberId}, #{weddingId}, #{donationAmount}, #{relation}, #{isGroomSide}, #{guestName})
   </insert>
 
+
+  <select id="selectFcmTokenByWeddingId" parameterType="java.lang.Integer" resultMap="notificationMap">
+    SELECT w.bride_name as bride_name, w.groom_name as groom_name, mw.fcm_token as fcm_token, mw.is_groom_side as is_groom_side
+    FROM member_wedding mw
+    JOIN wedding w
+    ON mw.wedding_id = w.wedding_id
+    WHERE mw.wedding_id = #{weddingId}
+  </select>
+
   <update id="patchDonationApproval">
     UPDATE ADMIN.MEMBER_WEDDING
     SET HAS_PAID = 1
@@ -79,6 +95,5 @@
     SET HAS_PAID = 0
     WHERE MEMBER_ID = #{memberId} AND WEDDING_ID = #{weddingId}
   </update>
-
 
 </mapper>

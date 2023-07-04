@@ -23,4 +23,5 @@ public class Wedding extends BaseEntity {
     private String groomName;
     private String brideName;
     private boolean isManagerCodeIssued;
+    private boolean isProcessed;
 }

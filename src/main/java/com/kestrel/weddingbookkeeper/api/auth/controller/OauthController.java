@@ -7,6 +7,7 @@ import com.kestrel.weddingbookkeeper.api.auth.dto.KakaoResponseDto;
 import com.kestrel.weddingbookkeeper.api.auth.utils.KakaoUtil;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
+import com.kestrel.weddingbookkeeper.api.notification.service.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

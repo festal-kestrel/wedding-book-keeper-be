@@ -21,6 +21,7 @@
     <result column="manager_code" property="managerCode"/>
     <result column="wedding_date" property="weddingDate"/>
     <result column="is_manager_code_issued" property="isManagerCodeIssued"/>
+    <result column="is_processed" property="isProcessed"/>
     <result column="created_at" property="createdAt"/>
     <collection column="groom_id" property="groom" resultMap="memberMap"/>
     <collection column="bride_id" property="bride" resultMap="memberMap"/>
@@ -92,4 +93,22 @@
     FROM wedding
     WHERE bride_id = #{brideId}
   </select>
+
+  <select id="findWeddingsWithinFiveMinutes" resultType="com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding">
+    SELECT *
+    FROM wedding
+    WHERE wedding_date >= (CURRENT_TIMESTAMP - INTERVAL '5' MINUTE)
+      AND wedding_date &lt;= (CURRENT_TIMESTAMP + INTERVAL '5' MINUTE)
+      AND is_processed = 0
+  </select>
+
+  <update id="updateWeddingProcessed" parameterType="java.util.List">
+    UPDATE wedding
+    SET is_processed = 1
+    WHERE wedding_id IN
+    <foreach collection="list" item="wedding_id" open="(" separator="," close=")">
+      #{wedding_id}
+    </foreach>
+  </update>
+
 </mapper>
