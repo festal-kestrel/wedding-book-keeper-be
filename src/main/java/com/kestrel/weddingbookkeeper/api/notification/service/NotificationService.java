@@ -7,7 +7,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.NotificationInfo;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +14,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @Slf4j
+@Service
 public class NotificationService {
 
     private final WeddingDao weddingDao;
@@ -32,7 +31,7 @@ public class NotificationService {
     public void sendNotification() {
 
         List<Wedding> weddingList = weddingDao.findWeddingsWithinFiveMinutes();
-        List<Integer> weddingIdsList = new ArrayList<>();
+        List<Long> weddingIdsList = new ArrayList<>();
 
         log.info("weddingList = " + weddingList);
         if (!weddingList.isEmpty()) {

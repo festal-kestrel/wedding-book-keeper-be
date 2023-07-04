@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface MemberService {
 
-    Member getMember(Integer memberId);
+    Member getMember(Long memberId);
 
-    int loginAndGetMemberId(Optional<Member> memberOptional, KakaoResponseDto kakaoResponseDto);
+    Long loginAndGetMemberId(Optional<Member> memberOptional, KakaoResponseDto kakaoResponseDto);
 
     Optional<Member> findCurrentUser(KakaoResponseDto kakaoResponseDto);
 
@@ -17,5 +17,5 @@ public interface MemberService {
 
     void assertGenderMismatch(Member member, Member partner);
 
-    MemberInformationResponse getMemberInformation(Integer memberId);
+    MemberInformationResponse getMemberInformation(Long memberId);
 }

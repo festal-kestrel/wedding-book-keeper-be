@@ -5,11 +5,9 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoUpdateDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingUpdateDto;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface WeddingDao {
@@ -32,11 +30,11 @@ public interface WeddingDao {
 
     Wedding selectQrImgUrl(Integer weddingId);
 
-    Optional<Wedding> selectByGroomId(Integer memberId);
+    Optional<Wedding> selectByGroomId(Long memberId);
 
-    Optional<Wedding> selectByBrideId(Integer memberId);
+    Optional<Wedding> selectByBrideId(Long memberId);
 
     List<Wedding> findWeddingsWithinFiveMinutes();
 
-    int updateWeddingProcessed(List<Integer> weddingIdsList);
+    int updateWeddingProcessed(List<Long> weddingIdsList);
 }

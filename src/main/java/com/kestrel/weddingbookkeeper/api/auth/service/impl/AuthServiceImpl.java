@@ -28,7 +28,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Integer verifyPartnerVerificationCode(VerificationCodeRequest verificationCodeRequest) {
+    public Long verifyPartnerVerificationCode(VerificationCodeRequest verificationCodeRequest) {
         VerificationCode verificationCode = verificationCodeRepository.findById(verificationCodeRequest.getVerificationCode())
                 .orElseThrow(VerificationCodeNotFoundException::new);
         if (verificationCode.getRole() != Role.PARTNER || verificationCode.isVerified()) {

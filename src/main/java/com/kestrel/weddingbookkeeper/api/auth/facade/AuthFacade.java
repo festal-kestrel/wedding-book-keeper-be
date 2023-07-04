@@ -5,7 +5,7 @@ import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeRespo
 
 public interface AuthFacade {
 
-    VerificationCodeResponse getPartnerVerificationCode(Integer memberId);
+    VerificationCodeResponse getPartnerVerificationCode(Long memberId);
 
-    void verifyPartnerVerificationCode(Integer memberId, VerificationCodeRequest verificationCodeRequest);
+    void verifyPartnerVerificationCode(Long memberId, VerificationCodeRequest verificationCodeRequest);
 }

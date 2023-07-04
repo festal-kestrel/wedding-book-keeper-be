@@ -7,5 +7,5 @@ public interface AuthService {
 
     String getPartnerVerificationCode(Member member);
 
-    Integer verifyPartnerVerificationCode(VerificationCodeRequest verificationCodeRequest);
+    Long verifyPartnerVerificationCode(VerificationCodeRequest verificationCodeRequest);
 }

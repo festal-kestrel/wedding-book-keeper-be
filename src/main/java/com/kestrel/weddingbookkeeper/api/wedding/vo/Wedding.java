@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Wedding extends BaseEntity {
 
-    private Integer weddingId;
+    private Long weddingId;
     private Member groom;
     private Member bride;
     private String qrImgUrl;

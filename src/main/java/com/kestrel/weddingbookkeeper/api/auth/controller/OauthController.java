@@ -52,7 +52,7 @@ public class OauthController {
 
         KakaoResponseDto kakaoResponseDto = kakaoUtil.getUserInfo(token);
         Optional<Member> memberOptional = memberService.findCurrentUser(kakaoResponseDto);
-        int memberId = memberService.loginAndGetMemberId(memberOptional, kakaoResponseDto);
+        Long memberId = memberService.loginAndGetMemberId(memberOptional, kakaoResponseDto);
         JwtToken jwtToken = oauthService.createAndSaveToken(memberId);
 
         return ResponseEntity.status(HttpStatus.OK).body(jwtToken);

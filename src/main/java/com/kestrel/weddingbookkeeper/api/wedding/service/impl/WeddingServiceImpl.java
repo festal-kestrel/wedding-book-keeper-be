@@ -35,7 +35,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInformationUpd
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,7 +61,7 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     @Transactional
-    public Integer saveWedding(Member member, final WeddingInfoRequest weddingInfoRequest) {
+    public Long saveWedding(Member member, final WeddingInfoRequest weddingInfoRequest) {
         WeddingInsertDto weddingInsertDto = new WeddingInsertDto(member, weddingInfoRequest);
         boolean isSaved = weddingDao.save(weddingInsertDto) == 1;
         if (!isSaved) {
@@ -72,7 +71,7 @@ public class WeddingServiceImpl implements WeddingService {
     }
 
     @Override
-    public void updateQrImgUrl(final Integer weddingId, final String qrImgUrl) {
+    public void updateQrImgUrl(final Long weddingId, final String qrImgUrl) {
         boolean isSaved = weddingDao.updateQrImgUrl(new WeddingUpdateDto(weddingId, qrImgUrl)) == 1;
         if (!isSaved) {
             throw new WeddingInfoNotUpdateException();
@@ -86,7 +85,7 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     @Transactional
-    public void connectPartner(PartnerCodeRequest partnerCodeRequest, Integer memberId) {
+    public void connectPartner(PartnerCodeRequest partnerCodeRequest, Long memberId) {
         Member member = memberDao.selectById(memberId).orElseThrow(MemberNotFoundException::new);
         Wedding wedding = weddingDao.selectByPartnerCode(partnerCodeRequest.getPartnerCode());
 
@@ -102,7 +101,8 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     @Transactional
-    public void updateWeddingInformation(Integer weddingId, WeddingUpdateInformationRequest weddingUpdateInformationRequest) {
+    public void updateWeddingInformation(Integer weddingId,
+                                         WeddingUpdateInformationRequest weddingUpdateInformationRequest) {
         boolean isUpdate = weddingDao.updateWeddingInformation(
                 new WeddingInfoUpdateDto(weddingId, weddingUpdateInformationRequest)) == 1;
         if (!isUpdate) {
@@ -122,7 +122,7 @@ public class WeddingServiceImpl implements WeddingService {
         return new WeddingQrResponse(wedding);
     }
 
-    public DonationReceiptsResponse selectDonationList(Integer memberId) {
+    public DonationReceiptsResponse selectDonationList(Long memberId) {
         List<MemberWedding> memberWeddings = memberWeddingDao.selectDonationList(memberId);
         List<DonationReceiptResponse> response = memberWeddings.stream()
                 .map(DonationReceiptResponse::new).toList();
@@ -150,11 +150,11 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     @Transactional
-    public void createMemberWeddingInfo(Integer weddingId, Integer memberId, MemberWeddingDto memberWeddingDto) {
+    public void createMemberWeddingInfo(Long weddingId, Long memberId, MemberWeddingDto memberWeddingDto) {
         Member member = memberService.getMember(memberId);
         memberWeddingDao.insertMemberWedding(new MemberWeddingSaveDto(member, weddingId, memberWeddingDto));
     }
-  
+
     @Override
     public WeddingIdResponse getWedding(Member member) {
         WeddingFactory weddingFactory = getWeddingFactory(member);
@@ -164,15 +164,16 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     @Transactional
-    public void patchDonationApproval(Integer weddingId, Integer memberId) {
-        memberWeddingDao.patchDonationApproval(weddingId,memberId);
+    public void patchDonationApproval(Long weddingId, Long memberId) {
+        memberWeddingDao.patchDonationApproval(weddingId, memberId);
     }
 
     @Override
     @Transactional
-    public void patchDonationRejection(Integer weddingId, Integer memberId) {
-        memberWeddingDao.patchDonationRejection(weddingId,memberId);
+    public void patchDonationRejection(Long weddingId, Long memberId) {
+        memberWeddingDao.patchDonationRejection(weddingId, memberId);
     }
+
     private WeddingFactory getWeddingFactory(final Member member) {
         return weddingFactories.stream()
                 .filter(weddingFactory -> weddingFactory.isSupport(member.getGender()))

@@ -19,19 +19,18 @@ public class AuthTokenProvider {
     private String expiry;
 
     private final Key key;
-    private static final String AUTHORITIES_KEY = "role";
 
     public AuthTokenProvider(@Value("${app.auth.tokenSecret}") String secretKey) {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    public AuthToken createToken(String memberId, String roleType, String expiry) {
+    public AuthToken createToken(Long memberId, String expiry) {
         Date expiryDate = getExpiryDate(expiry);
-        return new AuthToken(memberId, roleType, expiryDate, key);
+        return new AuthToken(memberId, expiryDate, key);
     }
 
-    public AuthToken createUserAppToken(String memberId) {
-        return createToken(memberId, "USER", expiry);
+    public AuthToken createUserAppToken(Long memberId) {
+        return createToken(memberId, expiry);
     }
 
     public AuthToken convertAuthToken(String token) {

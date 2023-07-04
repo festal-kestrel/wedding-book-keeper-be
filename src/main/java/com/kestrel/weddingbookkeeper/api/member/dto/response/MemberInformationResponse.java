@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public class MemberInformationResponse {
 
-    private Integer memberId;
+    private Long memberId;
     private String email;
     private String name;
     private Gender gender;

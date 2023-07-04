@@ -13,7 +13,7 @@
     <result column="created_at" property="createdAt"/>
   </resultMap>
 
-  <select id="selectById" parameterType="Integer" resultType="com.kestrel.weddingbookkeeper.api.member.vo.Member">
+  <select id="selectById" parameterType="Long" resultType="com.kestrel.weddingbookkeeper.api.member.vo.Member">
     select *
     from member
     where member_id = #{memberId}

@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface MemberWeddingDao {
 
-    List<MemberWedding> selectDonationList(Integer memberId);
+    List<MemberWedding> selectDonationList(Long memberId);
 
     List<MemberWedding> selectGuestsByWeddingId(Integer weddingId);
 
@@ -19,10 +19,10 @@ public interface MemberWeddingDao {
     int insertMemberWedding(MemberWeddingSaveDto memberWeddingSaveDto);
 
 
-    List<NotificationInfo> selectFcmTokenByWeddingId(Integer weddingId);
+    List<NotificationInfo> selectFcmTokenByWeddingId(Long weddingId);
 
-    void patchDonationApproval(@Param("weddingId") Integer weddingId, @Param("memberId") Integer memberId);
+    void patchDonationApproval(@Param("weddingId") Long weddingId, @Param("memberId") Long memberId);
 
-    void patchDonationRejection(@Param("weddingId") Integer weddingId, @Param("memberId") Integer memberId);
+    void patchDonationRejection(@Param("weddingId") Long weddingId, @Param("memberId") Long memberId);
 
 }

@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/weddings")
 public class WeddingController {
 
-    private static final Integer MEMBER_ID = 2;
+    private static final Long MEMBER_ID = 2L;
 
     private final WeddingFacade weddingFacade;
     private final WeddingService weddingService;
@@ -118,7 +118,7 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
-    public void createMemberWedding(@PathVariable("weddingId") Integer weddingId,
+    public void createMemberWedding(@PathVariable("weddingId") Long weddingId,
                                     @RequestBody MemberWeddingDto memberWeddingDto) {
         weddingService.createMemberWeddingInfo(weddingId, MEMBER_ID, memberWeddingDto);
     }
@@ -137,7 +137,7 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
-    public void patchDonationApproval(@PathVariable("weddingId") Integer weddingId) {
+    public void patchDonationApproval(@PathVariable("weddingId") Long weddingId) {
         weddingService.patchDonationApproval(weddingId,MEMBER_ID);
     }
 
@@ -146,7 +146,7 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
-    public void patchDonationRejection(@PathVariable("weddingId") Integer weddingId) {
+    public void patchDonationRejection(@PathVariable("weddingId") Long weddingId) {
         weddingService.patchDonationRejection(weddingId,MEMBER_ID);
     }
 }
