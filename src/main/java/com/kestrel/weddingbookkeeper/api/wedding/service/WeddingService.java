@@ -9,6 +9,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationRecei
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInformationRequest;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.ManagerVerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
@@ -45,6 +46,4 @@ public interface WeddingService {
     void patchDonationRejection(Long weddingId, Long memberId);
 
     VerificationCodeResponse getManagerVerificationCode(Long weddingId);
-
-    void verifyManagerVerificationCode(Long weddingId);
 }

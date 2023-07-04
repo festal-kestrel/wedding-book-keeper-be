@@ -97,15 +97,6 @@ public class WeddingController {
         return weddingService.getManagerVerificationCode(weddingId);
     }
 
-    @PostMapping("/{weddingId}/verification-code")
-    @ApiOperation("웨딩 관리자 인증코드 인증")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "successful operation"),
-    })
-    public void verifyManagerVerificationCode(@PathVariable("weddingId") Long weddingId) {
-        weddingService.verifyManagerVerificationCode(weddingId);
-    }
-
     @GetMapping("/{weddingId}/qr")
     @ApiOperation("결혼식 QR 이미지 조회")
     @ApiResponses({

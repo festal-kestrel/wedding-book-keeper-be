@@ -3,7 +3,9 @@ package com.kestrel.weddingbookkeeper.api.auth.controller;
 import com.kestrel.weddingbookkeeper.api.auth.dto.request.VerificationCodeRequest;
 import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.auth.facade.AuthFacade;
+import com.kestrel.weddingbookkeeper.api.auth.service.AuthService;
 import com.kestrel.weddingbookkeeper.api.auth.utils.WeddingMember;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.ManagerVerificationCodeResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -19,9 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthFacade authFacade;
+    private final AuthService authService;
 
-    public AuthController(final AuthFacade authFacade) {
+    public AuthController(final AuthFacade authFacade, final AuthService authService) {
         this.authFacade = authFacade;
+        this.authService = authService;
     }
 
     @GetMapping("/verification-code")
@@ -41,5 +45,14 @@ public class AuthController {
     public void getPartnerVerificationCode(@RequestBody final VerificationCodeRequest verificationCodeRequest,
                                            @AuthenticationPrincipal final WeddingMember weddingMember) {
         authFacade.verifyPartnerVerificationCode(weddingMember.getMemberId(), verificationCodeRequest);
+    }
+
+    @PostMapping("/verification-code/admin")
+    @ApiOperation("웨딩 관리자 인증코드 인증")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "successful operation"),
+    })
+    public ManagerVerificationCodeResponse verifyManagerVerificationCode(@RequestBody final VerificationCodeRequest verificationCodeRequest) {
+        return authService.verifyManagerVerificationCode(verificationCodeRequest);
     }
 }
