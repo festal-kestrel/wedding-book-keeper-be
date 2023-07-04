@@ -2,7 +2,6 @@ package com.kestrel.weddingbookkeeper.api.wedding.vo;
 
 import com.kestrel.weddingbookkeeper.api.date.BaseEntity;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
-import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,4 +18,5 @@ public class MemberWedding extends BaseEntity {
     private Member memberId;
     private Wedding weddingId;
     private String guestName;
+    private String fcmToken;
 }

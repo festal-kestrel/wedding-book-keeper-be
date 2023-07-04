@@ -7,7 +7,6 @@ import com.kestrel.weddingbookkeeper.api.auth.dto.KakaoResponseDto;
 import com.kestrel.weddingbookkeeper.api.auth.utils.KakaoUtil;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
-import com.kestrel.weddingbookkeeper.api.notification.service.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -45,7 +44,7 @@ public class OauthController {
             @ApiResponse(responseCode = "401", description = "unauthorized"),
     })
     @Parameters({
-            @Parameter(name="token", description="카카오 api에서 인가를 받은 후 발행된 토큰")
+            @Parameter(name="token", description="카카오 API에서 인가를 받은 후 발행된 토큰")
     })
     @PostMapping("/authorize")
     public ResponseEntity<JwtToken> getMemberInfo(@RequestParam String token) throws JsonProcessingException {

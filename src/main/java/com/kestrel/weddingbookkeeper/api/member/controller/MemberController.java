@@ -12,22 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/members")
 public class MemberController {
 
-    private static final Long MEMBER_ID = 18L;
-
     private final MemberService memberService;
 
     public MemberController(final MemberService memberService) {
         this.memberService = memberService;
     }
 
-    @GetMapping
-    public void getMemberTest() {
-//    public void getMemberTest(@AuthenticationPrincipal WeddingMember weddingMember) {
-//        Long memberId = weddingMember.getMemberId();
-    }
-
     @GetMapping("/me")
-    public MemberInformationResponse getMemberInformation() {
-        return memberService.getMemberInformation(MEMBER_ID);
+    public MemberInformationResponse getMemberInformation(@AuthenticationPrincipal final WeddingMember weddingMember) {
+        return memberService.getMemberInformation(weddingMember.getMemberId());
     }
 }
