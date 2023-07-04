@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class GuestDonationReceiptResponse {
 
+    private long guestId;
     private String guestName;
     private String guestSide;
     private String relation;
@@ -15,6 +16,7 @@ public class GuestDonationReceiptResponse {
     private LocalDateTime weddingDate;
 
     public GuestDonationReceiptResponse(MemberWedding memberWedding) {
+        this.guestId = memberWedding.getMemberId().getMemberId();
         this.guestName = memberWedding.getGuestName();
         this.guestSide = memberWedding.isGroomSide() ? "신랑측" : "신부측";
         this.relation = memberWedding.getRelation();
