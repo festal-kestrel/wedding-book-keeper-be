@@ -135,23 +135,23 @@ public class WeddingController {
         return weddingFacade.getWeddingId(weddingMember.getMemberId());
     }
 
-    @PatchMapping("/{weddingId}/guests/paid/approval")
+    @PatchMapping("/{weddingId}/guests/{guestId}/paid/approval")
     @ApiOperation("축의금 납부 승인")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
     public void patchDonationApproval(@PathVariable("weddingId") Long weddingId,
-                                      @AuthenticationPrincipal final WeddingMember weddingMember) {
-        weddingService.patchDonationApproval(weddingId, weddingMember.getMemberId());
+                                      @PathVariable("guestId") Long guestId) {
+        weddingService.patchDonationApproval(weddingId, guestId);
     }
 
-    @PatchMapping("/{weddingId}/guests/paid/rejection")
+    @PatchMapping("/{weddingId}/guests/{guestId}/paid/rejection")
     @ApiOperation("축의금 납부 반려")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
     public void patchDonationRejection(@PathVariable("weddingId") Long weddingId,
-                                       @AuthenticationPrincipal final WeddingMember weddingMember) {
-        weddingService.patchDonationRejection(weddingId, weddingMember.getMemberId());
+                                       @PathVariable("guestId") Long guestId) {
+        weddingService.patchDonationRejection(weddingId, guestId);
     }
 }
