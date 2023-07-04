@@ -10,6 +10,7 @@ public class MemberWeddingSaveDto {
     private String relation;
     private Boolean isGroomSide;
     private String guestName;
+    private String fcmToken;
 
     public MemberWeddingSaveDto(Member member, Integer weddingId, MemberWeddingDto memberWeddingDto) {
         this.memberId = member.getMemberId();
@@ -18,5 +19,6 @@ public class MemberWeddingSaveDto {
         this.relation = memberWeddingDto.getRelation();
         this.isGroomSide = memberWeddingDto.getIsGroomSide();
         this.guestName = member.getName();
+        this.fcmToken = memberWeddingDto.getFcmToken();
     }
 }

@@ -32,6 +32,7 @@
     <result column="donation_amount" property="donationAmount"/>
     <result column="has_paid" property="hasPaid"/>
     <result column="guest_name" property="guestName" />
+    <result column="fcm_token" property="fcmToken" />
     <collection column="member_id" property="memberId" resultMap="memberMap"/>
     <collection column="wedding_id" property="weddingId" resultMap="weddingMap"/>
   </resultMap>
@@ -63,9 +64,9 @@
 
   <insert id="insertMemberWedding">
     INSERT INTO ADMIN.MEMBER_WEDDING
-    (MEMBER_ID, WEDDING_ID, DONATION_AMOUNT, RELATION, IS_GROOM_SIDE, GUEST_NAME)
+    (MEMBER_ID, WEDDING_ID, DONATION_AMOUNT, RELATION, IS_GROOM_SIDE, GUEST_NAME, FCM_TOKEN)
     VALUES
-    (#{memberId}, #{weddingId}, #{donationAmount}, #{relation}, #{isGroomSide}, #{guestName})
+    (#{memberId}, #{weddingId}, #{donationAmount}, #{relation}, #{isGroomSide}, #{guestName}, #{fcmToken})
   </insert>
 
   <update id="patchDonationApproval">
