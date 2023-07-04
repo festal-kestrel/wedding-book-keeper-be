@@ -3,22 +3,20 @@ package com.kestrel.weddingbookkeeper.api.auth.controller;
 import com.kestrel.weddingbookkeeper.api.auth.dto.request.VerificationCodeRequest;
 import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.auth.facade.AuthFacade;
+import com.kestrel.weddingbookkeeper.api.auth.utils.WeddingMember;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j(topic = "[AuthController]")
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
-
-    private static final Long MEMBER_ID = 1L;
 
     private final AuthFacade authFacade;
 
@@ -31,8 +29,8 @@ public class AuthController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = VerificationCodeResponse.class),
     })
-    public VerificationCodeResponse getPartnerVerificationCode() {
-        return authFacade.getPartnerVerificationCode(MEMBER_ID);
+    public VerificationCodeResponse getPartnerVerificationCode(@AuthenticationPrincipal WeddingMember weddingMember) {
+        return authFacade.getPartnerVerificationCode(weddingMember.getMemberId());
     }
 
     @PostMapping("/verification-code")
@@ -40,8 +38,8 @@ public class AuthController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
-    public void getPartnerVerificationCode(@RequestBody VerificationCodeRequest verificationCodeRequest) {
-        log.info("verificationCodeRequest: {}", verificationCodeRequest);
-        authFacade.verifyPartnerVerificationCode(MEMBER_ID, verificationCodeRequest);
+    public void getPartnerVerificationCode(@RequestBody final VerificationCodeRequest verificationCodeRequest,
+                                           @AuthenticationPrincipal final WeddingMember weddingMember) {
+        authFacade.verifyPartnerVerificationCode(weddingMember.getMemberId(), verificationCodeRequest);
     }
 }

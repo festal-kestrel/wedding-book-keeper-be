@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter { // SecurityFilterChain
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final AuthTokenProvider authTokenProvider;
 
@@ -26,14 +26,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter { // Sec
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-//                .antMatchers("/api/v1/oauth/**").permitAll()
-                .antMatchers("/", "/**").permitAll()
-//                .anyRequest().authenticated()
-                .and() // 해당 요청을 인증된 사용자만 사용 가능
+                .antMatchers("/api/v1/oauth/**").permitAll()
+//                .antMatchers("/", "/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .cors().and()
                 .formLogin().disable()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
-
     }
 }

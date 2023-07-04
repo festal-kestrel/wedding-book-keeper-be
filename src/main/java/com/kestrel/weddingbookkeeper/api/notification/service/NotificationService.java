@@ -21,7 +21,7 @@ public class NotificationService {
     private final WeddingDao weddingDao;
     private final MemberWeddingDao memberWeddingDao;
 
-    public NotificationService(WeddingDao weddingDao, MemberWeddingDao memberWeddingDao) {
+    public NotificationService(final WeddingDao weddingDao, final MemberWeddingDao memberWeddingDao) {
         this.weddingDao = weddingDao;
         this.memberWeddingDao = memberWeddingDao;
     }

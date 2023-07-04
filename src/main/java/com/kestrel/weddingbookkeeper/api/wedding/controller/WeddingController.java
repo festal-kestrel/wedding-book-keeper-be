@@ -1,5 +1,6 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
+import com.kestrel.weddingbookkeeper.api.auth.utils.WeddingMember;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
@@ -16,6 +17,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/weddings")
 public class WeddingController {
-
-    private static final Long MEMBER_ID = 2L;
 
     private final WeddingFacade weddingFacade;
     private final WeddingService weddingService;
@@ -44,8 +44,9 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
-    public void createWeddingInfo(@RequestBody final WeddingInfoRequest weddingInfoRequest) {
-        weddingFacade.createWeddingInfo(MEMBER_ID, weddingInfoRequest);
+    public void createWeddingInfo(@RequestBody final WeddingInfoRequest weddingInfoRequest,
+                                  @AuthenticationPrincipal final WeddingMember weddingMember) {
+        weddingFacade.createWeddingInfo(weddingMember.getMemberId(), weddingInfoRequest);
     }
 
     @GetMapping("/{weddingId}")
@@ -62,8 +63,9 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
-    public void connectPartner(@RequestBody PartnerCodeRequest partnerCodeRequest) {
-        weddingService.connectPartner(partnerCodeRequest, MEMBER_ID);
+    public void connectPartner(@RequestBody PartnerCodeRequest partnerCodeRequest,
+                               @AuthenticationPrincipal final WeddingMember weddingMember) {
+        weddingService.connectPartner(partnerCodeRequest, weddingMember.getMemberId());
     }
 
     @PatchMapping("/{weddingId}")
@@ -99,8 +101,8 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = DonationReceiptsResponse.class),
     })
-    public DonationReceiptsResponse selectDonationList() {
-        return weddingService.selectDonationList(MEMBER_ID);
+    public DonationReceiptsResponse selectDonationList(@AuthenticationPrincipal final WeddingMember weddingMember) {
+        return weddingService.selectDonationList(weddingMember.getMemberId());
     }
 
     @GetMapping("/{weddingId}/guests")
@@ -119,8 +121,9 @@ public class WeddingController {
             @ApiResponse(code = 200, message = "successful operation"),
     })
     public void createMemberWedding(@PathVariable("weddingId") Long weddingId,
-                                    @RequestBody MemberWeddingDto memberWeddingDto) {
-        weddingService.createMemberWeddingInfo(weddingId, MEMBER_ID, memberWeddingDto);
+                                    @RequestBody MemberWeddingDto memberWeddingDto,
+                                    @AuthenticationPrincipal final WeddingMember weddingMember) {
+        weddingService.createMemberWeddingInfo(weddingId, weddingMember.getMemberId(), memberWeddingDto);
     }
 
     @GetMapping("/me")
@@ -128,8 +131,8 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = WeddingIdResponse.class),
     })
-    public WeddingIdResponse selectMyWeddingId() {
-        return weddingFacade.getWeddingId(MEMBER_ID);
+    public WeddingIdResponse selectMyWeddingId(@AuthenticationPrincipal final WeddingMember weddingMember) {
+        return weddingFacade.getWeddingId(weddingMember.getMemberId());
     }
 
     @PatchMapping("/{weddingId}/guests/paid/approval")
@@ -137,8 +140,9 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
-    public void patchDonationApproval(@PathVariable("weddingId") Long weddingId) {
-        weddingService.patchDonationApproval(weddingId,MEMBER_ID);
+    public void patchDonationApproval(@PathVariable("weddingId") Long weddingId,
+                                      @AuthenticationPrincipal final WeddingMember weddingMember) {
+        weddingService.patchDonationApproval(weddingId, weddingMember.getMemberId());
     }
 
     @PatchMapping("/{weddingId}/guests/paid/rejection")
@@ -146,7 +150,8 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
-    public void patchDonationRejection(@PathVariable("weddingId") Long weddingId) {
-        weddingService.patchDonationRejection(weddingId,MEMBER_ID);
+    public void patchDonationRejection(@PathVariable("weddingId") Long weddingId,
+                                       @AuthenticationPrincipal final WeddingMember weddingMember) {
+        weddingService.patchDonationRejection(weddingId, weddingMember.getMemberId());
     }
 }
