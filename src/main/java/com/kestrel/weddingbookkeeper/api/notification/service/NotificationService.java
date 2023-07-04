@@ -27,23 +27,20 @@ public class NotificationService {
         this.memberWeddingDao = memberWeddingDao;
     }
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 60000)
     @Transactional
     public void sendNotification() {
-        System.out.println("==================");
 
         List<Wedding> weddingList = weddingDao.findWeddingsWithinFiveMinutes();
         List<Integer> weddingIdsList = new ArrayList<>();
 
-        System.out.println("weddingList = " + weddingList);
+        log.info("weddingList = " + weddingList);
         if(!weddingList.isEmpty()) {
             for (Wedding wedding : weddingList) {
-//            System.out.println("wedding = " + wedding);
-                sendFCMNotification(wedding);
-                sendFCMNotification(wedding);
-                weddingIdsList.add(wedding.getWeddingId());
-//            wedding.setProcessed(true);
-//            weddingDao.save(wedding);
+                boolean isMsgSent = sendFCMNotification(wedding);
+                if (isMsgSent) {
+                    weddingIdsList.add(wedding.getWeddingId());
+                }
             }
             boolean failedUpdate = weddingDao.updateWeddingProcessed(weddingIdsList) == 0;
             if (failedUpdate) {
@@ -53,30 +50,30 @@ public class NotificationService {
 
     }
 
-    public void sendFCMNotification(Wedding wedding) {
-
+    public boolean sendFCMNotification(Wedding wedding) {
         List<NotificationInfo> tokenList = memberWeddingDao.selectFcmTokenByWeddingId(wedding.getWeddingId());
 
         for (NotificationInfo notificationInfo : tokenList) {
             String fcmToken = notificationInfo.getFcmToken();
-            System.out.println("fcmToken = " + fcmToken);
-
-            Message message = Message.builder()
-                    .putData("title", "결혼 5분전")
-                    .putData("date", "TODAY")
-                    .setToken(fcmToken)
-                    .build();
-
-            String response;
-
-            try {
-                response = FirebaseMessaging.getInstance().send(message);
-                System.out.println("response = " + response);
-            } catch (FirebaseMessagingException e) {
-                throw new RuntimeException(e);
+            log.info("fcmToken = " + fcmToken);
+            if(fcmToken != null) {
+                Message message = Message.builder()
+                        .putData("title", "결혼식 전 알림")
+                        .putData("groom", notificationInfo.getGroom())
+                        .putData("bride", notificationInfo.getBride())
+                        .putData("isGroomSide", notificationInfo.getIsGroomSide())
+                        .setToken(fcmToken)
+                        .build();
+                try {
+                    String response = FirebaseMessaging.getInstance().send(message);
+                    log.info("response = " + response);
+                } catch (FirebaseMessagingException e) {
+                    e.printStackTrace();
+                    return false;
+                }
             }
-
         }
+        return true;
 
     }
 

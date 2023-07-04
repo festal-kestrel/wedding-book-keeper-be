@@ -40,6 +40,7 @@
     <result column="groom_name" property="bride"/>
     <result column="bride_name" property="groom"/>
     <result column="fcm_token" property="fcmToken"/>
+    <result column="is_groom_side" property="isGroomSide"/>
   </resultMap>
 
   <select id="selectDonationList" resultMap="memberWeddingMap">
@@ -76,7 +77,7 @@
 
 
   <select id="selectFcmTokenByWeddingId" parameterType="java.lang.Integer" resultMap="notificationMap">
-    SELECT w.bride_name as bride_name, w.groom_name as groom_name, mw.fcm_token as fcm_token
+    SELECT w.bride_name as bride_name, w.groom_name as groom_name, mw.fcm_token as fcm_token, mw.is_groom_side as is_groom_side
     FROM member_wedding mw
     JOIN wedding w
     ON mw.wedding_id = w.wedding_id

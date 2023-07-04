@@ -8,4 +8,5 @@ public class NotificationInfo {
     private String groom;
     private String bride;
     private String fcmToken;
+    private String isGroomSide;
 }
