@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface VerificationCodeRepository extends CrudRepository<VerificationCode, String> {
 
-    Optional<VerificationCode> findByMemberId(Integer memberId);
+    Optional<VerificationCode> findByMemberId(Long memberId);
 }

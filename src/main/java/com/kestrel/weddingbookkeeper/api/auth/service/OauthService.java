@@ -4,5 +4,5 @@ import com.kestrel.weddingbookkeeper.api.auth.vo.JwtToken;
 
 public interface OauthService {
 
-    JwtToken createAndSaveToken(int memberId);
+    JwtToken createAndSaveToken(Long memberId);
 }

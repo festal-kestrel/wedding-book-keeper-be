@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WeddingInsertDto {
 
-    public Integer weddingId;
-    public Integer groomId;
-    public Integer brideId;
+    public Long weddingId;
+    public Long groomId;
+    public Long brideId;
     public String partnerCode;
     public String managerCode;
     public String groomName;

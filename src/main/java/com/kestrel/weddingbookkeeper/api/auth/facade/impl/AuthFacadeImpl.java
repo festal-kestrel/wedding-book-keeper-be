@@ -25,7 +25,7 @@ public class AuthFacadeImpl implements AuthFacade {
 
     @Override
     @Transactional
-    public VerificationCodeResponse getPartnerVerificationCode(Integer memberId) {
+    public VerificationCodeResponse getPartnerVerificationCode(Long memberId) {
         Member member = memberService.getMember(memberId);
         String verificationCode = authService.getPartnerVerificationCode(member);
         if (!member.isPartnerCodeIssued()) {
@@ -36,8 +36,8 @@ public class AuthFacadeImpl implements AuthFacade {
 
     @Override
     @Transactional
-    public void verifyPartnerVerificationCode(Integer memberId, VerificationCodeRequest verificationCodeRequest) {
-        Integer partnerId = authService.verifyPartnerVerificationCode(verificationCodeRequest);
+    public void verifyPartnerVerificationCode(Long memberId, VerificationCodeRequest verificationCodeRequest) {
+        Long partnerId = authService.verifyPartnerVerificationCode(verificationCodeRequest);
         Member member = memberService.getMember(memberId);
         Member partner = memberService.getMember(partnerId);
         memberService.assertGenderMismatch(member, partner);

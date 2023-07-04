@@ -77,7 +77,7 @@
   </insert>
 
 
-  <select id="selectFcmTokenByWeddingId" parameterType="java.lang.Integer" resultMap="notificationMap">
+  <select id="selectFcmTokenByWeddingId" parameterType="Long" resultMap="notificationMap">
     SELECT w.bride_name as bride_name, w.groom_name as groom_name, mw.fcm_token as fcm_token, mw.is_groom_side as is_groom_side
     FROM member_wedding mw
     JOIN wedding w

@@ -16,14 +16,14 @@ public class OauthServiceImpl implements OauthService {
 
     private final AuthTokenProvider authTokenProvider;
 
-    public OauthServiceImpl(JwtTokenDao jwtTokenDao, MemberDao memberDao, AuthTokenProvider authTokenProvider) {
+    public OauthServiceImpl(JwtTokenDao jwtTokenDao, AuthTokenProvider authTokenProvider) {
         this.jwtTokenDao = jwtTokenDao;
         this.authTokenProvider = authTokenProvider;
     }
 
     @Override
-    public JwtToken createAndSaveToken(int memberId) {
-        AuthToken authToken = authTokenProvider.createUserAppToken(Integer.toString(memberId));
+    public JwtToken createAndSaveToken(Long memberId) {
+        AuthToken authToken = authTokenProvider.createUserAppToken(memberId);
         JwtToken jwtToken = new JwtToken(authToken.getToken());
 
         boolean isSaved = jwtTokenDao.insertToken(jwtToken) == 1;

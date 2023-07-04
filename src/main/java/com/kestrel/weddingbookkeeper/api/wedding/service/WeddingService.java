@@ -15,15 +15,15 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
 
 public interface WeddingService {
 
-    Integer saveWedding(Member member, WeddingInfoRequest weddingInfoRequest);
+    Long saveWedding(Member member, WeddingInfoRequest weddingInfoRequest);
 
-    void updateQrImgUrl(Integer weddingId, String qrImgUrl);
+    void updateQrImgUrl(Long weddingId, String qrImgUrl);
 
     WeddingInfoResponse selectWeddingInfo(Integer weddingId);
 
-    DonationReceiptsResponse selectDonationList(Integer memberId);
+    DonationReceiptsResponse selectDonationList(Long memberId);
 
-    void connectPartner(PartnerCodeRequest partnerCodeRequest, Integer memberId);
+    void connectPartner(PartnerCodeRequest partnerCodeRequest, Long memberId);
 
     void updateWeddingInformation(Integer weddingId, WeddingUpdateInformationRequest weddingUpdateinformationRequest);
 
@@ -35,11 +35,11 @@ public interface WeddingService {
 
     void registerPartner(Member member, Member partner);
 
-    void createMemberWeddingInfo(Integer weddingId, Integer memberId, MemberWeddingDto memberWeddingDto);
+    void createMemberWeddingInfo(Long weddingId, Long memberId, MemberWeddingDto memberWeddingDto);
 
     WeddingIdResponse getWedding(Member member);
 
-    void patchDonationApproval(Integer weddingId, Integer memberId);
+    void patchDonationApproval(Long weddingId, Long memberId);
 
-    void patchDonationRejection(Integer weddingId, Integer memberId);
+    void patchDonationRejection(Long weddingId, Long memberId);
 }

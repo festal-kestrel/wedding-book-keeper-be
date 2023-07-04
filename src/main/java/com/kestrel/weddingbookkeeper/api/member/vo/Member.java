@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Member extends BaseEntity {
 
-    private Integer memberId;
+    private Long memberId;
     private String email;
     private String name;
     private Gender gender;
     private boolean isPartnerCodeIssued;
 
-    public Member(Integer memberId, String email, String name, Gender gender) {
+    public Member(Long memberId, String email, String name, Gender gender) {
         this.memberId = memberId;
         this.email = email;
         this.name = name;

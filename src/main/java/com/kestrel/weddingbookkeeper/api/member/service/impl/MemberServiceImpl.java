@@ -22,13 +22,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member getMember(Integer memberId) {
+    public Member getMember(Long memberId) {
         return memberDao.selectById(memberId).orElseThrow(MemberNotFoundException::new);
     }
 
     @Override
-    public int loginAndGetMemberId(Optional<Member> memberOptional, KakaoResponseDto kakaoResponseDto) {
-        int memberId;
+    public Long loginAndGetMemberId(Optional<Member> memberOptional, KakaoResponseDto kakaoResponseDto) {
+        Long memberId;
         if (memberOptional.isEmpty()) {
             Member member = createMember(kakaoResponseDto);
             boolean isSaved = memberDao.insertMember(member) == 1;
@@ -62,7 +62,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberInformationResponse getMemberInformation(Integer memberId) {
+    public MemberInformationResponse getMemberInformation(Long memberId) {
         Member member = memberDao.selectById(memberId).orElseThrow(MemberNotFoundException::new);
         return new MemberInformationResponse(member);
     }

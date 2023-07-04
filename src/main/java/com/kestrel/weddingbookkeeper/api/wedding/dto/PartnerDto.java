@@ -8,10 +8,10 @@ import lombok.Data;
 @Data
 public class PartnerDto {
 
-    private Integer weddingId;
-    private Integer groomId;
+    private Long weddingId;
+    private Long groomId;
     private String groomName;
-    private Integer brideId;
+    private Long brideId;
     private String brideName;
 
     public PartnerDto(Wedding wedding, Member member) {

@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class MemberWeddingDto {
 
-    private Integer weddingId;
-    private Integer donationAmount;
+    private Long weddingId;
+    private int donationAmount;
     private Boolean hasPaid;
     private String relation;
     private Boolean isGroomSide;

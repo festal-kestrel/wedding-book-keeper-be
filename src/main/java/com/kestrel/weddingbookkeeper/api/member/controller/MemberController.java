@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/members")
 public class MemberController {
 
-    private static final Integer MEMBER_ID = 18;
+    private static final Long MEMBER_ID = 18L;
 
     private final MemberService memberService;
 
@@ -27,7 +27,7 @@ public class MemberController {
     }
 
     @GetMapping("/me")
-    public MemberInformationResponse getMemberInformation(@AuthenticationPrincipal WeddingMember weddingMember) {
+    public MemberInformationResponse getMemberInformation() {
         return memberService.getMemberInformation(MEMBER_ID);
     }
 }

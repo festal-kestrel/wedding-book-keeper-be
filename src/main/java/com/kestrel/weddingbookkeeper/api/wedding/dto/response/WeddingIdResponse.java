@@ -5,9 +5,9 @@ import lombok.Getter;
 @Getter
 public class WeddingIdResponse {
 
-    private Integer weddingId;
+    private Long weddingId;
 
-    public WeddingIdResponse(Integer weddingId) {
+    public WeddingIdResponse(Long weddingId) {
         this.weddingId = weddingId;
     }
 }

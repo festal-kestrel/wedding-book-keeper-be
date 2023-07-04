@@ -18,19 +18,19 @@ public class VerificationCode implements Serializable {
     private String verificationCode;
 
     @Indexed
-    private Integer memberId;
+    private Long memberId;
 
     private Role role;
 
     private boolean isVerified;
 
-    public VerificationCode(String verificationCode, Role role, Integer memberId) {
+    public VerificationCode(String verificationCode, Role role, Long memberId) {
         this.verificationCode = verificationCode;
         this.role = role;
         this.memberId = memberId;
     }
 
-    public static VerificationCode of(String verificationCode, Role role, Integer memberId) {
+    public static VerificationCode of(String verificationCode, Role role, Long memberId) {
         return new VerificationCode(verificationCode, role, memberId);
     }
 
@@ -42,7 +42,7 @@ public class VerificationCode implements Serializable {
         return role;
     }
 
-    public Integer getMemberId() {
+    public Long getMemberId() {
         return memberId;
     }
 

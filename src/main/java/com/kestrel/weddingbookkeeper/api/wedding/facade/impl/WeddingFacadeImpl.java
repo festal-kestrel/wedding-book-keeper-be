@@ -34,17 +34,16 @@ public class WeddingFacadeImpl implements WeddingFacade {
 
     @Override
     @Transactional
-    public void createWeddingInfo(Integer memberId, WeddingInfoRequest weddingInfoRequest) {
+    public void createWeddingInfo(Long memberId, WeddingInfoRequest weddingInfoRequest) {
         Member member = memberService.getMember(memberId);
-        Integer weddingId = weddingService.saveWedding(member, weddingInfoRequest);
+        Long weddingId = weddingService.saveWedding(member, weddingInfoRequest);
         InputStream qr = qrService.generateQRCode(weddingId);
         String savedQrImageUrl = fileService.upload(qr, QR_DIRECTORY);
-        // 데이터 수정
         weddingService.updateQrImgUrl(weddingId, savedQrImageUrl);
     }
 
     @Override
-    public WeddingIdResponse getWeddingId(Integer memberId) {
+    public WeddingIdResponse getWeddingId(Long memberId) {
         Member member = memberService.getMember(memberId);
         return weddingService.getWedding(member);
     }
