@@ -1,6 +1,7 @@
 package com.kestrel.weddingbookkeeper.api.wedding.service.impl;
 
 import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
+import com.kestrel.weddingbookkeeper.api.auth.exception.VerificationCodeNotFoundException;
 import com.kestrel.weddingbookkeeper.api.member.dao.MemberDao;
 import com.kestrel.weddingbookkeeper.api.member.exception.InvalidRoleNameException;
 import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundException;
@@ -17,6 +18,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptRes
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.exception.AlreadyVerifiedException;
 import com.kestrel.weddingbookkeeper.api.wedding.factory.WeddingFactory;
 import com.kestrel.weddingbookkeeper.api.wedding.utils.VerificationCodeGenerator;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.ManagerVerificationCode;
@@ -188,6 +190,17 @@ public class WeddingServiceImpl implements WeddingService {
                     return managerVerificationCodeRepository.save(new ManagerVerificationCode(verificationCode, weddingId));
                 });
         return new VerificationCodeResponse(managerVerificationCode.getVerificationCode());
+    }
+
+    @Override
+    public void verifyManagerVerificationCode(Long weddingId) {
+        ManagerVerificationCode managerVerificationCode = managerVerificationCodeRepository.findByWeddingId(weddingId)
+                .orElseThrow(VerificationCodeNotFoundException::new);
+        if (managerVerificationCode.isVerified()) {
+            throw new AlreadyVerifiedException();
+        }
+        managerVerificationCode.verify();
+        managerVerificationCodeRepository.save(managerVerificationCode);
     }
 
     private WeddingFactory getWeddingFactory(final Member member) {

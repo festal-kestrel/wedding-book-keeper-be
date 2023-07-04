@@ -91,10 +91,19 @@ public class WeddingController {
     @GetMapping("/{weddingId}/verification-code")
     @ApiOperation("웨딩 관리자 인증코드 조회")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "successful operation", response = WeddingManagerCodeResponse.class),
+            @ApiResponse(code = 200, message = "successful operation", response = VerificationCodeResponse.class),
     })
     public VerificationCodeResponse getManagerVerificationCode(@PathVariable("weddingId") Long weddingId) {
         return weddingService.getManagerVerificationCode(weddingId);
+    }
+
+    @PostMapping("/{weddingId}/verification-code")
+    @ApiOperation("웨딩 관리자 인증코드 인증")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "successful operation"),
+    })
+    public void verifyManagerVerificationCode(@PathVariable("weddingId") Long weddingId) {
+        weddingService.verifyManagerVerificationCode(weddingId);
     }
 
     @GetMapping("/{weddingId}/qr")
