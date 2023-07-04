@@ -28,7 +28,7 @@
   </resultMap>
 
   <insert id="save" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto">
-    <selectKey keyColumn="wedding_id" keyProperty="weddingId" resultType="Integer" order="AFTER">
+    <selectKey keyColumn="wedding_id" keyProperty="weddingId" resultType="Long" order="AFTER">
       select WEDDING_SEQ.CURRVAL from dual
     </selectKey>
     insert into WEDDING (WEDDING_ID, WEDDING_DATE, LOCATION, GROOM_ID, BRIDE_ID, PARTNER_CODE, MANAGER_CODE, BRIDE_NAME,

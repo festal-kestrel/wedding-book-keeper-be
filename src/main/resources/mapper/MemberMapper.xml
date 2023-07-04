@@ -26,7 +26,7 @@
   </select>
 
   <insert id="insertMember">
-    <selectKey keyColumn="member_id" keyProperty="memberId" resultType="Integer" order="AFTER">
+    <selectKey keyColumn="member_id" keyProperty="memberId" resultType="Long" order="AFTER">
       select MEMBER_SEQ.CURRVAL from dual
     </selectKey>
     insert into member ( email, name, gender)

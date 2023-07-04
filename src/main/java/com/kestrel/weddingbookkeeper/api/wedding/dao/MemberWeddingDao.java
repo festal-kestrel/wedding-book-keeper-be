@@ -12,9 +12,9 @@ public interface MemberWeddingDao {
 
     List<MemberWedding> selectDonationList(Long memberId);
 
-    List<MemberWedding> selectGuestsByWeddingId(Integer weddingId);
+    List<MemberWedding> selectGuestsByWeddingId(Long weddingId);
 
-    List<MemberWedding> selectGuestsByWeddingIdAndHasPaid(Integer weddingId);
+    List<MemberWedding> selectGuestsByWeddingIdAndHasPaid(Long weddingId);
 
     int insertMemberWedding(MemberWeddingSaveDto memberWeddingSaveDto);
 

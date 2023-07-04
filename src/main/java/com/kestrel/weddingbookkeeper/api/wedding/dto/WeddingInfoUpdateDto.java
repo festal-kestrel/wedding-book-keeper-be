@@ -5,17 +5,17 @@ import java.time.LocalDateTime;
 
 public class WeddingInfoUpdateDto {
 
-    private Integer weddingId;
+    private Long weddingId;
     private LocalDateTime weddingDate;
     private String location;
 
-    public WeddingInfoUpdateDto(Integer weddingId, WeddingUpdateInformationRequest weddingUpdateinformationRequest) {
+    public WeddingInfoUpdateDto(Long weddingId, WeddingUpdateInformationRequest weddingUpdateinformationRequest) {
         this.weddingId = weddingId;
         this.weddingDate = weddingUpdateinformationRequest.getWeddingDate();
         this.location = weddingUpdateinformationRequest.getLocation();
     }
 
-    public Integer getWeddingId() {
+    public Long getWeddingId() {
         return weddingId;
     }
 

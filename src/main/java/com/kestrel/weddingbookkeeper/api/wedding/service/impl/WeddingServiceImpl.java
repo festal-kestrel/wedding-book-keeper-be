@@ -78,7 +78,7 @@ public class WeddingServiceImpl implements WeddingService {
         }
     }
 
-    public WeddingInfoResponse selectWeddingInfo(Integer weddingId) {
+    public WeddingInfoResponse selectWeddingInfo(Long weddingId) {
         Wedding wedding = weddingDao.selectWeddingInfo(weddingId);
         return new WeddingInfoResponse(wedding);
     }
@@ -101,7 +101,7 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     @Transactional
-    public void updateWeddingInformation(Integer weddingId,
+    public void updateWeddingInformation(Long weddingId,
                                          WeddingUpdateInformationRequest weddingUpdateInformationRequest) {
         boolean isUpdate = weddingDao.updateWeddingInformation(
                 new WeddingInfoUpdateDto(weddingId, weddingUpdateInformationRequest)) == 1;
@@ -111,13 +111,12 @@ public class WeddingServiceImpl implements WeddingService {
     }
 
     @Override
-    public WeddingManagerCodeResponse selectManagerCode(Integer weddingId) {
+    public WeddingManagerCodeResponse selectManagerCode(Long weddingId) {
         Wedding wedding = weddingDao.selectManagerCode(weddingId);
-        WeddingManagerCodeResponse weddingManagerCodeResponse = new WeddingManagerCodeResponse(wedding);
-        return weddingManagerCodeResponse;
+        return new WeddingManagerCodeResponse(wedding);
     }
 
-    public WeddingQrResponse selectQrImgUrl(Integer weddingId) {
+    public WeddingQrResponse selectQrImgUrl(Long weddingId) {
         Wedding wedding = weddingDao.selectWeddingInfo(weddingId);
         return new WeddingQrResponse(wedding);
     }
@@ -130,7 +129,7 @@ public class WeddingServiceImpl implements WeddingService {
     }
 
     @Override
-    public GuestDonationReceiptsResponse getWeddingGuestsInformation(Integer weddingId, Role role) {
+    public GuestDonationReceiptsResponse getWeddingGuestsInformation(Long weddingId, Role role) {
         if (role == Role.MANAGER) {
             List<MemberWedding> memberWeddings = memberWeddingDao.selectGuestsByWeddingId(weddingId);
             return new GuestDonationReceiptsResponse(memberWeddings);

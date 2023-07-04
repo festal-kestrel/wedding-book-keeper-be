@@ -54,7 +54,7 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = WeddingInfoResponse.class),
     })
-    public WeddingInfoResponse selectWeddingInfo(@PathVariable("weddingId") Integer weddingId) {
+    public WeddingInfoResponse selectWeddingInfo(@PathVariable("weddingId") Long weddingId) {
         return weddingService.selectWeddingInfo(weddingId);
     }
 
@@ -73,7 +73,7 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
-    public void updateWeddingInformation(@PathVariable("weddingId") Integer weddingId,
+    public void updateWeddingInformation(@PathVariable("weddingId") Long weddingId,
                                          @RequestBody WeddingUpdateInformationRequest weddingUpdateInformationRequest) {
         weddingService.updateWeddingInformation(weddingId, weddingUpdateInformationRequest);
     }
@@ -83,7 +83,7 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = WeddingManagerCodeResponse.class),
     })
-    public WeddingManagerCodeResponse selectManagerCode(@PathVariable("weddingId") Integer weddingId) {
+    public WeddingManagerCodeResponse selectManagerCode(@PathVariable("weddingId") Long weddingId) {
         return weddingService.selectManagerCode(weddingId);
     }
 
@@ -92,7 +92,7 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = WeddingQrResponse.class),
     })
-    public WeddingQrResponse selectQrImgUrl(@PathVariable("weddingId") Integer weddingId) {
+    public WeddingQrResponse selectQrImgUrl(@PathVariable("weddingId") Long weddingId) {
         return weddingService.selectQrImgUrl(weddingId);
     }
 
@@ -110,7 +110,7 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = GuestDonationReceiptsResponse.class),
     })
-    public GuestDonationReceiptsResponse selectGuestList(@PathVariable("weddingId") Integer weddingId,
+    public GuestDonationReceiptsResponse selectGuestList(@PathVariable("weddingId") Long weddingId,
                                                          @RequestParam Role role) {
         return weddingService.getWeddingGuestsInformation(weddingId, role);
     }

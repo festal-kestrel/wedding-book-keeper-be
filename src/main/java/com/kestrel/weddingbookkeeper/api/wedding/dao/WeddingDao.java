@@ -16,7 +16,7 @@ public interface WeddingDao {
 
     int updateQrImgUrl(WeddingUpdateDto weddingUpdateDto);
 
-    Wedding selectWeddingInfo(Integer weddingId);
+    Wedding selectWeddingInfo(Long weddingId);
 
     Wedding selectByPartnerCode(String partnerCode);
 
@@ -26,9 +26,7 @@ public interface WeddingDao {
 
     int updateWeddingInformation(WeddingInfoUpdateDto weddingInfoUpdateDto);
 
-    Wedding selectManagerCode(Integer weddingId);
-
-    Wedding selectQrImgUrl(Integer weddingId);
+    Wedding selectManagerCode(Long weddingId);
 
     Optional<Wedding> selectByGroomId(Long memberId);
 

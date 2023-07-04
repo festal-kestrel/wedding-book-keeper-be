@@ -19,19 +19,19 @@ public interface WeddingService {
 
     void updateQrImgUrl(Long weddingId, String qrImgUrl);
 
-    WeddingInfoResponse selectWeddingInfo(Integer weddingId);
+    WeddingInfoResponse selectWeddingInfo(Long weddingId);
 
     DonationReceiptsResponse selectDonationList(Long memberId);
 
     void connectPartner(PartnerCodeRequest partnerCodeRequest, Long memberId);
 
-    void updateWeddingInformation(Integer weddingId, WeddingUpdateInformationRequest weddingUpdateinformationRequest);
+    void updateWeddingInformation(Long weddingId, WeddingUpdateInformationRequest weddingUpdateinformationRequest);
 
-    WeddingManagerCodeResponse selectManagerCode(Integer weddingId);
+    WeddingManagerCodeResponse selectManagerCode(Long weddingId);
 
-    WeddingQrResponse selectQrImgUrl(Integer weddingId);
+    WeddingQrResponse selectQrImgUrl(Long weddingId);
 
-    GuestDonationReceiptsResponse getWeddingGuestsInformation(Integer weddingId, Role role);
+    GuestDonationReceiptsResponse getWeddingGuestsInformation(Long weddingId, Role role);
 
     void registerPartner(Member member, Member partner);
 
