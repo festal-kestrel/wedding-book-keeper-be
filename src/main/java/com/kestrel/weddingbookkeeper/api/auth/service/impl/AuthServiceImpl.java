@@ -7,16 +7,23 @@ import com.kestrel.weddingbookkeeper.api.auth.service.AuthService;
 import com.kestrel.weddingbookkeeper.api.auth.vo.VerificationCode;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
+import com.kestrel.weddingbookkeeper.api.wedding.dao.ManagerVerificationCodeRepository;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.ManagerVerificationCodeResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.exception.AlreadyVerifiedException;
 import com.kestrel.weddingbookkeeper.api.wedding.utils.VerificationCodeGenerator;
+import com.kestrel.weddingbookkeeper.api.wedding.vo.ManagerVerificationCode;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
     private final VerificationCodeRepository verificationCodeRepository;
+    private final ManagerVerificationCodeRepository managerVerificationCodeRepository;
 
-    public AuthServiceImpl(VerificationCodeRepository verificationCodeRepository) {
+    public AuthServiceImpl(final VerificationCodeRepository verificationCodeRepository,
+                           final ManagerVerificationCodeRepository managerVerificationCodeRepository) {
         this.verificationCodeRepository = verificationCodeRepository;
+        this.managerVerificationCodeRepository = managerVerificationCodeRepository;
     }
 
     @Override
@@ -59,5 +66,17 @@ public class AuthServiceImpl implements AuthService {
         } catch (VerificationCodeNotFoundException e) {
             return issuePartnerVerificationCode(member);
         }
+    }
+
+    @Override
+    public ManagerVerificationCodeResponse verifyManagerVerificationCode(VerificationCodeRequest verificationCodeRequest) {
+        ManagerVerificationCode managerVerificationCode = managerVerificationCodeRepository.findById(verificationCodeRequest.getVerificationCode())
+                .orElseThrow(VerificationCodeNotFoundException::new);
+        if (managerVerificationCode.isVerified()) {
+            throw new AlreadyVerifiedException();
+        }
+        managerVerificationCode.verify();
+        managerVerificationCodeRepository.save(managerVerificationCode);
+        return new ManagerVerificationCodeResponse(managerVerificationCode.getWeddingId());
     }
 }

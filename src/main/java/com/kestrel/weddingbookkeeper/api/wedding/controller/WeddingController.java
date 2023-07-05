@@ -1,5 +1,6 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
+import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.auth.utils.WeddingMember;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingDto;
@@ -85,6 +86,15 @@ public class WeddingController {
     })
     public WeddingManagerCodeResponse selectManagerCode(@PathVariable("weddingId") Long weddingId) {
         return weddingService.selectManagerCode(weddingId);
+    }
+
+    @GetMapping("/{weddingId}/verification-code")
+    @ApiOperation("웨딩 관리자 인증코드 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "successful operation", response = VerificationCodeResponse.class),
+    })
+    public VerificationCodeResponse getManagerVerificationCode(@PathVariable("weddingId") Long weddingId) {
+        return weddingService.getManagerVerificationCode(weddingId);
     }
 
     @GetMapping("/{weddingId}/qr")

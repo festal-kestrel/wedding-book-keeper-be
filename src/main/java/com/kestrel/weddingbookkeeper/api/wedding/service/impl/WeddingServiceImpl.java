@@ -1,5 +1,6 @@
 package com.kestrel.weddingbookkeeper.api.wedding.service.impl;
 
+import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.member.dao.MemberDao;
 import com.kestrel.weddingbookkeeper.api.member.exception.InvalidRoleNameException;
 import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundException;
@@ -7,6 +8,7 @@ import com.kestrel.weddingbookkeeper.api.member.exception.UnsupportedGenderTypeE
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
+import com.kestrel.weddingbookkeeper.api.wedding.dao.ManagerVerificationCodeRepository;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingSaveDto;
@@ -16,6 +18,8 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsRe
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.factory.WeddingFactory;
+import com.kestrel.weddingbookkeeper.api.wedding.utils.VerificationCodeGenerator;
+import com.kestrel.weddingbookkeeper.api.wedding.vo.ManagerVerificationCode;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto;
@@ -45,17 +49,20 @@ public class WeddingServiceImpl implements WeddingService {
     private final WeddingDao weddingDao;
     private final MemberWeddingDao memberWeddingDao;
     private final MemberService memberService;
+    private final ManagerVerificationCodeRepository managerVerificationCodeRepository;
     private final List<WeddingFactory> weddingFactories;
 
     public WeddingServiceImpl(final MemberDao memberDao,
                               final WeddingDao weddingDao,
                               final MemberWeddingDao memberWeddingDao,
                               final MemberService memberService,
+                              final ManagerVerificationCodeRepository managerVerificationCodeRepository,
                               final List<WeddingFactory> weddingFactories) {
         this.memberDao = memberDao;
         this.weddingDao = weddingDao;
         this.memberWeddingDao = memberWeddingDao;
         this.memberService = memberService;
+        this.managerVerificationCodeRepository = managerVerificationCodeRepository;
         this.weddingFactories = weddingFactories;
     }
 
@@ -171,6 +178,16 @@ public class WeddingServiceImpl implements WeddingService {
     @Transactional
     public void patchDonationRejection(Long weddingId, Long memberId) {
         memberWeddingDao.patchDonationRejection(weddingId, memberId);
+    }
+
+    @Override
+    public VerificationCodeResponse getManagerVerificationCode(Long weddingId) {
+        ManagerVerificationCode managerVerificationCode = managerVerificationCodeRepository.findByWeddingId(weddingId)
+                .orElseGet(() -> {
+                    String verificationCode = VerificationCodeGenerator.generate();
+                    return managerVerificationCodeRepository.save(new ManagerVerificationCode(verificationCode, weddingId));
+                });
+        return new VerificationCodeResponse(managerVerificationCode.getVerificationCode());
     }
 
     private WeddingFactory getWeddingFactory(final Member member) {
