@@ -1,6 +1,7 @@
 package com.kestrel.weddingbookkeeper.api.wedding.facade.impl;
 
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.CreateWeddingResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.facade.WeddingFacade;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
@@ -34,12 +35,13 @@ public class WeddingFacadeImpl implements WeddingFacade {
 
     @Override
     @Transactional
-    public void createWeddingInfo(Long memberId, WeddingInfoRequest weddingInfoRequest) {
+    public CreateWeddingResponse createWeddingInfo(Long memberId, WeddingInfoRequest weddingInfoRequest) {
         Member member = memberService.getMember(memberId);
         Long weddingId = weddingService.saveWedding(member, weddingInfoRequest);
         InputStream qr = qrService.generateQRCode(weddingId);
         String savedQrImageUrl = fileService.upload(qr, QR_DIRECTORY);
         weddingService.updateQrImgUrl(weddingId, savedQrImageUrl);
+        return new CreateWeddingResponse(weddingId);
     }
 
     @Override

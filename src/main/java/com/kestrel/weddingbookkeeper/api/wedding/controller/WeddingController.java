@@ -4,6 +4,7 @@ import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeRespo
 import com.kestrel.weddingbookkeeper.api.auth.utils.WeddingMember;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingDto;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.response.CreateWeddingResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
@@ -45,9 +46,9 @@ public class WeddingController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
-    public void createWeddingInfo(@RequestBody final WeddingInfoRequest weddingInfoRequest,
-                                  @AuthenticationPrincipal final WeddingMember weddingMember) {
-        weddingFacade.createWeddingInfo(weddingMember.getMemberId(), weddingInfoRequest);
+    public CreateWeddingResponse createWeddingInfo(@RequestBody final WeddingInfoRequest weddingInfoRequest,
+                                                   @AuthenticationPrincipal final WeddingMember weddingMember) {
+        return weddingFacade.createWeddingInfo(weddingMember.getMemberId(), weddingInfoRequest);
     }
 
     @GetMapping("/{weddingId}")

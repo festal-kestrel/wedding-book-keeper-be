@@ -137,13 +137,14 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     public GuestDonationReceiptsResponse getWeddingGuestsInformation(Long weddingId, Role role) {
+        Wedding wedding = weddingDao.selectWeddingInfo(weddingId);
         if (role == Role.MANAGER) {
             List<MemberWedding> memberWeddings = memberWeddingDao.selectGuestsByWeddingId(weddingId);
-            return new GuestDonationReceiptsResponse(memberWeddings);
+            return new GuestDonationReceiptsResponse(wedding, memberWeddings);
         }
         if (role == Role.PARTNER) {
             List<MemberWedding> memberWeddings = memberWeddingDao.selectGuestsByWeddingIdAndHasPaid(weddingId);
-            return new GuestDonationReceiptsResponse(memberWeddings);
+            return new GuestDonationReceiptsResponse(wedding, memberWeddings);
         }
         throw new InvalidRoleNameException();
     }
