@@ -1,10 +1,10 @@
 package com.kestrel.weddingbookkeeper.api.wedding.dto.response;
 
-public class ManagerVerificationCodeResponse {
+public class CreateWeddingResponse {
 
     private Long weddingId;
 
-    public ManagerVerificationCodeResponse(Long weddingId) {
+    public CreateWeddingResponse(Long weddingId) {
         this.weddingId = weddingId;
     }
 
