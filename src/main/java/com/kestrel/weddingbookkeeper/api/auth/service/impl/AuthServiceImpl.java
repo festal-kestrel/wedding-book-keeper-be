@@ -70,7 +70,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ManagerVerificationCodeResponse verifyManagerVerificationCode(VerificationCodeRequest verificationCodeRequest) {
-        System.out.println("verificationCodeRequest = " + verificationCodeRequest.getVerificationCode());
         ManagerVerificationCode managerVerificationCode = managerVerificationCodeRepository.findById(verificationCodeRequest.getVerificationCode())
                 .orElseThrow(VerificationCodeNotFoundException::new);
         if (managerVerificationCode.isVerified()) {
