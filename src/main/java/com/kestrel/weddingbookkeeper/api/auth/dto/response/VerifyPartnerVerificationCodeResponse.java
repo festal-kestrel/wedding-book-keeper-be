@@ -7,4 +7,8 @@ public class VerifyPartnerVerificationCodeResponse {
     public VerifyPartnerVerificationCodeResponse(Long weddingId) {
         this.weddingId = weddingId;
     }
+
+    public Long getWeddingId() {
+        return weddingId;
+    }
 }
