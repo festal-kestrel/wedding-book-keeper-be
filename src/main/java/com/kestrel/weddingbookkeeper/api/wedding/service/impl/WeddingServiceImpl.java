@@ -17,6 +17,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptRes
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
+import com.kestrel.weddingbookkeeper.api.wedding.exception.AlreadyVerifiedException;
 import com.kestrel.weddingbookkeeper.api.wedding.factory.WeddingFactory;
 import com.kestrel.weddingbookkeeper.api.wedding.utils.VerificationCodeGenerator;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.ManagerVerificationCode;
@@ -188,6 +189,12 @@ public class WeddingServiceImpl implements WeddingService {
                     String verificationCode = VerificationCodeGenerator.generate();
                     return managerVerificationCodeRepository.save(new ManagerVerificationCode(verificationCode, weddingId));
                 });
+        if (managerVerificationCode.isVerified()) {
+            String verificationCode = VerificationCodeGenerator.generate();
+            ManagerVerificationCode newCode = managerVerificationCodeRepository.save(
+                    new ManagerVerificationCode(verificationCode, weddingId));
+            return new VerificationCodeResponse(newCode.getVerificationCode());
+        }
         return new VerificationCodeResponse(managerVerificationCode.getVerificationCode());
     }
 

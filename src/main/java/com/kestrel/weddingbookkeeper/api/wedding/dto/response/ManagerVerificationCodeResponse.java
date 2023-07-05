@@ -8,7 +8,7 @@ public class ManagerVerificationCodeResponse {
         this.weddingId = weddingId;
     }
 
-    public Long getVerificationCode() {
+    public Long getWeddingId() {
         return weddingId;
     }
 }
