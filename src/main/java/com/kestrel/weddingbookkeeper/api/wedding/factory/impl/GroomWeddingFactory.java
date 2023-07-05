@@ -19,9 +19,10 @@ public class GroomWeddingFactory implements WeddingFactory {
     }
 
     @Override
-    public void connectPartner(Member groom, Member bride) {
+    public Long connectPartner(Member groom, Member bride) {
         Wedding wedding = weddingDao.selectByBrideId(bride.getMemberId()).orElseThrow(WeddingNotFoundException::new);
         weddingDao.updateGroomPartner(new PartnerDto(wedding, groom));
+        return wedding.getWeddingId();
     }
 
     @Override

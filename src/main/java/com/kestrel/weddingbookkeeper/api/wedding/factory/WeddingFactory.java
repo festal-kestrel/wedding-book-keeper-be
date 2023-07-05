@@ -8,7 +8,7 @@ public interface WeddingFactory {
 
     boolean isSupport(Gender gender);
 
-    void connectPartner(Member member, Member partner);
+    Long connectPartner(Member member, Member partner);
 
     Wedding getWedding(Member member);
 }
