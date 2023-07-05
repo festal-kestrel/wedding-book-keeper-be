@@ -151,9 +151,9 @@ public class WeddingServiceImpl implements WeddingService {
     }
 
     @Override
-    public void registerPartner(Member member, Member partner) {
+    public Long registerPartner(Member member, Member partner) {
         WeddingFactory weddingFactory = getWeddingFactory(member);
-        weddingFactory.connectPartner(member, partner);
+        return weddingFactory.connectPartner(member, partner);
     }
 
     @Override

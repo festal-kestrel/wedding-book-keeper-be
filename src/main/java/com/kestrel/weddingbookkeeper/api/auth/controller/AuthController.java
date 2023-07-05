@@ -2,6 +2,7 @@ package com.kestrel.weddingbookkeeper.api.auth.controller;
 
 import com.kestrel.weddingbookkeeper.api.auth.dto.request.VerificationCodeRequest;
 import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
+import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerifyPartnerVerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.auth.facade.AuthFacade;
 import com.kestrel.weddingbookkeeper.api.auth.service.AuthService;
 import com.kestrel.weddingbookkeeper.api.auth.utils.WeddingMember;
@@ -42,9 +43,9 @@ public class AuthController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
-    public void getPartnerVerificationCode(@RequestBody final VerificationCodeRequest verificationCodeRequest,
-                                           @AuthenticationPrincipal final WeddingMember weddingMember) {
-        authFacade.verifyPartnerVerificationCode(weddingMember.getMemberId(), verificationCodeRequest);
+    public VerifyPartnerVerificationCodeResponse getPartnerVerificationCode(@RequestBody final VerificationCodeRequest verificationCodeRequest,
+                                                                            @AuthenticationPrincipal final WeddingMember weddingMember) {
+        return authFacade.verifyPartnerVerificationCode(weddingMember.getMemberId(), verificationCodeRequest);
     }
 
     @PostMapping("/verification-code/admin")

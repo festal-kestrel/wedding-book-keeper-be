@@ -2,6 +2,7 @@ package com.kestrel.weddingbookkeeper.api.auth.facade.impl;
 
 import com.kestrel.weddingbookkeeper.api.auth.dto.request.VerificationCodeRequest;
 import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
+import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerifyPartnerVerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.auth.facade.AuthFacade;
 import com.kestrel.weddingbookkeeper.api.auth.service.AuthService;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
@@ -36,11 +37,12 @@ public class AuthFacadeImpl implements AuthFacade {
 
     @Override
     @Transactional
-    public void verifyPartnerVerificationCode(Long memberId, VerificationCodeRequest verificationCodeRequest) {
+    public VerifyPartnerVerificationCodeResponse verifyPartnerVerificationCode(Long memberId, VerificationCodeRequest verificationCodeRequest) {
         Long partnerId = authService.verifyPartnerVerificationCode(verificationCodeRequest);
         Member member = memberService.getMember(memberId);
         Member partner = memberService.getMember(partnerId);
         memberService.assertGenderMismatch(member, partner);
-        weddingService.registerPartner(member, partner);
+        Long weddingId = weddingService.registerPartner(member, partner);
+        return new VerifyPartnerVerificationCodeResponse(weddingId);
     }
 }

@@ -35,7 +35,7 @@ public interface WeddingService {
 
     GuestDonationReceiptsResponse getWeddingGuestsInformation(Long weddingId, Role role);
 
-    void registerPartner(Member member, Member partner);
+    Long registerPartner(Member member, Member partner);
 
     void createMemberWeddingInfo(Long weddingId, Long memberId, MemberWeddingDto memberWeddingDto);
 
