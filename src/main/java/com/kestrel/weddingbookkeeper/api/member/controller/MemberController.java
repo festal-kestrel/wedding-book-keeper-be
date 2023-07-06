@@ -21,7 +21,7 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @Operation(summary="유저 정보 호출", tags = {"Members API"})
+    @Operation(summary = "유저 정보 호출", tags = {"Members API"})
     @GetMapping("/me")
     public MemberInformationResponse getMemberInformation(@AuthenticationPrincipal final WeddingMember weddingMember) {
         return memberService.getMemberInformation(weddingMember.getMemberId());

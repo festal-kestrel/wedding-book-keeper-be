@@ -51,7 +51,7 @@ public class AuthController {
     }
 
     @PostMapping("/verification-code/admin")
-    @Operation(summary="웨딩 관리자 인증코드 인증", tags = {"Auth API"})
+    @Operation(summary = "웨딩 관리자 인증코드 인증", tags = {"Auth API"})
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })

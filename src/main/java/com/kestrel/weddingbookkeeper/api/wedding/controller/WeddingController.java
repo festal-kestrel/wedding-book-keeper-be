@@ -46,7 +46,7 @@ public class WeddingController {
     }
 
     @PostMapping
-    @Operation(tags={"Wedding API"}, summary="결혼식 정보 생성")
+    @Operation(tags = {"Wedding API"}, summary = "결혼식 정보 생성")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
@@ -56,7 +56,7 @@ public class WeddingController {
     }
 
     @GetMapping("/{weddingId}")
-    @Operation(tags={"Wedding API"}, summary="결혼식 상세 조회")
+    @Operation(tags = {"Wedding API"}, summary = "결혼식 상세 조회")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = WeddingInfoResponse.class),
     })
@@ -65,7 +65,7 @@ public class WeddingController {
     }
 
     @PostMapping("/partner")
-    @Operation(tags={"Wedding API"}, summary="배우자 연결 (배제)")
+    @Operation(tags = {"Wedding API"}, summary = "배우자 연결 (배제)")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
@@ -75,7 +75,7 @@ public class WeddingController {
     }
 
     @PatchMapping("/{weddingId}")
-    @Operation(tags={"Wedding API"}, summary="결혼식 수정")
+    @Operation(tags = {"Wedding API"}, summary = "결혼식 수정")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
@@ -85,7 +85,7 @@ public class WeddingController {
     }
 
     @GetMapping("/{weddingId}/admin/code")
-    @Operation(tags={"Wedding API"}, summary="관리자 인증코드 조회 (배제)")
+    @Operation(tags = {"Wedding API"}, summary = "관리자 인증코드 조회 (배제)")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = WeddingManagerCodeResponse.class),
     })
@@ -94,7 +94,7 @@ public class WeddingController {
     }
 
     @GetMapping("/{weddingId}/verification-code")
-    @Operation(tags={"Wedding API"}, summary="웨딩 관리자 인증코드 조회")
+    @Operation(tags = {"Wedding API"}, summary = "웨딩 관리자 인증코드 조회")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = VerificationCodeResponse.class),
     })
@@ -103,7 +103,7 @@ public class WeddingController {
     }
 
     @GetMapping("/{weddingId}/qr")
-    @Operation(tags={"Wedding API"}, summary="결혼식 QR 이미지 조회")
+    @Operation(tags = {"Wedding API"}, summary = "결혼식 QR 이미지 조회")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = WeddingQrResponse.class),
     })
@@ -112,7 +112,7 @@ public class WeddingController {
     }
 
     @GetMapping
-    @Operation(tags={"Wedding API"}, summary="나의 축의금 납부내역 목록 조회")
+    @Operation(tags = {"Wedding API"}, summary = "나의 축의금 납부내역 목록 조회")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = DonationReceiptsResponse.class),
     })
@@ -121,7 +121,7 @@ public class WeddingController {
     }
 
     @GetMapping("/{weddingId}/guests")
-    @Operation(tags={"Wedding API"}, summary="하객 축의금 납부 내역 조회 (신랑신부/관리자용)")
+    @Operation(tags = {"Wedding API"}, summary = "하객 축의금 납부 내역 조회 (신랑신부/관리자용)")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = GuestDonationReceiptsResponse.class),
     })
@@ -131,7 +131,7 @@ public class WeddingController {
     }
 
     @PostMapping("/{weddingId}/guests/new")
-    @Operation(tags={"Wedding API"}, summary="하객 QR 입장")
+    @Operation(tags = {"Wedding API"}, summary = "하객 QR 입장")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
@@ -142,7 +142,7 @@ public class WeddingController {
     }
 
     @GetMapping("/me")
-    @Operation(tags={"Wedding API"}, summary="나의 WeddingId 조회")
+    @Operation(tags = {"Wedding API"}, summary = "나의 WeddingId 조회")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = WeddingIdResponse.class),
     })
@@ -151,7 +151,7 @@ public class WeddingController {
     }
 
     @PatchMapping("/{weddingId}/guests/{guestId}/paid/approval")
-    @Operation(tags={"Wedding API"}, summary="축의금 납부 승인")
+    @Operation(tags = {"Wedding API"}, summary = "축의금 납부 승인")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
@@ -161,7 +161,7 @@ public class WeddingController {
     }
 
     @PatchMapping("/{weddingId}/guests/{guestId}/paid/rejection")
-    @Operation(tags={"Wedding API"}, summary="축의금 납부 반려")
+    @Operation(tags = {"Wedding API"}, summary = "축의금 납부 반려")
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
