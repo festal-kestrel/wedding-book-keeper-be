@@ -21,7 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/swagger-ui/**.html", "/swagger-resources/**", "/v3/api-docs", "/webjars/**");
+        web.ignoring().antMatchers("/swagger-ui/**", "/swagger-ui/**.html", "/swagger-resources/**", "/v3/api-docs", "/webjars/**");
     }
 
     // TODO: 개발용 시큐리티 라우트 설정
