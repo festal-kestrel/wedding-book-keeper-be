@@ -50,7 +50,7 @@
                  JOIN wedding w
                       ON mw.wedding_id = w.wedding_id
         WHERE mw.member_id = #{memberId}
-        ORDER BY mw.created_at DESC
+        ORDER BY w.wedding_date DESC
     </select>
 
     <select id="selectGuestsByWeddingId" resultMap="memberWeddingMap">
@@ -59,7 +59,7 @@
                  JOIN wedding w
                       ON mw.wedding_id = w.wedding_id
         WHERE mw.wedding_id = #{weddingId}
-        ORDER BY mw.created_at DESC
+        ORDER BY w.wedding_date DESC
     </select>
 
     <select id="selectGuestsByWeddingIdAndHasPaid" resultMap="memberWeddingMap">
@@ -69,7 +69,7 @@
                       ON mw.wedding_id = w.wedding_id
         WHERE mw.wedding_id = #{weddingId}
           AND mw.has_paid = 1
-        ORDER BY mw.created_at DESC
+        ORDER BY w.wedding_date DESC
     </select>
 
     <insert id="insertMemberWedding">
