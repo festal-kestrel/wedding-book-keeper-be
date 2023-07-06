@@ -1,7 +1,5 @@
 package com.kestrel.weddingbookkeeper.api.wedding.controller;
 
-import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.summary;
-
 import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.auth.utils.WeddingMember;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
