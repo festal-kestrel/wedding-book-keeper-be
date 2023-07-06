@@ -7,9 +7,10 @@ import com.kestrel.weddingbookkeeper.api.auth.facade.AuthFacade;
 import com.kestrel.weddingbookkeeper.api.auth.service.AuthService;
 import com.kestrel.weddingbookkeeper.api.auth.utils.WeddingMember;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.ManagerVerificationCodeResponse;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Auth API", description = "배우자 & 관리자 인증 API")
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -30,7 +32,7 @@ public class AuthController {
     }
 
     @GetMapping("/verification-code")
-    @ApiOperation("배우자 연결에 필요한 인증코드 조회")
+    @Operation(summary="배우자 연결에 필요한 인증코드 조회", tags = {"Auth API"})
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation", response = VerificationCodeResponse.class),
     })
@@ -39,7 +41,7 @@ public class AuthController {
     }
 
     @PostMapping("/verification-code")
-    @ApiOperation("배우자 인증코드 인증")
+    @Operation(summary="배우자 인증코드 인증", tags = {"Auth API"})
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
@@ -49,7 +51,7 @@ public class AuthController {
     }
 
     @PostMapping("/verification-code/admin")
-    @ApiOperation("웨딩 관리자 인증코드 인증")
+    @Operation(summary = "웨딩 관리자 인증코드 인증", tags = {"Auth API"})
     @ApiResponses({
             @ApiResponse(code = 200, message = "successful operation"),
     })
