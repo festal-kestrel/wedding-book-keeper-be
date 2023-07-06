@@ -4,6 +4,7 @@ import com.kestrel.weddingbookkeeper.api.auth.utils.AuthTokenProvider;
 import com.kestrel.weddingbookkeeper.api.auth.utils.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -16,6 +17,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     public SecurityConfiguration(AuthTokenProvider authTokenProvider) {
         this.authTokenProvider = authTokenProvider;
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/swagger-ui/**.html", "/swagger-resources/**", "/v3/api-docs", "/webjars/**");
     }
 
     // TODO: 개발용 시큐리티 라우트 설정
