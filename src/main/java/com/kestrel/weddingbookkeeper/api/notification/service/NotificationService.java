@@ -41,6 +41,7 @@ public class NotificationService {
                     weddingIdsList.add(wedding.getWeddingId());
                 }
             }
+            log.info("weddingIdsList = " + weddingIdsList);
             boolean failedUpdate = weddingDao.updateWeddingProcessed(weddingIdsList) == 0;
             if (failedUpdate) {
                 throw new RuntimeException();
@@ -54,6 +55,7 @@ public class NotificationService {
 
         for (NotificationInfo notificationInfo : tokenList) {
             String fcmToken = notificationInfo.getFcmToken();
+            log.info("==============================================");
             log.info("fcmToken = " + fcmToken);
             if (fcmToken != null) {
                 Message message = Message.builder()
