@@ -17,7 +17,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptRes
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
-import com.kestrel.weddingbookkeeper.api.wedding.exception.AlreadyVerifiedException;
 import com.kestrel.weddingbookkeeper.api.wedding.factory.WeddingFactory;
 import com.kestrel.weddingbookkeeper.api.wedding.utils.VerificationCodeGenerator;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.ManagerVerificationCode;
@@ -25,7 +24,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoUpdateDto;
-import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingUpdateDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
@@ -34,7 +32,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCode
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingQrResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.InvalidGenderException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.ValidationCodeMisMatchException;
-import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotSavedException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotUpdateException;
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInformationUpdateException;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
@@ -70,12 +67,8 @@ public class WeddingServiceImpl implements WeddingService {
     @Override
     @Transactional
     public Long saveWedding(Member member, final WeddingInfoRequest weddingInfoRequest) {
-        WeddingInsertDto weddingInsertDto = new WeddingInsertDto(member, weddingInfoRequest);
-        boolean isSaved = weddingDao.save(weddingInsertDto) == 1;
-        if (!isSaved) {
-            throw new WeddingInfoNotSavedException();
-        }
-        return weddingInsertDto.getWeddingId();
+        WeddingFactory weddingFactory = getWeddingFactory(member);
+        return weddingFactory.createWedding(member, weddingInfoRequest);
     }
 
     @Override
@@ -187,7 +180,8 @@ public class WeddingServiceImpl implements WeddingService {
         ManagerVerificationCode managerVerificationCode = managerVerificationCodeRepository.findByWeddingId(weddingId)
                 .orElseGet(() -> {
                     String verificationCode = VerificationCodeGenerator.generate();
-                    return managerVerificationCodeRepository.save(new ManagerVerificationCode(verificationCode, weddingId));
+                    return managerVerificationCodeRepository.save(
+                            new ManagerVerificationCode(verificationCode, weddingId));
                 });
         if (managerVerificationCode.isVerified()) {
             String verificationCode = VerificationCodeGenerator.generate();
