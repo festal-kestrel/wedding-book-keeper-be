@@ -27,14 +27,20 @@
     <collection column="bride_id" property="bride" resultMap="memberMap"/>
   </resultMap>
 
-  <insert id="save" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto">
+  <insert id="saveByGroom" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingGroomInsertDto">
     <selectKey keyColumn="wedding_id" keyProperty="weddingId" resultType="Long" order="AFTER">
       select WEDDING_SEQ.CURRVAL from dual
     </selectKey>
-    insert into WEDDING (WEDDING_ID, WEDDING_DATE, LOCATION, GROOM_ID, BRIDE_ID, PARTNER_CODE, MANAGER_CODE, BRIDE_NAME,
-    GROOM_NAME)
-    VALUES (wedding_seq.nextval, #{weddingDate, jdbcType=TIMESTAMP}, #{location}, #{groomId}, #{brideId}, #{partnerCode},
-    #{managerCode}, #{brideName}, #{groomName})
+    insert into WEDDING (WEDDING_ID, WEDDING_DATE, LOCATION, GROOM_ID, GROOM_NAME)
+    VALUES (wedding_seq.nextval, #{weddingDate, jdbcType=TIMESTAMP}, #{location}, #{groomId}, #{groomName})
+  </insert>
+
+  <insert id="saveByBride" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingBrideInsertDto">
+    <selectKey keyColumn="wedding_id" keyProperty="weddingId" resultType="Long" order="AFTER">
+      select WEDDING_SEQ.CURRVAL from dual
+    </selectKey>
+    insert into WEDDING (WEDDING_ID, WEDDING_DATE, LOCATION, BRIDE_ID, BRIDE_NAME)
+    VALUES (wedding_seq.nextval, #{weddingDate, jdbcType=TIMESTAMP}, #{location}, #{brideId}, #{brideName})
   </insert>
 
   <update id="updateQrImgUrl" parameterType="com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingUpdateDto">

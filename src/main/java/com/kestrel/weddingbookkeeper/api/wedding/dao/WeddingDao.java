@@ -1,8 +1,9 @@
 package com.kestrel.weddingbookkeeper.api.wedding.dao;
 
 import com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingBrideInsertDto;
+import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingGroomInsertDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInfoUpdateDto;
-import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingInsertDto;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.WeddingUpdateDto;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
 import java.util.List;
@@ -12,7 +13,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface WeddingDao {
 
-    int save(WeddingInsertDto weddingInsertDto);
+    int saveByGroom(WeddingGroomInsertDto weddingInsertDto);
+
+    int saveByBride(WeddingBrideInsertDto weddingInsertDto);
 
     int updateQrImgUrl(WeddingUpdateDto weddingUpdateDto);
 
