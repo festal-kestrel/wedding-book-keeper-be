@@ -12,6 +12,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.ManagerVerificatio
 import com.kestrel.weddingbookkeeper.api.wedding.exception.AlreadyVerifiedException;
 import com.kestrel.weddingbookkeeper.api.wedding.utils.VerificationCodeGenerator;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.ManagerVerificationCode;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,21 +28,25 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String getPartnerVerificationCode(Member member) {
-        if (!member.isPartnerCodeIssued()) {
-            return issuePartnerVerificationCode(member);
-        }
-        return findPartnerVerificationCode(member);
+    public VerificationCode getPartnerVerificationCode(final Member member) {
+        return verificationCodeRepository.findByMemberId(member.getMemberId())
+                .filter(code -> !code.isVerified())
+                .orElseGet(() -> issuePartnerVerificationCode(member));
+    }
+
+    private VerificationCode issuePartnerVerificationCode(final Member member) {
+        String verificationCode = VerificationCodeGenerator.generate();
+        return verificationCodeRepository.save(
+                VerificationCode.of(verificationCode, Role.PARTNER, member.getMemberId())
+        );
     }
 
     @Override
     public Long verifyPartnerVerificationCode(VerificationCodeRequest verificationCodeRequest) {
-        VerificationCode verificationCode = verificationCodeRepository.findById(verificationCodeRequest.getVerificationCode())
+        VerificationCode verificationCode = verificationCodeRepository.findById(
+                        verificationCodeRequest.getVerificationCode())
                 .orElseThrow(VerificationCodeNotFoundException::new);
         if (verificationCode.getRole() != Role.PARTNER || verificationCode.isVerified()) {
-            throw new VerificationCodeNotFoundException();
-        }
-        if (!verificationCode.getVerificationCode().equals(verificationCodeRequest.getVerificationCode())) {
             throw new VerificationCodeNotFoundException();
         }
         verificationCode.verify();
@@ -49,28 +54,10 @@ public class AuthServiceImpl implements AuthService {
         return verificationCode.getMemberId();
     }
 
-    private String issuePartnerVerificationCode(Member member) {
-        String verificationCode = VerificationCodeGenerator.generate();
-        verificationCodeRepository.save(VerificationCode.of(verificationCode, Role.PARTNER, member.getMemberId()));
-        return verificationCode;
-    }
-
-    private String findPartnerVerificationCode(Member member) {
-        try {
-            VerificationCode verificationCode = verificationCodeRepository.findByMemberId(member.getMemberId())
-                    .orElseThrow(VerificationCodeNotFoundException::new);
-            if (verificationCode.getRole() != Role.PARTNER || verificationCode.isVerified()) {
-                throw new VerificationCodeNotFoundException();
-            }
-            return verificationCode.getVerificationCode();
-        } catch (VerificationCodeNotFoundException e) {
-            return issuePartnerVerificationCode(member);
-        }
-    }
-
     @Override
     public ManagerVerificationCodeResponse verifyManagerVerificationCode(VerificationCodeRequest verificationCodeRequest) {
-        ManagerVerificationCode managerVerificationCode = managerVerificationCodeRepository.findById(verificationCodeRequest.getVerificationCode())
+        ManagerVerificationCode managerVerificationCode = managerVerificationCodeRepository.findById(
+                        verificationCodeRequest.getVerificationCode())
                 .orElseThrow(VerificationCodeNotFoundException::new);
         if (managerVerificationCode.isVerified()) {
             throw new AlreadyVerifiedException();
