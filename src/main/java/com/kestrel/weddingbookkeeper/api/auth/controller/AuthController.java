@@ -33,7 +33,7 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @GetMapping("/verification-code")
+    @GetMapping("/verification-code/partner")
     @Operation(summary = "배우자 연결에 필요한 인증코드 조회", tags = {"Auth API"})
     @ApiResponses({
         @ApiResponse(code = 200, message = "successful operation", response = VerificationCodeResponse.class),
@@ -42,7 +42,7 @@ public class AuthController {
         return authFacade.getPartnerVerificationCode(weddingMember.getMemberId());
     }
 
-    @PostMapping("/verification-code")
+    @PostMapping("/verification-code/partner")
     @Operation(summary = "배우자 인증코드 인증", tags = {"Auth API"})
     @ApiResponses({
         @ApiResponse(code = 200, message = "successful operation"),
