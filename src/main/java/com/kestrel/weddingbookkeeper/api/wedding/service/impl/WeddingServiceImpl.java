@@ -1,10 +1,12 @@
 package com.kestrel.weddingbookkeeper.api.wedding.service.impl;
 
 import com.kestrel.weddingbookkeeper.api.member.dao.MemberDao;
+import com.kestrel.weddingbookkeeper.api.member.exception.GenderMatchException;
 import com.kestrel.weddingbookkeeper.api.member.exception.InvalidRoleNameException;
 import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundException;
 import com.kestrel.weddingbookkeeper.api.member.exception.UnsupportedGenderTypeException;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
+import com.kestrel.weddingbookkeeper.api.member.vo.Gender;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao;
@@ -16,6 +18,8 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsRe
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.factory.WeddingFactory;
+import com.kestrel.weddingbookkeeper.api.wedding.factory.WeddingStrategyFactory;
+import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingStrategy;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.WeddingDao;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.PartnerDto;
@@ -32,6 +36,7 @@ import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotUpdateE
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInformationUpdateException;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
+import java.nio.channels.AlreadyConnectedException;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,23 +48,26 @@ public class WeddingServiceImpl implements WeddingService {
     private final WeddingDao weddingDao;
     private final MemberWeddingDao memberWeddingDao;
     private final MemberService memberService;
+    private final WeddingStrategyFactory weddingStrategyFactory;
     private final List<WeddingFactory> weddingFactories;
 
     public WeddingServiceImpl(final MemberDao memberDao,
                               final WeddingDao weddingDao,
                               final MemberWeddingDao memberWeddingDao,
                               final MemberService memberService,
+                              final WeddingStrategyFactory weddingStrategyFactory,
                               final List<WeddingFactory> weddingFactories) {
         this.memberDao = memberDao;
         this.weddingDao = weddingDao;
         this.memberWeddingDao = memberWeddingDao;
         this.memberService = memberService;
+        this.weddingStrategyFactory = weddingStrategyFactory;
         this.weddingFactories = weddingFactories;
     }
 
     @Override
     @Transactional
-    public Long saveWedding(Member member, final WeddingInfoRequest weddingInfoRequest) {
+    public Long saveWedding(final Member member, final WeddingInfoRequest weddingInfoRequest) {
         WeddingFactory weddingFactory = getWeddingFactory(member);
         return weddingFactory.createWedding(member, weddingInfoRequest);
     }
@@ -81,11 +89,9 @@ public class WeddingServiceImpl implements WeddingService {
     @Transactional
     public void connectPartner(PartnerCodeRequest partnerCodeRequest, Long memberId) {
         Member member = memberDao.selectById(memberId).orElseThrow(MemberNotFoundException::new);
-        Wedding wedding = weddingDao.selectByPartnerCode(partnerCodeRequest.getPartnerCode());
+        Wedding wedding = weddingDao.selectByPartnerCode(partnerCodeRequest.getPartnerCode())
+            .orElseThrow(ValidationCodeMisMatchException::new);
 
-        if (wedding == null) {
-            throw new ValidationCodeMisMatchException();
-        }
         switch (member.getGender()) {
             case MALE -> weddingDao.updateGroomPartner(new PartnerDto(wedding, member));
             case FEMALE -> weddingDao.updateBridePartner(new PartnerDto(wedding, member));
@@ -98,7 +104,7 @@ public class WeddingServiceImpl implements WeddingService {
     public void updateWeddingInformation(Long weddingId,
                                          WeddingUpdateInformationRequest weddingUpdateInformationRequest) {
         boolean isUpdate = weddingDao.updateWeddingInformation(
-                new WeddingInfoUpdateDto(weddingId, weddingUpdateInformationRequest)) == 1;
+            new WeddingInfoUpdateDto(weddingId, weddingUpdateInformationRequest)) == 1;
         if (!isUpdate) {
             throw new WeddingInformationUpdateException();
         }
@@ -118,7 +124,7 @@ public class WeddingServiceImpl implements WeddingService {
     public DonationReceiptsResponse selectDonationList(Long memberId) {
         List<MemberWedding> memberWeddings = memberWeddingDao.selectDonationList(memberId);
         List<DonationReceiptResponse> response = memberWeddings.stream()
-                .map(DonationReceiptResponse::new).toList();
+            .map(DonationReceiptResponse::new).toList();
         return new DonationReceiptsResponse(response);
     }
 
@@ -137,9 +143,18 @@ public class WeddingServiceImpl implements WeddingService {
     }
 
     @Override
-    public Long registerPartner(Member member, Member partner) {
-        WeddingFactory weddingFactory = getWeddingFactory(member);
-        return weddingFactory.connectPartner(member, partner);
+    public Long registerPartner(final Member member, final Member partner) {
+        assertGenderMismatch(member, partner);
+        WeddingStrategy weddingStrategy = weddingStrategyFactory.getWeddingStrategy(partner.getGender());
+        Wedding wedding = weddingStrategy.getWedding(partner);
+        weddingStrategy.connectPartner(wedding, member);
+        return wedding.getWeddingId();
+    }
+
+    private void assertGenderMismatch(Member member, Member partner) {
+        if (member.getGender() == partner.getGender()) {
+            throw new GenderMatchException();
+        }
     }
 
     @Override
@@ -151,8 +166,8 @@ public class WeddingServiceImpl implements WeddingService {
 
     @Override
     public WeddingIdResponse getWedding(Member member) {
-        WeddingFactory weddingFactory = getWeddingFactory(member);
-        Wedding wedding = weddingFactory.getWedding(member);
+        WeddingStrategy weddingStrategy = weddingStrategyFactory.getWeddingStrategy(member.getGender());
+        Wedding wedding = weddingStrategy.getWedding(member);
         return new WeddingIdResponse(wedding.getWeddingId());
     }
 
@@ -170,8 +185,8 @@ public class WeddingServiceImpl implements WeddingService {
 
     private WeddingFactory getWeddingFactory(final Member member) {
         return weddingFactories.stream()
-                .filter(weddingFactory -> weddingFactory.isSupport(member.getGender()))
-                .findFirst()
-                .orElseThrow(UnsupportedGenderTypeException::new);
+            .filter(weddingFactory -> weddingFactory.isSupport(member.getGender()))
+            .findFirst()
+            .orElseThrow(UnsupportedGenderTypeException::new);
     }
 }

@@ -15,7 +15,5 @@ public interface MemberService {
 
     void markPartnerCodeIssued(Member member);
 
-    void assertGenderMismatch(Member member, Member partner);
-
     MemberInformationResponse getMemberInformation(Long memberId);
 }

@@ -21,7 +21,7 @@ public interface WeddingDao {
 
     Wedding selectWeddingInfo(Long weddingId);
 
-    Wedding selectByPartnerCode(String partnerCode);
+    Optional<Wedding> selectByPartnerCode(String partnerCode);
 
     int updateGroomPartner(PartnerDto partnerDto);
 

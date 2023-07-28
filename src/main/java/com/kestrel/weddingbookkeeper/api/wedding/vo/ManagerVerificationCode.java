@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
-@RedisHash(value = "verificationCode", timeToLive = 60 * 5)
+@RedisHash(value = "managerVerificationCode", timeToLive = 60 * 5)
 public class ManagerVerificationCode implements Serializable {
 
     @Serial

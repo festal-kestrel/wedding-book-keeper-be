@@ -11,7 +11,7 @@ public interface AuthService {
 
     PartnerVerificationCode getPartnerVerificationCode(Member member);
 
-    Long verifyPartnerVerificationCode(VerificationCodeRequest verificationCodeRequest);
+    PartnerVerificationCode verifyPartnerVerificationCode(VerificationCodeRequest verificationCodeRequest);
 
     VerificationCodeResponse getManagerVerificationCode(ManagerVerificationCodeRequest managerVerificationCodeRequest);
 
