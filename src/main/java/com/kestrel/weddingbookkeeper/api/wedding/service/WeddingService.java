@@ -44,6 +44,4 @@ public interface WeddingService {
     void patchDonationApproval(Long weddingId, Long memberId);
 
     void patchDonationRejection(Long weddingId, Long memberId);
-
-    VerificationCodeResponse getManagerVerificationCode(Long weddingId);
 }

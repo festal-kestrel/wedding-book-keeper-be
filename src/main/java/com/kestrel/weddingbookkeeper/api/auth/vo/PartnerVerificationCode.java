@@ -9,7 +9,7 @@ import org.springframework.data.redis.core.index.Indexed;
 
 
 @RedisHash(value = "verificationCode", timeToLive = 60 * 5)
-public class VerificationCode implements Serializable {
+public class PartnerVerificationCode implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 3756681426810771397L;
@@ -24,14 +24,14 @@ public class VerificationCode implements Serializable {
 
     private boolean isVerified;
 
-    public VerificationCode(String verificationCode, Role role, Long memberId) {
+    public PartnerVerificationCode(String verificationCode, Role role, Long memberId) {
         this.verificationCode = verificationCode;
         this.role = role;
         this.memberId = memberId;
     }
 
-    public static VerificationCode of(String verificationCode, Role role, Long memberId) {
-        return new VerificationCode(verificationCode, role, memberId);
+    public static PartnerVerificationCode of(String verificationCode, Role role, Long memberId) {
+        return new PartnerVerificationCode(verificationCode, role, memberId);
     }
 
     public String getVerificationCode() {
