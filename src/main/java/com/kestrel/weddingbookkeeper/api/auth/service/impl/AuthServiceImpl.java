@@ -1,10 +1,12 @@
 package com.kestrel.weddingbookkeeper.api.auth.service.impl;
 
 import com.kestrel.weddingbookkeeper.api.auth.dao.VerificationCodeRepository;
+import com.kestrel.weddingbookkeeper.api.auth.dto.ManagerVerificationCodeRequest;
 import com.kestrel.weddingbookkeeper.api.auth.dto.request.VerificationCodeRequest;
+import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.auth.exception.VerificationCodeNotFoundException;
 import com.kestrel.weddingbookkeeper.api.auth.service.AuthService;
-import com.kestrel.weddingbookkeeper.api.auth.vo.VerificationCode;
+import com.kestrel.weddingbookkeeper.api.auth.vo.PartnerVerificationCode;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.ManagerVerificationCodeRepository;
@@ -26,28 +28,41 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public VerificationCode getPartnerVerificationCode(final Member member) {
+    public PartnerVerificationCode getPartnerVerificationCode(final Member member) {
         return verificationCodeRepository.findByMemberId(member.getMemberId())
             .filter(code -> !code.isVerified())
             .orElseGet(() -> issuePartnerVerificationCode(member));
     }
 
-    private VerificationCode issuePartnerVerificationCode(final Member member) {
+    private PartnerVerificationCode issuePartnerVerificationCode(final Member member) {
         String verificationCode = VerificationCodeGenerator.generate();
         return verificationCodeRepository.save(
-            VerificationCode.of(verificationCode, Role.PARTNER, member.getMemberId())
+            PartnerVerificationCode.of(verificationCode, Role.PARTNER, member.getMemberId())
         );
     }
 
     @Override
     public Long verifyPartnerVerificationCode(VerificationCodeRequest verificationCodeRequest) {
-        VerificationCode verificationCode =
+        PartnerVerificationCode verificationCode =
             verificationCodeRepository.findById(verificationCodeRequest.getVerificationCode())
                 .filter(code -> !code.isVerified())
                 .orElseThrow(VerificationCodeNotFoundException::new);
         verificationCode.verify();
         verificationCodeRepository.save(verificationCode);
         return verificationCode.getMemberId();
+    }
+
+    @Override
+    public VerificationCodeResponse getManagerVerificationCode(final ManagerVerificationCodeRequest managerVerificationCodeRequest) {
+        Long weddingId = managerVerificationCodeRequest.weddingId();
+        ManagerVerificationCode managerVerificationCode = managerVerificationCodeRepository.findByWeddingId(weddingId)
+            .filter(code -> !code.isVerified())
+            .orElseGet(() -> {
+                String verificationCode = VerificationCodeGenerator.generate();
+                return managerVerificationCodeRepository.save(
+                    new ManagerVerificationCode(verificationCode, weddingId));
+            });
+        return new VerificationCodeResponse(managerVerificationCode.getVerificationCode());
     }
 
     @Override

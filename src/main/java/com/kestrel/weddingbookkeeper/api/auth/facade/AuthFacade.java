@@ -4,7 +4,7 @@ import com.kestrel.weddingbookkeeper.api.auth.dto.request.VerificationCodeReques
 import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerifyPartnerVerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.auth.service.AuthService;
-import com.kestrel.weddingbookkeeper.api.auth.vo.VerificationCode;
+import com.kestrel.weddingbookkeeper.api.auth.vo.PartnerVerificationCode;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
@@ -27,7 +27,7 @@ public class AuthFacade {
     @Transactional
     public VerificationCodeResponse getPartnerVerificationCode(Long memberId) {
         Member member = memberService.getMember(memberId);
-        VerificationCode verificationCode = authService.getPartnerVerificationCode(member);
+        PartnerVerificationCode verificationCode = authService.getPartnerVerificationCode(member);
         return new VerificationCodeResponse(verificationCode.getVerificationCode());
     }
 
