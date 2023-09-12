@@ -42,14 +42,13 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Long verifyPartnerVerificationCode(VerificationCodeRequest verificationCodeRequest) {
+    public PartnerVerificationCode verifyPartnerVerificationCode(VerificationCodeRequest verificationCodeRequest) {
         PartnerVerificationCode verificationCode =
             verificationCodeRepository.findById(verificationCodeRequest.getVerificationCode())
                 .filter(code -> !code.isVerified())
                 .orElseThrow(VerificationCodeNotFoundException::new);
         verificationCode.verify();
-        verificationCodeRepository.save(verificationCode);
-        return verificationCode.getMemberId();
+        return verificationCodeRepository.save(verificationCode);
     }
 
     @Override

@@ -33,10 +33,10 @@ public class AuthFacade {
 
     @Transactional
     public VerifyPartnerVerificationCodeResponse verifyPartnerVerificationCode(Long memberId, VerificationCodeRequest verificationCodeRequest) {
-        Long partnerId = authService.verifyPartnerVerificationCode(verificationCodeRequest);
+        PartnerVerificationCode verificationCode = authService.verifyPartnerVerificationCode(verificationCodeRequest);
         Member member = memberService.getMember(memberId);
-        Member partner = memberService.getMember(partnerId);
-        memberService.assertGenderMismatch(member, partner);
+        Member partner = memberService.getMember(verificationCode.getMemberId());
+
         Long weddingId = weddingService.registerPartner(member, partner);
         return new VerifyPartnerVerificationCodeResponse(weddingId);
     }

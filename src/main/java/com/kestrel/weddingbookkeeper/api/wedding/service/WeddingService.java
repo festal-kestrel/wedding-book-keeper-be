@@ -1,6 +1,5 @@
 package com.kestrel.weddingbookkeeper.api.wedding.service;
 
-import com.kestrel.weddingbookkeeper.api.auth.dto.response.VerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.MemberWeddingDto;
@@ -9,7 +8,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationRecei
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.PartnerCodeRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingInfoRequest;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.request.WeddingUpdateInformationRequest;
-import com.kestrel.weddingbookkeeper.api.wedding.dto.response.ManagerVerificationCodeResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingInfoResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingManagerCodeResponse;
