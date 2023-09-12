@@ -6,7 +6,6 @@ import com.kestrel.weddingbookkeeper.api.member.exception.InvalidRoleNameExcepti
 import com.kestrel.weddingbookkeeper.api.member.exception.MemberNotFoundException;
 import com.kestrel.weddingbookkeeper.api.member.exception.UnsupportedGenderTypeException;
 import com.kestrel.weddingbookkeeper.api.member.service.MemberService;
-import com.kestrel.weddingbookkeeper.api.member.vo.Gender;
 import com.kestrel.weddingbookkeeper.api.member.vo.Member;
 import com.kestrel.weddingbookkeeper.api.member.vo.Role;
 import com.kestrel.weddingbookkeeper.api.wedding.dao.MemberWeddingDao;
@@ -17,7 +16,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptRes
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.DonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.GuestDonationReceiptsResponse;
 import com.kestrel.weddingbookkeeper.api.wedding.dto.response.WeddingIdResponse;
-import com.kestrel.weddingbookkeeper.api.wedding.factory.WeddingFactory;
 import com.kestrel.weddingbookkeeper.api.wedding.factory.WeddingStrategyFactory;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingStrategy;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.MemberWedding;
@@ -36,7 +34,6 @@ import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInfoNotUpdateE
 import com.kestrel.weddingbookkeeper.api.wedding.exception.WeddingInformationUpdateException;
 import com.kestrel.weddingbookkeeper.api.wedding.service.WeddingService;
 import com.kestrel.weddingbookkeeper.api.wedding.vo.Wedding;
-import java.nio.channels.AlreadyConnectedException;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,27 +46,24 @@ public class WeddingServiceImpl implements WeddingService {
     private final MemberWeddingDao memberWeddingDao;
     private final MemberService memberService;
     private final WeddingStrategyFactory weddingStrategyFactory;
-    private final List<WeddingFactory> weddingFactories;
 
     public WeddingServiceImpl(final MemberDao memberDao,
                               final WeddingDao weddingDao,
                               final MemberWeddingDao memberWeddingDao,
                               final MemberService memberService,
-                              final WeddingStrategyFactory weddingStrategyFactory,
-                              final List<WeddingFactory> weddingFactories) {
+                              final WeddingStrategyFactory weddingStrategyFactory) {
         this.memberDao = memberDao;
         this.weddingDao = weddingDao;
         this.memberWeddingDao = memberWeddingDao;
         this.memberService = memberService;
         this.weddingStrategyFactory = weddingStrategyFactory;
-        this.weddingFactories = weddingFactories;
     }
 
     @Override
     @Transactional
     public Long saveWedding(final Member member, final WeddingInfoRequest weddingInfoRequest) {
-        WeddingFactory weddingFactory = getWeddingFactory(member);
-        return weddingFactory.createWedding(member, weddingInfoRequest);
+        WeddingStrategy strategy = weddingStrategyFactory.getWeddingStrategy(member.getGender());
+        return strategy.createWedding(member, weddingInfoRequest);
     }
 
     @Override
@@ -181,12 +175,5 @@ public class WeddingServiceImpl implements WeddingService {
     @Transactional
     public void patchDonationRejection(Long weddingId, Long memberId) {
         memberWeddingDao.patchDonationRejection(weddingId, memberId);
-    }
-
-    private WeddingFactory getWeddingFactory(final Member member) {
-        return weddingFactories.stream()
-            .filter(weddingFactory -> weddingFactory.isSupport(member.getGender()))
-            .findFirst()
-            .orElseThrow(UnsupportedGenderTypeException::new);
     }
 }
